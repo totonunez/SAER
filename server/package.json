@@ -4,25 +4,33 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/"
+    "dev": "nodemon src/ --exec babel-node",
+    "build": "babel src --out-dir dist",
+    "start": "node dist/index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@babel/polyfill": "^7.12.1",
     "bcryptjs": "^2.4.3",
     "connect-flash": "^0.1.1",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "express-pg-session": "^1.1.0",
     "express-session": "^1.17.1",
     "express-validator": "^6.6.0",
     "morgan": "^1.10.0",
-    "passport": "^0.4.1",
-    "passport-local": "^1.0.0",
     "pg": "^8.3.0",
+    "pg-hstore": "^2.3.3",
+    "sequelize": "^6.3.5",
     "timeago.js": "^4.0.2"
   },
   "devDependencies": {
-    "nodemon": "^2.0.4"
+    "@babel/cli": "^7.12.1",
+    "@babel/core": "^7.12.1",
+    "@babel/node": "^7.12.1",
+    "@babel/preset-env": "^7.12.1",
+    "nodemon": "^2.0.5"
   }
 }
