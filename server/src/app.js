@@ -25,10 +25,12 @@ app.use((req,res,next) => {
 //Importar rutas
 
 import users from './routes/users.js';
+import auth from './routes/auth.js';
 
 //routes
 
 app.use('/users', users);
+app.use('/auth', auth);
 
 //public
 

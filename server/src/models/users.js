@@ -18,6 +18,9 @@ const users = database.define('user', {
     },
     roles_id:{
         type: sequelize.INTEGER
+    },
+    password:{
+        type: sequelize.TEXT
     }
 },{
     timestamps: false
