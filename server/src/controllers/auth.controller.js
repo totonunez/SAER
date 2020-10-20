@@ -1,4 +1,4 @@
-//import usersControllers from '../controllers/users.controller.js';
+import usersControllers from '../controllers/users.controller.js';
 import usuarios from '../models/users';
 import bcrypt from 'bcryptjs';
 import config from '../config';
@@ -8,10 +8,31 @@ export async function comparePassword(password, receivePassword) {
     return await bcrypt.compare(password, receivePassword);
 };
 
+export async function encryptPassword(password) {
+    const salt = await bcrypt.genSalt(10);
+    return await bcrypt.hash(password, salt);
+};
+
 export const signUp = async (req, res) => {
-    const {rut, nombre, apellido} = req.body;
-    console.log(rut, nombre, apellido);
-    res.json("sign up");
+    const {rut, nombre, apellido, roles_id, password} = req.body;
+    try{
+        let newUsers = await usuarios.create({
+            rut,
+            nombre,
+            apellido,
+            roles_id,
+            password: await encryptPassword(password)
+        },{
+            fields: ['rut','nombre','apellido','roles_id','password']
+        });
+        if(newUsers){
+            const user_token = jwt.sign({id: newUsers.id}, config.SECRET_conserje, {expiresIn: 120});
+            res.json({message: "Usuario registrado correctamente", data: newUsers, token: user_token});
+        };
+    } catch (e) {
+        console.log(e);
+        res.status(500).json({message: "Problemas al registrar usuario, contactese con el administrador del sistema", data: {}})
+    };
 };
 
 export const signIn = async (req, res) => {
