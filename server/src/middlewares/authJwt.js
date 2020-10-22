@@ -26,7 +26,19 @@ export const verifyToken = async (req, res, next) => {
 };
 
 export const administrador = async (req, res, next) => {
-
+    let id = req.id;
+    const user = await users.findOne({
+        where: {id},
+        attributes: ['id', 'rut', 'nombre', 'apellido', 'roles_id']
+    });
+    console.log(user.roles_id);
+    id = user.roles_id;
+    const rol = await roles.findOne({
+        where: {id},
+        attributes: ['id', 'cod_rol', 'nombre']
+    });
+    console.log(rol);
+    rol.cod_rol === "adm" ? next() : res.status(403).json({message: "Su usuario no se encuentra autorizado"});
 };
 
 export const superUsuario = async (req, res, next) => {
@@ -42,9 +54,21 @@ export const superUsuario = async (req, res, next) => {
         attributes: ['id', 'cod_rol', 'nombre']
     });
     console.log(rol);
-    rol.cod_rol === "adm" ? next() : res.status(403).json({message: "Se requiere acceso de administrador"});
+    rol.cod_rol === "sup" ? next() : res.status(403).json({message: "Su usuario no se encuentra autorizado"});
 };
 
 export const usuario = async (req, res, next) => {
-    
+    let id = req.id;
+    const user = await users.findOne({
+        where: {id},
+        attributes: ['id', 'rut', 'nombre', 'apellido', 'roles_id']
+    });
+    console.log(user.roles_id);
+    id = user.roles_id;
+    const rol = await roles.findOne({
+        where: {id},
+        attributes: ['id', 'cod_rol', 'nombre']
+    });
+    console.log(rol);
+    rol.cod_rol === "usr" ? next() : res.status(403).json({message: "Su usuario no se encuentra autorizado"});
 };
