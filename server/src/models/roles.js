@@ -1,13 +1,13 @@
 import sequelize from 'sequelize';
 import {database} from '../database/database';
 
-const roles = database.define('rol',{
+const roles = database.define('role',{
     id: {
         type: sequelize.INTEGER,
         primaryKey: true
     },
-    nrol: {
-        type: sequelize.INTEGER
+    cod_rol: {
+        type: sequelize.TEXT
     },
     nombre:{
         type: sequelize.TEXT

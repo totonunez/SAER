@@ -1,4 +1,3 @@
-import usersControllers from '../controllers/users.controller.js';
 import usuarios from '../models/users';
 import bcrypt from 'bcryptjs';
 import config from '../config';
@@ -26,7 +25,7 @@ export const signUp = async (req, res) => {
             fields: ['rut','nombre','apellido','roles_id','password']
         });
         if(newUsers){
-            const user_token = jwt.sign({id: newUsers.id}, config.SECRET_conserje, {expiresIn: 120});
+            const user_token = jwt.sign({id: newUsers.id}, config.SECRET, {expiresIn: 120});
             res.json({message: "Usuario registrado correctamente", data: newUsers, token: user_token});
         };
     } catch (e) {
@@ -45,7 +44,7 @@ export const signIn = async (req, res) => {
         const matchPassword = await comparePassword(req.body.password, user.password);
         let user_token = null;
         if(matchPassword){
-            user_token = jwt.sign({id: user.id}, config.SECRET_conserje, {expiresIn: 120});
+            user_token = jwt.sign({id: user.id}, config.SECRET, {expiresIn: 120});
             res.json({Usuario: user, token: user_token});
         }else{
             res.status(400).json({message: "Password incorrecta"});

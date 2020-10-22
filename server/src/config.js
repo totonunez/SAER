@@ -1,3 +1,3 @@
 export default {
-    SECRET_conserje: 'con-usr-01'
+    SECRET: 'sec_usr9720*'
 };

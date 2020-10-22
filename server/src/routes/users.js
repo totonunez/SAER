@@ -1,16 +1,15 @@
 const express = require('express');
 const router = express.Router();
-import {createUsers, getAllUsers, getUsersId, deleteUsers, updateUsers} from '../controllers/users.controller';
-import {verifyToken} from '../middlewares/authJwt'
+import {getAllUsers, getUsersId, deleteUsers, updateUsers} from '../controllers/users.controller';
+import {authJwt} from '../middlewares';
 
 // users
 
-//router.post('/', createUsers);
 router.get('/', getAllUsers);
 
 // users/:id
 
-router.get('/:id', verifyToken, getUsersId);
+router.get('/:id', [authJwt.verifyToken, authJwt.superUsuario], getUsersId);
 router.delete('/:id', deleteUsers);
 router.put('/:id', updateUsers);
 

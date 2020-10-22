@@ -1,7 +1,4 @@
 import usuarios from '../models/users';
-import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
-import config from '../config';
 
 export async function updateUsers(req, res) {
     const {id} = req.params;
