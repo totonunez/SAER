@@ -1,5 +1,4 @@
 import app from './app';
-import '@babel/polyfill';
 
 //starting del server
 
