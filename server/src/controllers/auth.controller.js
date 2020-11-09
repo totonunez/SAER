@@ -45,12 +45,12 @@ export const signIn = async (req, res) => {
         let user_token = null;
         if(matchPassword){
             user_token = jwt.sign({id: user.id}, config.SECRET, {expiresIn: 120});
-            res.cookie('token', token, {httpOnly: true});
+            res.cookie('user_token', user_token, {httpOnly: true});
             res.json({Usuario: user, token: user_token});
         }else{
-            res.status(400).json({message: "Password incorrecta"});
+            res.json({message: "Password incorrecta"});
         };     
     }else{
-        res.status(400).json({message: "Usuario no encontrado"});
+        res.json({message: "Usuario no encontrado"});
     };
 };

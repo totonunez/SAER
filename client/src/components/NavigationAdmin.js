@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 export default class NavigationAdmin extends Component {
     render() {
         return (
-            <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+            <nav className="navbar navbar-expand-lg navbar-dark bg-secondary">
                 <div className="container">
                     <Link className="navbar-brand" to="#">Hola, Administrador</Link>
                     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
