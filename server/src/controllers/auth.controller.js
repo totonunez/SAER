@@ -1,4 +1,5 @@
 import usuarios from '../models/users';
+import roles from '../models/roles';
 import bcrypt from 'bcryptjs';
 import config from '../config';
 import jwt from 'jsonwebtoken';
@@ -10,6 +11,14 @@ export async function comparePassword(password, receivePassword) {
 export async function encryptPassword(password) {
     const salt = await bcrypt.genSalt(10);
     return await bcrypt.hash(password, salt);
+};
+
+export async function consulRol(id) {
+    const codRol = await roles.findOne({
+        where: {id},
+        attributes: ['cod_rol']
+    });
+    return codRol;
 };
 
 export const signUp = async (req, res) => {
@@ -36,6 +45,7 @@ export const signUp = async (req, res) => {
 
 export const signIn = async (req, res) => {
     const {rut} = req.body;
+    let bool = false;
     const user = await usuarios.findOne({
         where: {rut},
         attributes: ['id', 'rut', 'nombre', 'apellido', 'roles_id', 'password']
@@ -46,11 +56,18 @@ export const signIn = async (req, res) => {
         if(matchPassword){
             user_token = jwt.sign({id: user.id}, config.SECRET, {expiresIn: 120});
             res.cookie('user_token', user_token, {httpOnly: true});
-            res.json({Usuario: user, token: user_token});
+            const codRol = await consulRol(user.roles_id);
+            const result = {
+                nombre: user.nombre,
+                apellido: user.apellido,
+                cod_rol: codRol.cod_rol
+            };
+            bool = true;
+            res.json({Resultado: bool ,Usuario: result, token: user_token});
         }else{
-            res.json({message: "Password incorrecta"});
+            res.json({resultado: bool ,message: "Password incorrecta"});
         };     
     }else{
-        res.json({message: "Usuario no encontrado"});
+        res.json({resultado: bool ,message: "Usuario no encontrado"});
     };
 };
