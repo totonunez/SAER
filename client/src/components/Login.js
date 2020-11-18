@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import {Redirect} from 'react-router-dom';
 
 export default class Login extends Component {
 
     state = {
         rut: 0,
-        password: ""
+        password: "",
+        cod_rol: ""
     }
 
     onSubmit = async (e) => {
@@ -14,18 +16,37 @@ export default class Login extends Component {
             rut: this.state.rut,
             password: this.state.password
         };
-        const res = await axios.post('http://localhost:4000/auth/signin', datosLogin);
+        const res = await axios.post('/auth/signin', datosLogin);
+        try{
+            this.setState({ 
+                cod_rol: res.data.Usuario.cod_rol
+            });
+        }catch(e){
+            console.log("error", e);
+        };
         console.log("res", res);
+        console.log(this.state.cod_rol);
     }
 
     onInputChange = (e) => {
         this.setState({ 
             [e.target.name]: e.target.value
         })
-        console.log(this.state.rut, this.state.password);
+        //console.log(this.state.rut, this.state.password);
     }
 
     render() {
+        switch(this.state.cod_rol) {
+            case "adm":
+                return <Redirect to={{ pathname: '/users/adm', state: {rut: this.state.rut, cod_rol: this.state.cod_rol}}} />;
+            case "sup":
+                return <Redirect to={{ pathname: '/users/sup', state: {rut: this.state.rut, cod_rol: this.state.cod_rol}}} />;;
+            case "usr":
+                return <Redirect to={{ pathname: '/users/usr', state: {rut: this.state.rut, cod_rol: this.state.cod_rol}}} />;;
+            default:
+                break;
+        };
+
         return (
             <div className="col-md-6 offset-md-3">
                 <div className="card card-body">

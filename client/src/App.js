@@ -3,16 +3,18 @@ import './App.css';
 import {BrowserRouter, Route} from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import NavigationAdmin from './components/NavigationAdmin';
-import Login from './components/Login';
 import Init from './components/Init';
+import AdminInterface from './components/AdminInterface';
+import SuperUserInterface from './components/SuperUserInterface';
+import UserInterface from './components/UserInterface';
 
 function App() {
   return (
     <BrowserRouter>
-      <Route path="/" component={Init}/>
-      <Route path="/login" component={Login}/>
-      <Route path="/navigationAdmin" component={NavigationAdmin}/>
+      <Route path="/" exact component={Init}/>
+      <Route path="/users/adm" exact component={AdminInterface}/>
+      <Route path="/users/sup" exact component={SuperUserInterface}/>
+      <Route path="/users/usr" exact component={UserInterface}/>
     </BrowserRouter>
   );
 }

@@ -55,7 +55,7 @@ export const signIn = async (req, res) => {
         let user_token = null;
         if(matchPassword){
             user_token = jwt.sign({id: user.id}, config.SECRET, {expiresIn: 120});
-            res.cookie('user_token', user_token, {httpOnly: true});
+            res.cookie('token', user_token, {httpOnly: true});
             const codRol = await consulRol(user.roles_id);
             const result = {
                 nombre: user.nombre,
