@@ -24,7 +24,8 @@ export const verifyToken = async (req, res, next) => {
 };
 
 export const administrador = async (req, res, next) => {
-    let {rut} = req.body;
+    const {rut} = req.params;
+    console.log(rut);
     const user = await users.findOne({
         where: {rut},
         attributes: ['id', 'rut', 'nombre', 'apellido', 'roles_id']

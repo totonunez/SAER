@@ -12,6 +12,5 @@ router.get('/', getAllUsers);
 router.get('/:id', [authJwt.verifyToken, authJwt.administrador], getUsersId);
 router.delete('/:id', deleteUsers);
 router.put('/:id', updateUsers);
-router.get('/users/adm', authJwt.verifyToken);
 
 module.exports = router;

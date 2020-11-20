@@ -7,5 +7,5 @@ export const verifyUser = async (req, res, next) => {
         where: {rut},
         attributes: ['id', 'rut', 'nombre', 'apellido', 'roles_id']
     });
-    user ? res.status(400).json({message: "El rut ingresado ya se encuentra registrado", rut: user.rut}) : next();
+    user ? res.json({message: "El rut ingresado ya se encuentra registrado", rut: user.rut}) : next();
 };

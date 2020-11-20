@@ -71,3 +71,55 @@ export const signIn = async (req, res) => {
         res.json({resultado: bool ,message: "Usuario no encontrado"});
     };
 };
+
+export const administrador = async (req, res) => {
+    const token = req.cookies.token;
+    !token && res.json({resul: null, message: "Ha ocurrido un problema con la autenticación"});
+    const decoded = jwt.verify(token, config.SECRET);
+    let id = decoded.id;
+    const user = await usuarios.findOne({
+        where: {id},
+        attributes: ['roles_id']
+    });
+    id = user.roles_id;
+    const rol = await roles.findOne({
+        where: {id},
+        attributes: ['cod_rol']
+    });
+    console.log(rol.cod_rol);
+    rol.cod_rol === "adm" ? res.json({resul: true, cod_rol: rol.cod_rol}) : res.json({resul: false, message: "Su usuario no se encuentra autorizado"});
+};
+
+export const superUsuario = async (req, res) => {
+    const token = req.cookies.token;
+    !token && res.json({resul: null, message: "Ha ocurrido un problema con la autenticación"});
+    const decoded = jwt.verify(token, config.SECRET);
+    let id = decoded.id;
+    const user = await usuarios.findOne({
+        where: {id},
+        attributes: ['roles_id']
+    });
+    id = user.roles_id;
+    const rol = await roles.findOne({
+        where: {id},
+        attributes: ['cod_rol']
+    });
+    rol.cod_rol === "sup" ? res.json({resul: true}) : res.json({resul: false, message: "Su usuario no se encuentra autorizado"});
+};
+
+export const usuario = async (req, res) => {
+    const token = req.cookies.token;
+    !token && res.json({resul: null, message: "Ha ocurrido un problema con la autenticación"});
+    const decoded = jwt.verify(token, config.SECRET);
+    let id = decoded.id;
+    const user = await usuarios.findOne({
+        where: {id},
+        attributes: ['roles_id']
+    });
+    id = user.roles_id;
+    const rol = await roles.findOne({
+        where: {id},
+        attributes: ['cod_rol']
+    });
+    rol.cod_rol === "usr" ? res.json({resul: true}) : res.json({resul: false, message: "Su usuario no se encuentra autorizado"});
+};

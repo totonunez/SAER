@@ -40,9 +40,9 @@ export default class Login extends Component {
             case "adm":
                 return <Redirect to={{ pathname: '/users/adm', state: {rut: this.state.rut, cod_rol: this.state.cod_rol}}} />;
             case "sup":
-                return <Redirect to={{ pathname: '/users/sup', state: {rut: this.state.rut, cod_rol: this.state.cod_rol}}} />;;
+                return <Redirect to={{ pathname: '/users/sup', state: {rut: this.state.rut, cod_rol: this.state.cod_rol}}} />;
             case "usr":
-                return <Redirect to={{ pathname: '/users/usr', state: {rut: this.state.rut, cod_rol: this.state.cod_rol}}} />;;
+                return <Redirect to={{ pathname: '/users/usr', state: {rut: this.state.rut, cod_rol: this.state.cod_rol}}} />;
             default:
                 break;
         };
