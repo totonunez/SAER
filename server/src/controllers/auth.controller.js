@@ -72,54 +72,89 @@ export const signIn = async (req, res) => {
     };
 };
 
-export const administrador = async (req, res) => {
+export const verifyAdm = async (req, res) => {
     const token = req.cookies.token;
-    !token && res.json({resul: null, message: "Ha ocurrido un problema con la autenticación"});
-    const decoded = jwt.verify(token, config.SECRET);
-    let id = decoded.id;
-    const user = await usuarios.findOne({
-        where: {id},
-        attributes: ['roles_id']
-    });
-    id = user.roles_id;
-    const rol = await roles.findOne({
-        where: {id},
-        attributes: ['cod_rol']
-    });
-    console.log(rol.cod_rol);
-    rol.cod_rol === "adm" ? res.json({resul: true, cod_rol: rol.cod_rol}) : res.json({resul: false, message: "Su usuario no se encuentra autorizado"});
+    !token && res.json({resul: null, cod_rol: "", message: "Ha ocurrido un problema con la autenticación"});
+    let verifyDecoded = null;
+    const aux = jwt.verify(token, config.SECRET, (err) => {verifyDecoded = err});
+    if(verifyDecoded !== null){
+        res.json({resul: null, cod_rol: "", message: "Su sesión ha expirado"});
+    }else{
+        const decoded = jwt.verify(token, config.SECRET)
+        let id = decoded.id;
+        const user = await usuarios.findOne({
+            where: {id},
+            attributes: ['roles_id']
+        });
+        id = user.roles_id;
+        const rol = await roles.findOne({
+            where: {id},
+            attributes: ['cod_rol']
+        });
+        rol.cod_rol === "adm" ? res.json({resul: true, cod_rol: rol.cod_rol, message: ""}) : res.json({
+            resul: false, 
+            cod_rol: rol.cod_rol, 
+            message: "Su usuario no se encuentra autorizado para acceder a esta interfaz"
+        });
+    } 
 };
 
-export const superUsuario = async (req, res) => {
+export const verifySup = async (req, res) => {
     const token = req.cookies.token;
-    !token && res.json({resul: null, message: "Ha ocurrido un problema con la autenticación"});
-    const decoded = jwt.verify(token, config.SECRET);
-    let id = decoded.id;
-    const user = await usuarios.findOne({
-        where: {id},
-        attributes: ['roles_id']
-    });
-    id = user.roles_id;
-    const rol = await roles.findOne({
-        where: {id},
-        attributes: ['cod_rol']
-    });
-    rol.cod_rol === "sup" ? res.json({resul: true}) : res.json({resul: false, message: "Su usuario no se encuentra autorizado"});
+    !token && res.json({resul: null, cod_rol: "", message: "Ha ocurrido un problema con la autenticación"});
+    let verifyDecoded = null;
+    const aux = jwt.verify(token, config.SECRET, (err) => {verifyDecoded = err});
+    if(verifyDecoded !== null){
+        res.json({resul: null, cod_rol: "", message: "Su sesión ha expirado"});
+    }else{
+        const decoded = jwt.verify(token, config.SECRET)
+        let id = decoded.id;
+        const user = await usuarios.findOne({
+            where: {id},
+            attributes: ['roles_id']
+        });
+        id = user.roles_id;
+        const rol = await roles.findOne({
+            where: {id},
+            attributes: ['cod_rol']
+        });
+        rol.cod_rol === "sup" ? res.json({resul: true, cod_rol: rol.cod_rol, message: ""}) : res.json({
+            resul: false, 
+            cod_rol: rol.cod_rol, 
+            message: "Su usuario no se encuentra autorizado para acceder a esta interfaz"
+        });
+    } 
 };
 
-export const usuario = async (req, res) => {
+export const verifyUsr = async (req, res) => {
     const token = req.cookies.token;
-    !token && res.json({resul: null, message: "Ha ocurrido un problema con la autenticación"});
-    const decoded = jwt.verify(token, config.SECRET);
-    let id = decoded.id;
-    const user = await usuarios.findOne({
-        where: {id},
-        attributes: ['roles_id']
-    });
-    id = user.roles_id;
-    const rol = await roles.findOne({
-        where: {id},
-        attributes: ['cod_rol']
-    });
-    rol.cod_rol === "usr" ? res.json({resul: true}) : res.json({resul: false, message: "Su usuario no se encuentra autorizado"});
+    !token && res.json({resul: null, cod_rol: "", message: "Ha ocurrido un problema con la autenticación"});
+    let verifyDecoded = null;
+    const aux = jwt.verify(token, config.SECRET, (err) => {verifyDecoded = err});
+    if(verifyDecoded !== null){
+        res.json({resul: null, cod_rol: "", message: "Su sesión ha expirado"});
+    }else{
+        const decoded = jwt.verify(token, config.SECRET)
+        let id = decoded.id;
+        const user = await usuarios.findOne({
+            where: {id},
+            attributes: ['roles_id']
+        });
+        id = user.roles_id;
+        const rol = await roles.findOne({
+            where: {id},
+            attributes: ['cod_rol']
+        });
+        rol.cod_rol === "usr" ? res.json({resul: true, cod_rol: rol.cod_rol, message: ""}) : res.json({
+            resul: false, 
+            cod_rol: rol.cod_rol, 
+            message: "Su usuario no se encuentra autorizado para acceder a esta interfaz"
+        });
+    } 
+};
+
+export const logOut = async (req, res) => {
+    const user_token = "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000";
+    res.cookie('token', user_token, {httpOnly: true});
+    res.json({resul: null, message: "Se ha cerrado la sesión"});
 };

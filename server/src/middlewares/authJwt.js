@@ -5,7 +5,6 @@ import roles from '../models/roles';
 
 export const verifyToken = async (req, res, next) => {
     try{
-        console.log("hola");
         const token = req.cookies.token;
         !token && res.json({resul: null, message: "Ha ocurrido un problema con la autenticación"});
         const decoded = jwt.verify(token, config.SECRET);
