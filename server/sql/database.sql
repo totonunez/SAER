@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 11.9 (Debian 11.9-0+deb10u1)
--- Dumped by pg_dump version 11.9 (Debian 11.9-0+deb10u1)
+-- Dumped from database version 12.5 (Ubuntu 12.5-0ubuntu0.20.04.1)
+-- Dumped by pg_dump version 12.5 (Ubuntu 12.5-0ubuntu0.20.04.1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -18,7 +18,7 @@ SET row_security = off;
 
 SET default_tablespace = '';
 
-SET default_with_oids = false;
+SET default_table_access_method = heap;
 
 --
 -- Name: asigna; Type: TABLE; Schema: public; Owner: postgres
@@ -285,7 +285,7 @@ CREATE TABLE public.movimientos (
     id integer NOT NULL,
     nombre_movimiento character varying(30),
     monto integer,
-    cuenta_corriente_id integer
+    cuentas_corrientes_id integer
 );
 
 
@@ -700,7 +700,7 @@ COPY public.involucra (departamentos_id, users_id) FROM stdin;
 -- Data for Name: movimientos; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.movimientos (id, nombre_movimiento, monto, cuenta_corriente_id) FROM stdin;
+COPY public.movimientos (id, nombre_movimiento, monto, cuentas_corrientes_id) FROM stdin;
 \.
 
 
@@ -994,6 +994,166 @@ ALTER TABLE ONLY public.turnos
 
 ALTER TABLE ONLY public.users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: asigna asigna_roles_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.asigna
+    ADD CONSTRAINT asigna_roles_id_fkey FOREIGN KEY (roles_id) REFERENCES public.roles(id);
+
+
+--
+-- Name: asigna asigna_roles_id_fkey1; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.asigna
+    ADD CONSTRAINT asigna_roles_id_fkey1 FOREIGN KEY (roles_id) REFERENCES public.roles(id);
+
+
+--
+-- Name: asigna asigna_users_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.asigna
+    ADD CONSTRAINT asigna_users_id_fkey FOREIGN KEY (users_id) REFERENCES public.users(id);
+
+
+--
+-- Name: correos correos_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.correos
+    ADD CONSTRAINT correos_id_fkey FOREIGN KEY (id) REFERENCES public.roles(id);
+
+
+--
+-- Name: cuentas_corrientes cuentas_corrientes_departamentos_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.cuentas_corrientes
+    ADD CONSTRAINT cuentas_corrientes_departamentos_id_fkey FOREIGN KEY (departamentos_id) REFERENCES public.departamentos(id);
+
+
+--
+-- Name: detalles_gastos detalles_gastos_gastos_comunes_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.detalles_gastos
+    ADD CONSTRAINT detalles_gastos_gastos_comunes_id_fkey FOREIGN KEY (gastos_comunes_id) REFERENCES public.gastos_comunes(id);
+
+
+--
+-- Name: gastos_comunes gastos_comunes_departamentos_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.gastos_comunes
+    ADD CONSTRAINT gastos_comunes_departamentos_id_fkey FOREIGN KEY (departamentos_id) REFERENCES public.departamentos(id);
+
+
+--
+-- Name: gestiona gestiona_productos_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.gestiona
+    ADD CONSTRAINT gestiona_productos_id_fkey FOREIGN KEY (productos_id) REFERENCES public.productos(id);
+
+
+--
+-- Name: gestiona gestiona_users_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.gestiona
+    ADD CONSTRAINT gestiona_users_id_fkey FOREIGN KEY (users_id) REFERENCES public.users(id);
+
+
+--
+-- Name: involucra involucra_departamentos_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.involucra
+    ADD CONSTRAINT involucra_departamentos_id_fkey FOREIGN KEY (departamentos_id) REFERENCES public.departamentos(id);
+
+
+--
+-- Name: involucra involucra_users_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.involucra
+    ADD CONSTRAINT involucra_users_id_fkey FOREIGN KEY (users_id) REFERENCES public.users(id);
+
+
+--
+-- Name: movimientos movimientos_cuentas_corrientes_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.movimientos
+    ADD CONSTRAINT movimientos_cuentas_corrientes_id_fkey FOREIGN KEY (cuentas_corrientes_id) REFERENCES public.cuentas_corrientes(id);
+
+
+--
+-- Name: productos productos_bodegas_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.productos
+    ADD CONSTRAINT productos_bodegas_id_fkey FOREIGN KEY (bodegas_id) REFERENCES public.bodegas(id);
+
+
+--
+-- Name: realiza realiza_reclamos_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.realiza
+    ADD CONSTRAINT realiza_reclamos_id_fkey FOREIGN KEY (reclamos_id) REFERENCES public.reclamos(id);
+
+
+--
+-- Name: realiza realiza_users_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.realiza
+    ADD CONSTRAINT realiza_users_id_fkey FOREIGN KEY (users_id) REFERENCES public.users(id);
+
+
+--
+-- Name: reclamos reclamos_departamentos_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.reclamos
+    ADD CONSTRAINT reclamos_departamentos_id_fkey FOREIGN KEY (departamentos_id) REFERENCES public.departamentos(id);
+
+
+--
+-- Name: revisa revisa_productos_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.revisa
+    ADD CONSTRAINT revisa_productos_id_fkey FOREIGN KEY (productos_id) REFERENCES public.productos(id);
+
+
+--
+-- Name: revisa revisa_users_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.revisa
+    ADD CONSTRAINT revisa_users_id_fkey FOREIGN KEY (users_id) REFERENCES public.users(id);
+
+
+--
+-- Name: supervisa supervisa_reclamos_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.supervisa
+    ADD CONSTRAINT supervisa_reclamos_id_fkey FOREIGN KEY (reclamos_id) REFERENCES public.reclamos(id);
+
+
+--
+-- Name: supervisa supervisa_users_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.supervisa
+    ADD CONSTRAINT supervisa_users_id_fkey FOREIGN KEY (users_id) REFERENCES public.users(id);
 
 
 --
