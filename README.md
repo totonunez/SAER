@@ -3,3 +3,5 @@ Este proyecto se centrará en ser un sistema de administración en edificio de r
 
 pg_dump -U postgres -W -h host db_02 > database.sql
 
+Instalar highchar en REACT para la construcción de gráficos captando datos de la base de datos
+https://www.highcharts.com/blog/frameworks/react/192-use-highcharts-to-create-charts-in-react/
