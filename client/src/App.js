@@ -23,7 +23,7 @@ function App() {
       <Route path="/admin/gastos" exact component={AdminGastosGomunes}/>
 
       <Route path="/users/home" exact component={UserHome}/>
-      <Route path="/users/gastoscomunes" exact component={UserGastosComunes}/>
+      <Route path="/gastoscomunes" exact component={UserGastosComunes}/>
       <Route path="/users/bodegareparacion" exact component={UserBodegaReparacion}/>
       
     </BrowserRouter>

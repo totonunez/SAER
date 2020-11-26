@@ -1,7 +1,7 @@
 import sequelize from 'sequelize';
 
 export const database = new sequelize(
-    'SAER', //Nombre bd
+    'saer', //Nombre bd
     'postgres', //Usuario
     'pass123', //Contraseña
     {
