@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 12.5 (Ubuntu 12.5-0ubuntu0.20.04.1)
--- Dumped by pg_dump version 12.5 (Ubuntu 12.5-0ubuntu0.20.04.1)
+-- Dumped from database version 11.9 (Debian 11.9-0+deb10u1)
+-- Dumped by pg_dump version 11.9 (Debian 11.9-0+deb10u1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -18,7 +18,7 @@ SET row_security = off;
 
 SET default_tablespace = '';
 
-SET default_table_access_method = heap;
+SET default_with_oids = false;
 
 --
 -- Name: asigna; Type: TABLE; Schema: public; Owner: postgres
@@ -254,18 +254,6 @@ ALTER SEQUENCE public.gastos_comunes_id_seq OWNED BY public.gastos_comunes.id;
 
 
 --
--- Name: gestiona; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE public.gestiona (
-    users_id integer NOT NULL,
-    productos_id integer NOT NULL
-);
-
-
-ALTER TABLE public.gestiona OWNER TO postgres;
-
---
 -- Name: involucra; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -408,8 +396,8 @@ ALTER SEQUENCE public.reclamos_id_seq OWNED BY public.reclamos.id;
 --
 
 CREATE TABLE public.revisa (
-    users_id integer NOT NULL,
-    productos_id integer NOT NULL
+    roles_id integer,
+    productos_id integer
 );
 
 
@@ -511,8 +499,7 @@ CREATE TABLE public.users (
     apellido character varying(30),
     telefono_casa integer,
     telefono_celular integer,
-    password text,
-    roled_id integer
+    password text
 );
 
 
@@ -637,6 +624,7 @@ COPY public.asigna (roles_id, users_id) FROM stdin;
 --
 
 COPY public.bodegas (id, n_bodega, capacidad, cantidad_actual) FROM stdin;
+1	1	100	0
 \.
 
 
@@ -677,14 +665,6 @@ COPY public.detalles_gastos (id, pago_interes, monto_mes, gastos_comunes_id) FRO
 --
 
 COPY public.gastos_comunes (id, fecha_ingreso, fecha_vencimiento, gasto_depto, gasto_bodega, gasto_estacionamiento, gasto_agua, porcentaje_interes, estado, departamentos_id) FROM stdin;
-\.
-
-
---
--- Data for Name: gestiona; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public.gestiona (users_id, productos_id) FROM stdin;
 \.
 
 
@@ -732,7 +712,7 @@ COPY public.reclamos (id, n_reclamo, descripcion, respuesta, fecha_ingreso, fech
 -- Data for Name: revisa; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.revisa (users_id, productos_id) FROM stdin;
+COPY public.revisa (roles_id, productos_id) FROM stdin;
 \.
 
 
@@ -764,7 +744,7 @@ COPY public.turnos (id, hora_inicio, hora_termino, fecha_inicio, fecha_termino, 
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.users (id, rut, nombre, apellido, telefono_casa, telefono_celular, password, roled_id) FROM stdin;
+COPY public.users (id, rut, nombre, apellido, telefono_casa, telefono_celular, password) FROM stdin;
 \.
 
 
@@ -772,7 +752,7 @@ COPY public.users (id, rut, nombre, apellido, telefono_casa, telefono_celular, p
 -- Name: bodegas_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.bodegas_id_seq', 1, false);
+SELECT pg_catalog.setval('public.bodegas_id_seq', 1, true);
 
 
 --
@@ -909,14 +889,6 @@ ALTER TABLE ONLY public.gastos_comunes
 
 
 --
--- Name: gestiona gestiona_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.gestiona
-    ADD CONSTRAINT gestiona_pkey PRIMARY KEY (users_id, productos_id);
-
-
---
 -- Name: involucra involucra_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -954,14 +926,6 @@ ALTER TABLE ONLY public.realiza
 
 ALTER TABLE ONLY public.reclamos
     ADD CONSTRAINT reclamos_pkey PRIMARY KEY (id);
-
-
---
--- Name: revisa revisa_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.revisa
-    ADD CONSTRAINT revisa_pkey PRIMARY KEY (users_id, productos_id);
 
 
 --
@@ -1013,11 +977,27 @@ ALTER TABLE ONLY public.asigna
 
 
 --
+-- Name: asigna asigna_roles_id_fkey2; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.asigna
+    ADD CONSTRAINT asigna_roles_id_fkey2 FOREIGN KEY (roles_id) REFERENCES public.roles(id);
+
+
+--
 -- Name: asigna asigna_users_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.asigna
     ADD CONSTRAINT asigna_users_id_fkey FOREIGN KEY (users_id) REFERENCES public.users(id);
+
+
+--
+-- Name: asigna asigna_users_id_fkey1; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.asigna
+    ADD CONSTRAINT asigna_users_id_fkey1 FOREIGN KEY (users_id) REFERENCES public.users(id);
 
 
 --
@@ -1050,22 +1030,6 @@ ALTER TABLE ONLY public.detalles_gastos
 
 ALTER TABLE ONLY public.gastos_comunes
     ADD CONSTRAINT gastos_comunes_departamentos_id_fkey FOREIGN KEY (departamentos_id) REFERENCES public.departamentos(id);
-
-
---
--- Name: gestiona gestiona_productos_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.gestiona
-    ADD CONSTRAINT gestiona_productos_id_fkey FOREIGN KEY (productos_id) REFERENCES public.productos(id);
-
-
---
--- Name: gestiona gestiona_users_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.gestiona
-    ADD CONSTRAINT gestiona_users_id_fkey FOREIGN KEY (users_id) REFERENCES public.users(id);
 
 
 --
@@ -1133,11 +1097,11 @@ ALTER TABLE ONLY public.revisa
 
 
 --
--- Name: revisa revisa_users_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: revisa revisa_roles_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.revisa
-    ADD CONSTRAINT revisa_users_id_fkey FOREIGN KEY (users_id) REFERENCES public.users(id);
+    ADD CONSTRAINT revisa_roles_id_fkey FOREIGN KEY (roles_id) REFERENCES public.roles(id);
 
 
 --

@@ -1,28 +1,31 @@
 import sequelize from 'sequelize';
 import {database} from '../database/database';
 
-const users = database.define('user', {
+const productos = database.define('producto',{
     id: {
         type: sequelize.INTEGER,
         primaryKey: true
     },
-    rut: {
-        type: sequelize.INTEGER
+    cantidad: {
+        type: sequelize.TEXT
+    },
+    cod_prod:{
+        type: sequelize.TEXT
+    },
+    fecha_modificacion:{
+        type: sequelize.DATE
     },
     nombre:{
         type: sequelize.TEXT
     },
-    apellido:{
+    volumen:{
         type: sequelize.TEXT
     },
-    roles_id:{
+    bodegas_id:{
         type: sequelize.INTEGER
-    },
-    password:{
-        type: sequelize.TEXT
     }
 },{
     timestamps: false
 });
 
-export default users;
+export default productos;

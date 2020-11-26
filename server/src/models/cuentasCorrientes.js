@@ -1,28 +1,28 @@
 import sequelize from 'sequelize';
 import {database} from '../database/database';
 
-const users = database.define('user', {
+const cuentas_corrientes = database.define('cuentas_corriente',{
     id: {
         type: sequelize.INTEGER,
         primaryKey: true
     },
-    rut: {
+    deuda_total: {
         type: sequelize.INTEGER
     },
-    nombre:{
-        type: sequelize.TEXT
-    },
-    apellido:{
-        type: sequelize.TEXT
-    },
-    roles_id:{
+    abono:{
         type: sequelize.INTEGER
     },
-    password:{
-        type: sequelize.TEXT
+    total_pago:{
+        type: sequelize.INTEGER
+    },
+    n_cuenta:{
+        type: sequelize.INTEGER
+    },
+    departamentos_id:{
+        type: sequelize.INTEGER
     }
 },{
     timestamps: false
 });
 
-export default users;
+export default cuentas_corrientes;

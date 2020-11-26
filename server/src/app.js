@@ -33,6 +33,11 @@ app.use((req,res,next) => {
 import roles from './routes/roles.js';
 import users from './routes/users.js';
 import auth from './routes/auth.js';
+import bodegas from './routes/bodegas.js';
+import correos from './routes/correos.js';
+import cuentasCorrientes from './routes/cuentasCorrientes.js';
+import departamentos from './routes/departamentos.js';
+import detallesGastos from './routes/detallesGastos.js';
 
 
 //routes
@@ -40,10 +45,11 @@ import auth from './routes/auth.js';
 app.use('/users', users);
 app.use('/auth', auth);
 app.use('/roles', roles);
-
-//public
-
-//app.use(express.static('../public'));
+app.use('/bodegas', bodegas);
+app.use('/correos', correos);
+app.use('/cuentasCorrientes', cuentasCorrientes);
+app.use('/departamentos', departamentos);
+app.use('/detallesGastos', detallesGastos);
 
 export default app;
 

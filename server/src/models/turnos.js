@@ -1,28 +1,28 @@
 import sequelize from 'sequelize';
 import {database} from '../database/database';
 
-const users = database.define('user', {
+const turnos = database.define('turno',{
     id: {
         type: sequelize.INTEGER,
         primaryKey: true
     },
-    rut: {
-        type: sequelize.INTEGER
+    hora_inicio: {
+        type: sequelize.TIME
     },
-    nombre:{
-        type: sequelize.TEXT
+    hora_termino:{
+        type: sequelize.TIME
     },
-    apellido:{
-        type: sequelize.TEXT
+    fecha_inicio:{
+        type: sequelize.DATE
+    },
+    fecha_termino:{
+        type: sequelize.DATE
     },
     roles_id:{
         type: sequelize.INTEGER
-    },
-    password:{
-        type: sequelize.TEXT
     }
 },{
     timestamps: false
 });
 
-export default users;
+export default turnos;

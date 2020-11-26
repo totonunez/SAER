@@ -1,28 +1,31 @@
 import sequelize from 'sequelize';
 import {database} from '../database/database';
 
-const users = database.define('user', {
+const reclamos = database.define('reclamo',{
     id: {
         type: sequelize.INTEGER,
         primaryKey: true
     },
-    rut: {
+    n_reclamo: {
         type: sequelize.INTEGER
     },
-    nombre:{
+    descripcion:{
         type: sequelize.TEXT
     },
-    apellido:{
+    respuesta:{
         type: sequelize.TEXT
     },
-    roles_id:{
+    fecha_ingreso:{
+        type: sequelize.DATE
+    },
+    fecha_modificacion:{
+        type: sequelize.DATE
+    },
+    departamentos_id:{
         type: sequelize.INTEGER
-    },
-    password:{
-        type: sequelize.TEXT
     }
 },{
     timestamps: false
 });
 
-export default users;
+export default reclamos;

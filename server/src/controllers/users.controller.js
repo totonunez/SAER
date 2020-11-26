@@ -36,14 +36,14 @@ export async function getUsersId(req, res) {
     const {id} = req.params;
     const user = await usuarios.findOne({
         where: {id},
-        attributes: ['id', 'rut', 'nombre', 'apellido', 'roles_id','password']
+        attributes: ['id', 'rut', 'nombre', 'apellido','password']
     });
     res.json(user);
 };
 
 export async function getAllUsers(req, res) {
     const allUsers = await usuarios.findAll({
-        attributes: ['id', 'rut', 'nombre', 'apellido', 'roles_id', 'password'],
+        attributes: ['id', 'rut', 'nombre', 'apellido', 'password'],
         order: [
             ['id', 'DESC']
         ]
