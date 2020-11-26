@@ -18,6 +18,11 @@
     font-size: 20px;
 
 }
+
+.Rectngulo_14{
+    min-width: 400px;
+    max-width: 410px;
+}
 .segundo{
     margin: -50px 0 0 680px;
     min-width: 480px;
