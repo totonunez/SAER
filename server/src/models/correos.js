@@ -12,7 +12,7 @@ const correos = database.define('correo',{
     nombre:{
         type: sequelize.TEXT
     },
-    roles_id:{
+    users_id:{
         type: sequelize.INTEGER
     }
 },{

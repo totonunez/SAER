@@ -9,3 +9,18 @@ export async function getAllReclamos(req, res) {
     });
     res.json({allReclamos});
 };
+
+export async function createReclamos(req, res){ 
+    const {n_reclamo, descripcion, respuesta, fecha_ingreso, fecha_modificacion, departamentos_id} = req.body;
+    const reclamo = await reclamos.create({
+        n_reclamo,
+        descripcion,
+        respuesta,
+        fecha_ingreso,
+        fecha_modificacion,
+        departamentos_id
+    },{
+        fields: ['n_reclamo', 'descripcion', 'respuesta', 'fecha_ingreso', 'fecha_modificacion', 'fecha_modificacion', 'departamentos_id']
+    });
+    res.json({reclamo});
+};

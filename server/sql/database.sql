@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 11.9 (Debian 11.9-0+deb10u1)
--- Dumped by pg_dump version 11.9 (Debian 11.9-0+deb10u1)
+-- Dumped from database version 12.5 (Ubuntu 12.5-0ubuntu0.20.04.1)
+-- Dumped by pg_dump version 12.5 (Ubuntu 12.5-0ubuntu0.20.04.1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -18,7 +18,7 @@ SET row_security = off;
 
 SET default_tablespace = '';
 
-SET default_with_oids = false;
+SET default_table_access_method = heap;
 
 --
 -- Name: asigna; Type: TABLE; Schema: public; Owner: postgres
@@ -77,7 +77,7 @@ ALTER SEQUENCE public.bodegas_id_seq OWNED BY public.bodegas.id;
 CREATE TABLE public.correos (
     id integer NOT NULL,
     correo character varying(30),
-    roles_id integer
+    users_id integer
 );
 
 
@@ -464,7 +464,7 @@ CREATE TABLE public.turnos (
     hora_termino time without time zone,
     fecha_inicio date,
     fecha_termino date,
-    roles_id integer
+    users_id integer
 );
 
 
@@ -621,6 +621,7 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 
 COPY public.asigna (roles_id, users_id, createdat, updatedat) FROM stdin;
 1	16	2020-11-27 04:35:52.306	2020-11-27 04:35:52.306
+1	17	2020-11-27 15:56:17.775	2020-11-27 15:56:17.775
 \.
 
 
@@ -637,7 +638,7 @@ COPY public.bodegas (id, n_bodega, capacidad, cantidad_actual) FROM stdin;
 -- Data for Name: correos; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.correos (id, correo, roles_id) FROM stdin;
+COPY public.correos (id, correo, users_id) FROM stdin;
 \.
 
 
@@ -654,6 +655,7 @@ COPY public.cuentas_corrientes (id, deuda_total, abono, total_pago, n_cuenta, de
 --
 
 COPY public.departamentos (id, n_depto) FROM stdin;
+1	1A
 \.
 
 
@@ -678,6 +680,7 @@ COPY public.gastos_comunes (id, fecha_ingreso, fecha_vencimiento, gasto_depto, g
 --
 
 COPY public.involucra (departamentos_id, users_id, createdat, updatedat) FROM stdin;
+1	1	2020-11-27 07:06:30.256	2020-11-27 07:06:30.256
 \.
 
 
@@ -710,6 +713,7 @@ COPY public.realizas (users_id, reclamos_id) FROM stdin;
 --
 
 COPY public.reclamos (id, n_reclamo, descripcion, respuesta, fecha_ingreso, fecha_modificacion, departamentos_id) FROM stdin;
+3	1	Problemas con el water		2020-11-27	2020-11-27	1
 \.
 
 
@@ -737,6 +741,7 @@ COPY public.roles (id, cod_rol, nombre) FROM stdin;
 --
 
 COPY public.supervisas (users_id, reclamos_id) FROM stdin;
+17	3
 \.
 
 
@@ -744,7 +749,7 @@ COPY public.supervisas (users_id, reclamos_id) FROM stdin;
 -- Data for Name: turnos; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.turnos (id, hora_inicio, hora_termino, fecha_inicio, fecha_termino, roles_id) FROM stdin;
+COPY public.turnos (id, hora_inicio, hora_termino, fecha_inicio, fecha_termino, users_id) FROM stdin;
 \.
 
 
@@ -757,6 +762,7 @@ COPY public.users (id, rut, nombre, apellido, telefono_casa, telefono_celular, p
 2	123456782	sup	01	0	0	$2a$10$l9HRHY3N8dUmosUwuHan7ONRcoJzcfKC7IOGe8VBLCdNcdkSTHF4K
 3	123456783	usr	01	0	0	$2a$10$fvXEE6Q99v/tfTduWOA/oeEooaZkIsQH.Lql9pKbCdb9zdsy7EtLG
 16	123456785	adm	02	0	0	$2a$10$qvkLVpiHuQWRNq0BV2XQU.Xcdn2U6LJMVPZFbe2k6lJVqlds4wSc6
+17	196443736	albi	urri	\N	\N	$2a$10$jwsdyNQsAx0aU6oxxFIPw.c4IzOYqMQAAZuFm3O9AhMC8oyR4Mdve
 \.
 
 
@@ -785,7 +791,7 @@ SELECT pg_catalog.setval('public.cuenta_corriente_id_seq', 1, false);
 -- Name: departamentos_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.departamentos_id_seq', 1, false);
+SELECT pg_catalog.setval('public.departamentos_id_seq', 1, true);
 
 
 --
@@ -820,7 +826,7 @@ SELECT pg_catalog.setval('public.productos_id_seq', 1, false);
 -- Name: reclamos_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.reclamos_id_seq', 1, false);
+SELECT pg_catalog.setval('public.reclamos_id_seq', 3, true);
 
 
 --
@@ -841,7 +847,7 @@ SELECT pg_catalog.setval('public.turnos_id_seq', 1, false);
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.users_id_seq', 16, true);
+SELECT pg_catalog.setval('public.users_id_seq', 17, true);
 
 
 --
@@ -957,14 +963,6 @@ ALTER TABLE ONLY public.supervisas
 
 
 --
--- Name: turnos turnos_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.turnos
-    ADD CONSTRAINT turnos_pkey PRIMARY KEY (id);
-
-
---
 -- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1013,11 +1011,11 @@ ALTER TABLE ONLY public.asigna
 
 
 --
--- Name: correos correos_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: correos correos_users_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.correos
-    ADD CONSTRAINT correos_id_fkey FOREIGN KEY (id) REFERENCES public.roles(id);
+    ADD CONSTRAINT correos_users_id_fkey FOREIGN KEY (users_id) REFERENCES public.users(id);
 
 
 --
@@ -1133,11 +1131,11 @@ ALTER TABLE ONLY public.supervisas
 
 
 --
--- Name: turnos turnos_roles_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: turnos turnos_users_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.turnos
-    ADD CONSTRAINT turnos_roles_id_fkey FOREIGN KEY (roles_id) REFERENCES public.roles(id);
+    ADD CONSTRAINT turnos_users_id_fkey FOREIGN KEY (users_id) REFERENCES public.users(id);
 
 
 --

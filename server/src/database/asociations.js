@@ -24,8 +24,8 @@ cuentas_corrientes.belongsTo(departamentos, {foreignKey: 'departamentos_id', sou
 
 //1:N
 
-roles.hasMany(turnos, {foreignKey: 'roles_id', sourceKey: 'id'});
-turnos.belongsTo(roles, {foreignKey: 'roles_id', sourceKey: 'id'});
+users.hasMany(turnos, {foreignKey: 'users_id', sourceKey: 'id'});
+turnos.belongsTo(users, {foreignKey: 'users_id', sourceKey: 'id'});
 
 bodegas.hasMany(productos, {foreignKey: 'bodegas_id', sourceKey: 'id'});
 productos.belongsTo(bodegas, {foreignKey: 'bodegas_id', sourceKey: 'id'});
@@ -39,8 +39,8 @@ gastosComunes.belongsTo(departamentos, {foreignKey: 'departamentos_id', sourceKe
 cuentas_corrientes.hasMany(movimientos, {foreignKey: 'cuentas_corrientes_id', sourceKey: 'id'});
 movimientos.belongsTo(cuentas_corrientes, {foreignKey: 'cuentas_corrientes_id', sourceKey: 'id'});
 
-roles.hasMany(correos, {foreignKey: 'roles_id', sourceKey: 'id'});
-correos.belongsTo(roles, {foreignKey: 'roles_id', sourceKey: 'id'});
+users.hasMany(correos, {foreignKey: 'users_id', sourceKey: 'id'});
+correos.belongsTo(users, {foreignKey: 'users_id', sourceKey: 'id'});
 
 //M:N
 

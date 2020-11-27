@@ -1,11 +1,13 @@
 const express = require('express');
 const router = express.Router();
-import {getAllUsers, getUsersId, deleteUsers, updateUsers} from '../controllers/users.controller';
+import {getAllUsers, getUsersId, deleteUsers, updateUsers, relationDepto, relationReclamo} from '../controllers/users.controller';
 import * as authJwt from '../middlewares/authJwt';
 
 // users
 
 router.get('/', getAllUsers);
+router.post('/relationDepto', relationDepto);
+router.post('/relationReclamo', relationReclamo);
 
 // users/:id
 

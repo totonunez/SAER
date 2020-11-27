@@ -18,7 +18,7 @@ const turnos = database.define('turno',{
     fecha_termino:{
         type: sequelize.DATE
     },
-    roles_id:{
+    users_id:{
         type: sequelize.INTEGER
     }
 },{
