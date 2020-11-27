@@ -26,7 +26,9 @@ SET default_with_oids = false;
 
 CREATE TABLE public.asigna (
     roles_id integer NOT NULL,
-    users_id integer NOT NULL
+    users_id integer NOT NULL,
+    createdat timestamp without time zone,
+    updatedat timestamp without time zone
 );
 
 
@@ -259,7 +261,9 @@ ALTER SEQUENCE public.gastos_comunes_id_seq OWNED BY public.gastos_comunes.id;
 
 CREATE TABLE public.involucra (
     departamentos_id integer NOT NULL,
-    users_id integer NOT NULL
+    users_id integer NOT NULL,
+    createdat timestamp without time zone,
+    updatedat timestamp without time zone
 );
 
 
@@ -341,16 +345,16 @@ ALTER SEQUENCE public.productos_id_seq OWNED BY public.productos.id;
 
 
 --
--- Name: realiza; Type: TABLE; Schema: public; Owner: postgres
+-- Name: realizas; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE public.realiza (
+CREATE TABLE public.realizas (
     users_id integer NOT NULL,
     reclamos_id integer NOT NULL
 );
 
 
-ALTER TABLE public.realiza OWNER TO postgres;
+ALTER TABLE public.realizas OWNER TO postgres;
 
 --
 -- Name: reclamos; Type: TABLE; Schema: public; Owner: postgres
@@ -392,16 +396,16 @@ ALTER SEQUENCE public.reclamos_id_seq OWNED BY public.reclamos.id;
 
 
 --
--- Name: revisa; Type: TABLE; Schema: public; Owner: postgres
+-- Name: revisas; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE public.revisa (
+CREATE TABLE public.revisas (
     roles_id integer,
     productos_id integer
 );
 
 
-ALTER TABLE public.revisa OWNER TO postgres;
+ALTER TABLE public.revisas OWNER TO postgres;
 
 --
 -- Name: roles; Type: TABLE; Schema: public; Owner: postgres
@@ -439,16 +443,16 @@ ALTER SEQUENCE public.roles_id_seq OWNED BY public.roles.id;
 
 
 --
--- Name: supervisa; Type: TABLE; Schema: public; Owner: postgres
+-- Name: supervisas; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE public.supervisa (
+CREATE TABLE public.supervisas (
     users_id integer NOT NULL,
     reclamos_id integer NOT NULL
 );
 
 
-ALTER TABLE public.supervisa OWNER TO postgres;
+ALTER TABLE public.supervisas OWNER TO postgres;
 
 --
 -- Name: turnos; Type: TABLE; Schema: public; Owner: postgres
@@ -615,7 +619,8 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 -- Data for Name: asigna; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.asigna (roles_id, users_id) FROM stdin;
+COPY public.asigna (roles_id, users_id, createdat, updatedat) FROM stdin;
+1	16	2020-11-27 04:35:52.306	2020-11-27 04:35:52.306
 \.
 
 
@@ -672,7 +677,7 @@ COPY public.gastos_comunes (id, fecha_ingreso, fecha_vencimiento, gasto_depto, g
 -- Data for Name: involucra; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.involucra (departamentos_id, users_id) FROM stdin;
+COPY public.involucra (departamentos_id, users_id, createdat, updatedat) FROM stdin;
 \.
 
 
@@ -693,10 +698,10 @@ COPY public.productos (id, cod_prod, nombre, cantidad, fecha_modificacion, volum
 
 
 --
--- Data for Name: realiza; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: realizas; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.realiza (users_id, reclamos_id) FROM stdin;
+COPY public.realizas (users_id, reclamos_id) FROM stdin;
 \.
 
 
@@ -709,10 +714,10 @@ COPY public.reclamos (id, n_reclamo, descripcion, respuesta, fecha_ingreso, fech
 
 
 --
--- Data for Name: revisa; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: revisas; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.revisa (roles_id, productos_id) FROM stdin;
+COPY public.revisas (roles_id, productos_id) FROM stdin;
 \.
 
 
@@ -721,14 +726,17 @@ COPY public.revisa (roles_id, productos_id) FROM stdin;
 --
 
 COPY public.roles (id, cod_rol, nombre) FROM stdin;
+1	adm	Administrador
+2	sup	Conserje
+3	usr	Residente
 \.
 
 
 --
--- Data for Name: supervisa; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: supervisas; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.supervisa (users_id, reclamos_id) FROM stdin;
+COPY public.supervisas (users_id, reclamos_id) FROM stdin;
 \.
 
 
@@ -745,6 +753,10 @@ COPY public.turnos (id, hora_inicio, hora_termino, fecha_inicio, fecha_termino, 
 --
 
 COPY public.users (id, rut, nombre, apellido, telefono_casa, telefono_celular, password) FROM stdin;
+1	123456781	adm	01	0	0	$2a$10$H.abHxceCdgMEz/u7Npxv.YcwrdtDPlPDsArJgcasH7jwpD.4TCM6
+2	123456782	sup	01	0	0	$2a$10$l9HRHY3N8dUmosUwuHan7ONRcoJzcfKC7IOGe8VBLCdNcdkSTHF4K
+3	123456783	usr	01	0	0	$2a$10$fvXEE6Q99v/tfTduWOA/oeEooaZkIsQH.Lql9pKbCdb9zdsy7EtLG
+16	123456785	adm	02	0	0	$2a$10$qvkLVpiHuQWRNq0BV2XQU.Xcdn2U6LJMVPZFbe2k6lJVqlds4wSc6
 \.
 
 
@@ -815,7 +827,7 @@ SELECT pg_catalog.setval('public.reclamos_id_seq', 1, false);
 -- Name: roles_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.roles_id_seq', 1, false);
+SELECT pg_catalog.setval('public.roles_id_seq', 3, true);
 
 
 --
@@ -829,7 +841,7 @@ SELECT pg_catalog.setval('public.turnos_id_seq', 1, false);
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.users_id_seq', 1, false);
+SELECT pg_catalog.setval('public.users_id_seq', 16, true);
 
 
 --
@@ -913,10 +925,10 @@ ALTER TABLE ONLY public.productos
 
 
 --
--- Name: realiza realiza_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: realizas realiza_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.realiza
+ALTER TABLE ONLY public.realizas
     ADD CONSTRAINT realiza_pkey PRIMARY KEY (users_id, reclamos_id);
 
 
@@ -937,10 +949,10 @@ ALTER TABLE ONLY public.roles
 
 
 --
--- Name: supervisa supervisa_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: supervisas supervisa_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.supervisa
+ALTER TABLE ONLY public.supervisas
     ADD CONSTRAINT supervisa_pkey PRIMARY KEY (users_id, reclamos_id);
 
 
@@ -1065,18 +1077,18 @@ ALTER TABLE ONLY public.productos
 
 
 --
--- Name: realiza realiza_reclamos_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: realizas realiza_reclamos_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.realiza
+ALTER TABLE ONLY public.realizas
     ADD CONSTRAINT realiza_reclamos_id_fkey FOREIGN KEY (reclamos_id) REFERENCES public.reclamos(id);
 
 
 --
--- Name: realiza realiza_users_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: realizas realiza_users_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.realiza
+ALTER TABLE ONLY public.realizas
     ADD CONSTRAINT realiza_users_id_fkey FOREIGN KEY (users_id) REFERENCES public.users(id);
 
 
@@ -1089,34 +1101,34 @@ ALTER TABLE ONLY public.reclamos
 
 
 --
--- Name: revisa revisa_productos_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: revisas revisa_productos_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.revisa
+ALTER TABLE ONLY public.revisas
     ADD CONSTRAINT revisa_productos_id_fkey FOREIGN KEY (productos_id) REFERENCES public.productos(id);
 
 
 --
--- Name: revisa revisa_roles_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: revisas revisa_roles_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.revisa
+ALTER TABLE ONLY public.revisas
     ADD CONSTRAINT revisa_roles_id_fkey FOREIGN KEY (roles_id) REFERENCES public.roles(id);
 
 
 --
--- Name: supervisa supervisa_reclamos_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: supervisas supervisa_reclamos_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.supervisa
+ALTER TABLE ONLY public.supervisas
     ADD CONSTRAINT supervisa_reclamos_id_fkey FOREIGN KEY (reclamos_id) REFERENCES public.reclamos(id);
 
 
 --
--- Name: supervisa supervisa_users_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: supervisas supervisa_users_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.supervisa
+ALTER TABLE ONLY public.supervisas
     ADD CONSTRAINT supervisa_users_id_fkey FOREIGN KEY (users_id) REFERENCES public.users(id);
 
 
