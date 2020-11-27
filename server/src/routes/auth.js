@@ -11,7 +11,7 @@ router.get('/adm/', verifyAdm);
 router.get('/sup/', verifySup);
 router.get('/usr/', verifyUsr);
 router.post('/signin', signIn);
-router.post('/signup', verifySignUp.verifyUser, signUp);
+router.post('/signup', signUp);
 router.get('/logout', logOut);
 
 

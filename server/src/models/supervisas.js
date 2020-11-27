@@ -1,7 +1,7 @@
 import sequelize from 'sequelize';
 import {database} from '../database/database';
 
-const supervisa = database.define('supervis',{
+const supervisas = database.define('supervisas',{
     users_id: {
         type: sequelize.INTEGER,
         primaryKey: true
@@ -14,4 +14,4 @@ const supervisa = database.define('supervis',{
     timestamps: false
 });
 
-export default supervisa;
+export default supervisas;

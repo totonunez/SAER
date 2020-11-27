@@ -22,21 +22,25 @@ export async function consulRol(id) {
 };
 
 export const signUp = async (req, res) => {
-    const {rut, nombre, apellido, roles_id, password} = req.body;
+    const {rut, nombre, apellido, telefono_casa, password, telefono_celular, roles_id} = req.body;
     try{
         let newUsers = await usuarios.create({
             rut,
             nombre,
             apellido,
-            roles_id,
-            password: await encryptPassword(password)
+            telefono_casa,
+            password: await encryptPassword(password),
+            telefono_celular,
         },{
-            fields: ['rut','nombre','apellido','roles_id','password']
+            fields: ['rut','nombre','apellido','telefono_casa','password', 'telefono_celular']
         });
-        if(newUsers){
-            const user_token = jwt.sign({id: newUsers.id}, config.SECRET, {expiresIn: 120});
-            res.json({message: "Usuario registrado correctamente", data: newUsers, token: user_token});
-        };
+        let id = roles_id;
+        const rol = await roles.findOne({
+            where: {id},
+            attributes: ['id','nombre','cod_rol']
+        });
+        newUsers.addRoles([rol]);
+        newUsers && res.json({message: "Usuario registrado correctamente", data: newUsers});
     } catch (e) {
         console.log(e);
         res.status(500).json({message: "Problemas al registrar usuario, contactese con el administrador del sistema", data: {}})
@@ -114,10 +118,6 @@ export const verifySup = async (req, res) => {
             attributes: ['roles_id']
         });
         id = user.roles_id;
-        const rol = await roles.findOne({
-            where: {id},
-            attributes: ['cod_rol']
-        });
         rol.cod_rol === "sup" ? res.json({resul: true, cod_rol: rol.cod_rol, message: ""}) : res.json({
             resul: false, 
             cod_rol: rol.cod_rol, 

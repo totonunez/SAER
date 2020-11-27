@@ -1,18 +1,18 @@
-import {users} from '../models/users';
-import {roles} from '../models/roles';
-import {bodegas} from '../models/bodegas';
-import {correos} from '../models/correos';
-import {turnos} from '../models/turnos';
-import {productos} from '../models/productos';
-import {reclamos} from '../models/reclamos';
-import {departamentos} from '../models/departamentos';
-import {cuentas_corrientes} from '../models/cuentasCorrientes';
-import {movimientos} from '../models/movimientos';
-import {gastosComunes} from '../models/gastosComunes';
-import {detallesGastos} from '../models/detallesGastos';
-import {revisa} from '../models/revisa';
-import {realiza} from '../models/realiza';
-import {supervisa} from '../models/supervisa';
+import users from '../models/users';
+import roles from '../models/roles';
+import bodegas from '../models/bodegas';
+import correos from '../models/correos';
+import turnos from '../models/turnos';
+import productos from '../models/productos';
+import reclamos from '../models/reclamos';
+import departamentos from '../models/departamentos';
+import cuentas_corrientes from '../models/cuentasCorrientes';
+import movimientos from '../models/movimientos';
+import gastosComunes from '../models/gastosComunes';
+import detallesGastos from '../models/detallesGastos';
+import revisas from '../models/revisas';
+import realizas from '../models/realizas';
+import supervisas from '../models/supervisas';
 
 //1:1
 
@@ -44,31 +44,31 @@ correos.belongsTo(roles, {foreignKey: 'roles_id', sourceKey: 'id'});
 
 //M:N
 
-users.belongsToMany(roles, {through: "asigna"});
-roles.belongsToMany(users, {through: "asigna"});
+users.belongsToMany(roles, {through: "asigna", foreignKey: 'users_id'});
+roles.belongsToMany(users, {through: "asigna", foreignKey: 'roles_id'});
 
-departamentos.belongsToMany(users, {through: "involucra"});
-users.belongsToMany(departamentos, {through: "involucra"});
+departamentos.belongsToMany(users, {through: "involucra", foreignKey: 'departamentos_id'});
+users.belongsToMany(departamentos, {through: "involucra", foreignKey: 'users_id'});
 
 //parciales
 
-productos.hasMany(revisa, {foreignKey: 'productos_id', sourceKey: 'id'});
-revisa.belongsTo(productos, {foreignKey: 'productos_id', sourceKey: 'id'});
+productos.hasMany(revisas, {foreignKey: 'productos_id', sourceKey: 'id'});
+revisas.belongsTo(productos, {foreignKey: 'productos_id', sourceKey: 'id'});
 
-roles.hasMany(revisa, {foreignKey: 'roles_id', sourceKey: 'id'});
-revisa.belongsTo(productos, {foreignKey: 'roles_id', sourceKey: 'id'});
+roles.hasMany(revisas, {foreignKey: 'roles_id', sourceKey: 'id'});
+revisas.belongsTo(productos, {foreignKey: 'roles_id', sourceKey: 'id'});
 
-users.hasMany(realiza, {foreignKey: 'users_id', sourceKey: 'id'});
-realiza.belongsTo(users, {foreignKey: 'users_id', sourceKey: 'id'});
+users.hasMany(realizas, {foreignKey: 'users_id', sourceKey: 'id'});
+realizas.belongsTo(users, {foreignKey: 'users_id', sourceKey: 'id'});
 
-reclamos.hasMany(realiza, {foreignKey: 'reclamos_id', sourceKey: 'id'});
-realiza.belongsTo(reclamos, {foreignKey: 'reclamos_id', sourceKey: 'id'});
+reclamos.hasMany(realizas, {foreignKey: 'reclamos_id', sourceKey: 'id'});
+realizas.belongsTo(reclamos, {foreignKey: 'reclamos_id', sourceKey: 'id'});
 
-users.hasMany(supervisa, {foreignKey: 'users_id', sourceKey: 'id'});
-supervisa.belongsTo(users, {foreignKey: 'users_id', sourceKey: 'id'});
+users.hasMany(supervisas, {foreignKey: 'users_id', sourceKey: 'id'});
+supervisas.belongsTo(users, {foreignKey: 'users_id', sourceKey: 'id'});
 
-reclamos.hasMany(supervisa, {foreignKey: 'reclamos_id', sourceKey: 'id'});
-supervisa.belongsTo(reclamos, {foreignKey: 'reclamos_id', sourceKey: 'id'});
+reclamos.hasMany(supervisas, {foreignKey: 'reclamos_id', sourceKey: 'id'});
+supervisas.belongsTo(reclamos, {foreignKey: 'reclamos_id', sourceKey: 'id'});
 
 
 

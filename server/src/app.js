@@ -5,6 +5,7 @@ const morgan = require('morgan');
 const path = require('path');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
+require('./database/asociations');
 
 //inicialización
 
@@ -38,6 +39,14 @@ import correos from './routes/correos.js';
 import cuentasCorrientes from './routes/cuentasCorrientes.js';
 import departamentos from './routes/departamentos.js';
 import detallesGastos from './routes/detallesGastos.js';
+import gastosComunes from './routes/gastosComunes.js';
+import movimientos from './routes/movimientos.js';
+import productos from './routes/productos.js';
+import reclamos from './routes/reclamos.js';
+import turnos from './routes/turnos.js';
+import revisas from './routes/revisas.js';
+import realizas from './routes/realizas.js';
+import supervisas from './routes/supervisas.js';
 
 
 //routes
@@ -50,6 +59,14 @@ app.use('/correos', correos);
 app.use('/cuentasCorrientes', cuentasCorrientes);
 app.use('/departamentos', departamentos);
 app.use('/detallesGastos', detallesGastos);
+app.use('/gastosComunes', gastosComunes);
+app.use('/movimientos', movimientos);
+app.use('/productos', productos);
+app.use('/reclamos', reclamos);
+app.use('/turnos', turnos);
+app.use('/revisa', revisas);
+app.use('/realiza', realizas);
+app.use('/supervisa', supervisas);
 
 export default app;
 

@@ -1,7 +1,7 @@
 import sequelize from 'sequelize';
 import {database} from '../database/database';
 
-const realiza = database.define('realiz',{
+const realizas = database.define('realiza',{
     users_id: {
         type: sequelize.INTEGER,
         primaryKey: true
@@ -14,4 +14,4 @@ const realiza = database.define('realiz',{
     timestamps: false
 });
 
-export default realiza;
+export default realizas;

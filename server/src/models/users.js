@@ -15,12 +15,15 @@ const users = database.define('user', {
     apellido:{
         type: sequelize.TEXT
     },
-    roles_id:{
+    telefono_casa:{
         type: sequelize.INTEGER
     },
     password:{
         type: sequelize.TEXT
-    }
+    },
+    telefono_celular:{
+        type: sequelize.INTEGER
+    },
 },{
     timestamps: false
 });

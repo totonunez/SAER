@@ -1,7 +1,7 @@
 import sequelize from 'sequelize';
 import {database} from '../database/database';
 
-const revisa = database.define('revis',{
+const revisas = database.define('revisa',{
     roles_id: {
         type: sequelize.INTEGER,
         primaryKey: true
@@ -14,4 +14,4 @@ const revisa = database.define('revis',{
     timestamps: false
 });
 
-export default revisa;
+export default revisas;
