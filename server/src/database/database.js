@@ -16,9 +16,7 @@ export const database = new sequelize(
         logging: false,
         define: {
             "createdAt": "createdat",
-            "updatedAt": "updatedat",
-            "userId": "user_id",
-            "rolesId": "roles_id"
+            "updatedAt": "updatedat"
         }
     }
 )
