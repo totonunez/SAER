@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-import {getAllUsers, getUsersId, deleteUsers, updateUsers, relationDepto, relationReclamo} from '../controllers/users.controller';
+import {getAllUsers, getUsersId, deleteUsers, updateUsers, relationDepto, relationReclamo, updateRelationDepto, updateRelationReclamo} from '../controllers/users.controller';
 import * as authJwt from '../middlewares/authJwt';
 
 // users
@@ -8,6 +8,8 @@ import * as authJwt from '../middlewares/authJwt';
 router.get('/', getAllUsers);
 router.post('/relationDepto', relationDepto);
 router.post('/relationReclamo', relationReclamo);
+router.put('/depto', updateRelationDepto);
+router.put('/reclamos', updateRelationReclamo);
 
 // users/:id
 

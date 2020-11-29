@@ -6,10 +6,7 @@ const correos = database.define('correo',{
         type: sequelize.INTEGER,
         primaryKey: true
     },
-    cod_rol: {
-        type: sequelize.TEXT
-    },
-    nombre:{
+    correo:{
         type: sequelize.TEXT
     },
     users_id:{
