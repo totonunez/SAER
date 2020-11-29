@@ -1,5 +1,6 @@
 import usuarios from '../models/users';
 import roles from '../models/roles';
+import correos from '../models/correos';
 import bcrypt from 'bcryptjs';
 import config from '../config';
 import jwt from 'jsonwebtoken';
@@ -22,7 +23,7 @@ export async function consulRol(id) {
 };
 
 export const signUp = async (req, res) => {
-    const {rut, nombre, apellido, telefono_casa, password, telefono_celular, roles_id} = req.body;
+    const {rut, nombre, apellido, telefono_casa, password, telefono_celular, roles_id, correo} = req.body;
     try{
         let newUsers = await usuarios.create({
             rut,
@@ -39,11 +40,18 @@ export const signUp = async (req, res) => {
             where: {id},
             attributes: ['id','nombre','cod_rol']
         });
+        const users_id = newUsers.dataValues.id
+        const newCorreo = await correos.create({
+            correo,
+            users_id
+        },{
+            fields: ['correo', 'users_id']
+        })
         newUsers.addRoles([rol]);
         newUsers && res.json({message: "Usuario registrado correctamente", data: newUsers});
     } catch (e) {
         console.log(e);
-        res.status(500).json({message: "Problemas al registrar usuario, contactese con el administrador del sistema", data: {}})
+        res.json({message: "Problemas al registrar usuario, contactese con el administrador del sistema", data: {}})
     };
 };
 
@@ -52,7 +60,10 @@ export const signIn = async (req, res) => {
     let bool = false;
     const user = await usuarios.findOne({
         where: {rut},
-        attributes: ['id', 'rut', 'nombre', 'apellido', 'roles_id', 'password']
+        attributes: ['id', 'rut', 'nombre', 'apellido', 'password'],
+        include: [
+            roles
+        ]
     });
     if(user){
         const matchPassword = await comparePassword(req.body.password, user.password);
@@ -60,11 +71,11 @@ export const signIn = async (req, res) => {
         if(matchPassword){
             user_token = jwt.sign({id: user.id}, config.SECRET, {expiresIn: 120});
             res.cookie('token', user_token, {httpOnly: true});
-            const codRol = await consulRol(user.roles_id);
+            const codRol = user.roles[0].dataValues.cod_rol
             const result = {
                 nombre: user.nombre,
                 apellido: user.apellido,
-                cod_rol: codRol.cod_rol
+                cod_rol: codRol
             };
             bool = true;
             res.json({Resultado: bool ,Usuario: result, token: user_token});
