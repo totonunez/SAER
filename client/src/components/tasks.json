@@ -1,0 +1,38 @@
+[
+    {
+        "id": 0,
+        "residente": "benjamon1",
+        "descripcion": "reclamo 1",
+        "respuesta": "En espera de respuesta",
+        "resuelto": false
+    },
+
+    {
+        "id": 1,
+        "residente": "benjamon2",
+        "descripcion": "reclamo 2",
+        "respuesta": "En espera de respuesta",
+        "resuelto": false
+    },
+
+    {
+        "id": 2,
+        "residente": "benjamon3",
+        "descripcion": "reclamo 3",
+        "respuesta": "En espera de respuesta",
+        "resuelto": false
+
+
+    },
+
+    {
+        "id": 3,
+        "residente": "benjamon4",
+        "descripcion": "reclamo 4",
+        "respuesta": "En espera de respuesta",
+        "resuelto": false
+
+    }
+
+
+]
