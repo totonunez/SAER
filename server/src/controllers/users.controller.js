@@ -76,12 +76,13 @@ export async function relationReclamo(req, res) {
     const user = await usuarios.findOne({
         where: {id},
         attributes: ['id','rut','nombre','apellido','telefono_casa','password', 'telefono_celular'],
-        include: [
+        include:[
             roles
         ]
     });
-    const {users_id, reclamos_id}= req.body;
-    const cod_rol = user.dataValues.roles[0].dataValues.cod_rol;
+    const {users_id, reclamos_id} = req.body;
+    const cod_rol = user.roles[0].dataValues.cod_rol;
+    console.log(cod_rol);
     let relationReclamos;
     if(cod_rol === "usr"){
         relationReclamos = await realizas.create({
@@ -96,6 +97,62 @@ export async function relationReclamo(req, res) {
             reclamos_id,
         },{
             fields: ['users_id','reclamos_id']
+        });
+    }
+    res.json({relation: relationReclamos});
+};
+
+export async function updateRelationDepto(req, res) {
+    let {rut, n_depto} = req.body;
+    const user = await usuarios.findOne({
+        where: {rut},
+        attributes: ['id','rut','nombre', 'apellido'],
+    });
+    const depto = await departamentos.findOne({
+        attributes: ['id','n_depto'],
+        where: {n_depto}
+    });
+    n_depto = req.body.newN_depto;
+    const newDepto = await departamentos.findOne({
+        attributes: ['id','n_depto'],
+        where: {n_depto}
+    });
+    if(user){
+        user.setDepartamentos([depto], [newDepto]);
+        res.json({message: 'Departamento de usuario actualizado'
+        });
+    }else{
+        res.json({message: "Ha ocurrido un problema"})
+    }
+};
+
+export async function updateRelationReclamo(req, res) {
+    let id = req.body.id;
+    const user = await usuarios.findOne({
+        where: {id},
+        attributes: ['id','rut','nombre','apellido','telefono_casa','password', 'telefono_celular'],
+        include: [
+            roles
+        ]
+    });
+    let {reclamos_id, newReclamos_id} = req.body;
+    const cod_rol = user.dataValues.roles[0].dataValues.cod_rol;
+    console.log(cod_rol);
+    let relationReclamos;
+    if(cod_rol === "usr"){
+        const relationReclamos = await realizas.update({
+            newReclamos_id
+        },
+        {
+            where: {reclamos_id}
+        });
+    }else if(cod_rol === "adm"){
+        const users_id = id;
+        const relationReclamos = await supervisas.update({
+            reclamos_id: newReclamos_id
+        },
+        {
+            where: {users_id, reclamos_id}
         });
     }
     res.json({relation: relationReclamos});
