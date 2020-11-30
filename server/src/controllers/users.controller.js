@@ -1,9 +1,10 @@
 import usuarios from '../models/users';
 import departamentos from '../models/departamentos';
-import reclamos from '../models/reclamos';
 import roles from '../models/roles';
 import realizas from '../models/realizas';
 import supervisas from '../models/supervisas';
+import correos from '../models/correos';
+import turnos from '../models/turnos';
 
 export async function updateUsers(req, res) {
     const {id} = req.params;
@@ -29,19 +30,68 @@ export async function updateUsers(req, res) {
 
 export async function deleteUsers(req, res) {
     const {id} = req.params;
-    await usuarios.destroy({
-        where: {
-            id
-        }
-    });
-    res.json({message: 'Usuario eliminado'});
+    try{
+        const user = await usuarios.findOne({
+            where: {id},
+            attributes: ['id', 'rut', 'nombre', 'apellido','password'],
+            include: [
+                roles,
+                departamentos
+            ]
+        });
+        console.log(user);
+        const rol = await roles.findOne({
+            where: {
+                id: user.dataValues.roles[0].dataValues.id
+            },
+            attributes: ['id', 'cod_rol', 'nombre']
+        });
+        const depto = await departamentos.findOne({
+            where: {
+                id: user.dataValues.departamentos[0].dataValues.id
+            },
+            attributes: ['id', 'n_depto']
+        });
+        console.log(user,rol,depto);
+        await user.removeRoles([rol]);
+        await user.removeDepartamentos([depto]);
+        await correos.destroy({
+            where: {
+                users_id: id
+            }
+        });
+        await turnos.destroy({
+            where: {
+                users_id: id
+            }
+        });
+        await realizas.destroy({
+            where: {
+                users_id: id
+            }
+        });
+        await supervisas.destroy({
+            where: {
+                users_id: id
+            }
+        });
+        await usuarios.destroy({
+            where: {
+                id
+            }
+        });
+        res.json({message: 'Usuario eliminado'});
+    }catch(e){
+        console.log(e);
+        res.json({message: "Ha ocurrida un problema durante la eliminación del usuario"});
+    }
 };
 
 export async function getUsersId(req, res) {
     const {id} = req.params;
     const user = await usuarios.findOne({
         where: {id},
-        attributes: ['id', 'rut', 'nombre', 'apellido','password']
+        attributes: ['id', 'rut', 'nombre', 'apellido','password'],
     });
     res.json(user);
 };
@@ -103,9 +153,9 @@ export async function relationReclamo(req, res) {
 };
 
 export async function updateRelationDepto(req, res) {
-    let {rut, n_depto} = req.body;
+    let {id, n_depto} = req.body;
     const user = await usuarios.findOne({
-        where: {rut},
+        where: {id},
         attributes: ['id','rut','nombre', 'apellido'],
     });
     const depto = await departamentos.findOne({
@@ -156,4 +206,36 @@ export async function updateRelationReclamo(req, res) {
         });
     }
     res.json({relation: relationReclamos});
+};
+
+export async function updateRelationRoles(req, res) {
+    const {users_id, roles_id, newRoles_id} = req.body;
+    try{
+        const user = await usuarios.findOne({
+            where: {
+                id: users_id
+            },
+            attributes: ['id','rut','nombre','apellido','telefono_casa','password', 'telefono_celular'],
+            include: [
+                roles
+            ]
+        });
+        const rol = await roles.findOne({
+            where: {
+                id: roles_id
+            },
+            attributes: ['id','cod_rol','nombre']
+        });
+        const newRol = await roles.findOne({
+            where: {
+                id: newRoles_id
+            },
+            attributes: ['id','cod_rol','nombre']
+        });
+        user.setRoles([newRol],[rol]);
+        res.json("Roles de usuario actualizado correctamente");
+    }catch(e){
+        console.log(e);
+        res.json("A ocurrido un problema al actualizar roles");
+    }
 };
