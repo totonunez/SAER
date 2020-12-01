@@ -2,12 +2,16 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import {Redirect,Link} from 'react-router-dom';
 
-export default class AdminGastosComunes extends Component {
+import usuarios from './usuarios.json'
+import Usuarios from './Usuarios.js'
+
+export default class AdminUsuariosEditar extends Component {
     state = {
         rut: 0,
         cod_rol: "",
         verify: undefined,
         message: "",
+        usuarios: usuarios
     };
 
     componentDidMount = async () => {
@@ -86,35 +90,22 @@ export default class AdminGastosComunes extends Component {
                     </div>
                 </nav>
                 <div>
-                <h1> <span className="badge badge-secondary">Gestionar Gastos Comunes</span></h1>
+                <h1> <span className="badge badge-secondary">Gestionar Usuarios</span></h1>
                 <ul className="nav nav-pills nav-fill">
-  <li className="nav-item">
-  <a className="nav-link active" href='/users/adm/gastos/cuenta'>Revisar Cuentas</a>
+                <li className="nav-item">
+  <a className="nav-link active" href='/users/adm/usuarios/crear'>Crear Usuario</a>
   </li>                    
   <li className="nav-item">
-    <a className="nav-link active" href='/users/adm/gastos/revisar'>Revisar Gastos Comunes</a>
+    <a className="nav-link active" href='/users/adm/usuarios/editar'>Editar Usuario</a>
   </li>
   <li className="nav-item">
-  <a className="nav-link active" href='/users/adm/gastos/crear'>Ingresar Gastos Comunes</a>
+  <a className="nav-link active" href='/users/adm/usuarios/eliminar'>Eliminar Usuario</a>
   </li>
   
 </ul>
-<div className="jumbotron jumbotron-fluid">
-  <div className="container">
-  <br/>
-  <br/>
-  <br/>  
-    <h1 className="display-4">SAER</h1>
-    <br/>
-    <p className="lead">Sistema de Administración de Edificios y Residencias</p>
-
-  </div>
-</div>
 
 
-
-
-           
+                <Usuarios usuarios = {this.state.usuarios}/>         
 
 
                 </div>

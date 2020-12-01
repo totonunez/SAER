@@ -68,6 +68,9 @@ export default class AdminInterface extends Component {
                                 <li className="nav-item">
                                     <Link className="nav-link" to={{ pathname: '/users/adm/gastos'}}>Gastos Comunes</Link>
                                 </li>
+                                <li className="nav-item">
+                                    <Link className="nav-link" to={{ pathname: '/users/adm/usuarios'}}>Gestion Usuarios</Link>
+                                </li>
                                 <li className="nav-item">        
                                     <Link className="nav-link" to={{ pathname: '/users/adm/bodega'}}>Bodega</Link>
                                 </li>
@@ -81,15 +84,15 @@ export default class AdminInterface extends Component {
                     </div>
                 </nav>
                 <div>
-                <div class="jumbotron jumbotron-fluid">
-  <div class="container">
+                <div className="jumbotron jumbotron-fluid">
+  <div className="container">
   <br/>
   <br/>
   <br/>
   <br/>  
-    <h1 class="display-4">BIENVENIDO A SAER</h1>
+    <h1 className="display-4">BIENVENIDO A SAER</h1>
     <br/>
-    <p class="lead">Sistema de Administración de Edificios y Residencias</p>
+    <p className="lead">Sistema de Administración de Edificios y Residencias</p>
 
   </div>
 </div>

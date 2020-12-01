@@ -2,13 +2,34 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import {Redirect,Link} from 'react-router-dom';
 
-export default class AdminGastosComunes extends Component {
+import CrearForm from './CrearForm.js'
+import gastos from './gastos.json'
+
+export default class AdminGastosComunesCrear extends Component {
     state = {
         rut: 0,
         cod_rol: "",
         verify: undefined,
         message: "",
+        gastos: gastos
     };
+
+    addGasto = (depto,fechaingreso,fechavencimiento,gastosdepto,gastosbodega,gastosestacionamiento,gastosagua,gastosvarios) => {
+        const newGasto = {
+            id: this.state.gastos.length,
+            depto: depto,
+            fechaingreso: fechaingreso,
+            fechavencimiento: fechavencimiento,
+            gastosdepto: gastosdepto,
+            gastosbodega: gastosbodega,
+            gastosestacionamiento: gastosestacionamiento,
+            gastosagua: gastosagua,
+            gastosvarios: gastosvarios
+        }
+        this.setState({
+            gastos: [...this.state.gastos, newGasto]
+        })
+    }
 
     componentDidMount = async () => {
         if(this.state.verify !== null){
@@ -86,36 +107,21 @@ export default class AdminGastosComunes extends Component {
                     </div>
                 </nav>
                 <div>
-                <h1> <span className="badge badge-secondary">Gestionar Gastos Comunes</span></h1>
-                <ul className="nav nav-pills nav-fill">
-  <li className="nav-item">
-  <a className="nav-link active" href='/users/adm/gastos/cuenta'>Revisar Cuentas</a>
-  </li>                    
-  <li className="nav-item">
-    <a className="nav-link active" href='/users/adm/gastos/revisar'>Revisar Gastos Comunes</a>
-  </li>
-  <li className="nav-item">
-  <a className="nav-link active" href='/users/adm/gastos/crear'>Ingresar Gastos Comunes</a>
-  </li>
-  
-</ul>
-<div className="jumbotron jumbotron-fluid">
-  <div className="container">
-  <br/>
-  <br/>
-  <br/>  
-    <h1 className="display-4">SAER</h1>
-    <br/>
-    <p className="lead">Sistema de Administración de Edificios y Residencias</p>
+                  <h1> <span className="badge badge-secondary">Gestionar Gastos Comunes</span></h1>
+                  <ul className="nav nav-pills nav-fill">
+                    <li className="nav-item">
+                      <a className="nav-link active" href='/users/adm/gastos/cuenta'>Revisar Cuentas</a>
+                    </li>                    
+                    <li className="nav-item">
+                        <a className="nav-link active" href='/users/adm/gastos/revisar'>Revisar Gastos Comunes</a>
+                    </li>
+                    <li className="nav-item">
+                        <a className="nav-link active" href='/users/adm/gastos/crear'>Ingresar Gastos Comunes</a>
+                    </li>
+                  </ul>
+                  <h1> <span className="badge badge-light">Ingreso de Gastos Comunes</span></h1>
 
-  </div>
-</div>
-
-
-
-
-           
-
+                  <CrearForm addGasto={this.addGasto}/>
 
                 </div>
             </div>  

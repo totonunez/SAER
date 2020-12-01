@@ -1,0 +1,22 @@
+[
+    {
+        "id": "0",
+        "nombre": "Abono",
+        "monto": "1223"
+    },
+    {
+        "id": "1",
+        "nombre": "Gasto Común",
+        "monto": "12313"
+    },
+    {
+        "id": "2",
+        "nombre": "Abono",
+        "monto": "112323"
+    },
+    {
+        "id": "3",
+        "nombre": "Gasto Común",
+        "monto": "123234"
+    }
+]

@@ -3,21 +3,18 @@ import axios from 'axios';
 import {Redirect,Link} from 'react-router-dom';
 
 import tasks from './tasks.json';
+import Reclamos from './Reclamos.js'
 
 
 export default class AdminReclamos extends Component {
 
     
-
-    
-
     state = {
         rut: 0,
         cod_rol: "",
         verify: undefined,
         message: "",
-        tasks: tasks,
-        respuesta: tasks.respuesta
+        tasks: tasks
     };
 
     componentDidMount = async () => {
@@ -43,6 +40,7 @@ export default class AdminReclamos extends Component {
             verify: res.data.resul,
             message: res.data.message
         });
+        alert(this.state.message);
     };
 
         
@@ -82,6 +80,9 @@ export default class AdminReclamos extends Component {
                                     <Link className="nav-link" to={{ pathname: '/users/adm/gastos'}}>Gastos Comunes</Link>
                                 </li>
                                 <li className="nav-item">
+                                    <Link className="nav-link" to={{ pathname: '/users/adm/usuarios'}}>Gestion Usuarios</Link>
+                                </li>
+                                <li className="nav-item">
                                     <Link className="nav-link" to={{ pathname: '/users/adm/bodega'}}>Bodega</Link>
                                 </li>
                                 <li className="nav-item active">
@@ -96,44 +97,13 @@ export default class AdminReclamos extends Component {
                 <div>
                 <h1> <span className="badge badge-secondary">Gestionar Reclamos</span></h1>
 
-
+                
                 <div>
-                {this.state.tasks.map(e => <p key={e.id}>
+                
 
-                <div className="card">
-                  <div className="card-header">
-                    Numero de reclamo: {e.id}
-                  </div>
-                  <div className="card-body">
-                    <blockquote className="blockquote mb-0">
-                <p>Descripción del reclamo: {e.descripcion} </p>
-                      <footer className="blockquote-footer"> Residente que hizo el reclamo: {e.residente} </footer>
-                    </blockquote>
-                    <br/>
-                    <blockquote className="blockquote mb-0">
-                <p>Respuesta Administración: {e.respuesta} </p>
-                    </blockquote>
-                  </div>
-                  <div class="form-check">
-  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1"/>
-  <label class="form-check-label" for="defaultCheck1">
-                        Finalizar Reclamo
-  </label>
-</div>
-                <form> 
-                  <input 
-                  className="form-control"
-                  name="respuesta"
-                  type="text" 
-                  placeholder="Escribir una Respuesta" 
-                   />
-                  
-                  <button type="submit" class="btn btn-primary my-1">Enviar Respuesta</button>
-                  </form>
-                  
-                </div>               
+                <Reclamos tasks= {this.state.tasks}/>              
                
-                </p>)}
+
                 </div>
 
                 

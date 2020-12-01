@@ -1,0 +1,25 @@
+[
+    {
+        "id": "0",
+        "depto": "A807",
+        "fechaingreso": "asdasd",
+        "fechavencimiento": "asda",
+        "gastosdepto": "112324",
+        "gastosbodega": "313532",
+        "gastosestacionamiento": "112323123",
+        "gastosagua": "12123123",
+        "gastosvarios": "as1232d"
+    },
+
+    {
+        "id": "1",
+        "depto": "A707",
+        "fechaingreso": "xx",
+        "fechavencimiento": "xxx",
+        "gastosdepto": "123",
+        "gastosbodega": "321",
+        "gastosestacionamiento": "123123",
+        "gastosagua": "123",
+        "gastosvarios": "asd"
+    }
+]

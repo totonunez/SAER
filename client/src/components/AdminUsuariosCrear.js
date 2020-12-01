@@ -2,13 +2,34 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import {Redirect,Link} from 'react-router-dom';
 
-export default class AdminGastosComunes extends Component {
+import usuarios from './usuarios.json'
+import CrearUsuarioForm from './CrearUsuarioForm'
+
+export default class AdminUsuariosCrear extends Component {
     state = {
         rut: 0,
         cod_rol: "",
         verify: undefined,
         message: "",
+        usuarios: usuarios
     };
+
+    addUsuario = ( rut, nombre, apellido, telefono_casa, telefono_celular, roles_id, correo, password) => {
+        const newUsuario = {
+            id: this.state.usuarios.length,
+            rut: rut,
+            nombre: nombre,
+            apellido: apellido,
+            telefono_casa: telefono_casa,
+            telefono_celular: telefono_celular,
+            roles_id: roles_id,
+            correo: correo,
+            password: password
+        }
+        this.setState({
+            usuarios: [...this.state.usuarios, newUsuario]
+        })
+    }
 
     componentDidMount = async () => {
         if(this.state.verify !== null){
@@ -86,35 +107,22 @@ export default class AdminGastosComunes extends Component {
                     </div>
                 </nav>
                 <div>
-                <h1> <span className="badge badge-secondary">Gestionar Gastos Comunes</span></h1>
+                <h1> <span className="badge badge-secondary">Gestionar Ususarios</span></h1>
                 <ul className="nav nav-pills nav-fill">
-  <li className="nav-item">
-  <a className="nav-link active" href='/users/adm/gastos/cuenta'>Revisar Cuentas</a>
+                <li className="nav-item">
+  <a className="nav-link active" href='/users/adm/usuarios/crear'>Crear Usuario</a>
   </li>                    
   <li className="nav-item">
-    <a className="nav-link active" href='/users/adm/gastos/revisar'>Revisar Gastos Comunes</a>
+    <a className="nav-link active" href='/users/adm/usuarios/editar'>Editar Usuario</a>
   </li>
   <li className="nav-item">
-  <a className="nav-link active" href='/users/adm/gastos/crear'>Ingresar Gastos Comunes</a>
+  <a className="nav-link active" href='/users/adm/usuarios/eliminar'>Eliminar Usuario</a>
   </li>
   
 </ul>
-<div className="jumbotron jumbotron-fluid">
-  <div className="container">
-  <br/>
-  <br/>
-  <br/>  
-    <h1 className="display-4">SAER</h1>
-    <br/>
-    <p className="lead">Sistema de Administración de Edificios y Residencias</p>
-
-  </div>
-</div>
 
 
-
-
-           
+                <CrearUsuarioForm addUsuario={this.addUsuario}/>         
 
 
                 </div>

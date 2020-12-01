@@ -1,0 +1,19 @@
+[
+    {
+        "id": "0",
+        "depto": "adf",
+        "ncuenta": "12314",
+        "abono": "123",
+        "deudatotal": "123",
+        "totalpago": "1234"
+    },
+
+    {
+        "id": "1",
+        "depto": "asdf",
+        "ncuenta": "1212314",
+        "abono": "121233",
+        "deudatotal": "112323",
+        "totalpago": "12344"
+    }
+]

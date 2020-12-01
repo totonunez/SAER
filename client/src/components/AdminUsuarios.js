@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import {Redirect,Link} from 'react-router-dom';
 
-export default class AdminGastosComunes extends Component {
+export default class AdminUsuarios extends Component {
     state = {
         rut: 0,
         cod_rol: "",
@@ -82,20 +82,20 @@ export default class AdminGastosComunes extends Component {
                                     </button>  
                                 </li>
                             </ul>
-                        </div>
+                        </div>   
                     </div>
                 </nav>
                 <div>
-                <h1> <span className="badge badge-secondary">Gestionar Gastos Comunes</span></h1>
+                <h1> <span className="badge badge-secondary">Gestionar Usuarios</span></h1>
                 <ul className="nav nav-pills nav-fill">
   <li className="nav-item">
-  <a className="nav-link active" href='/users/adm/gastos/cuenta'>Revisar Cuentas</a>
+  <a className="nav-link active" href='/users/adm/usuarios/crear'>Crear Usuario</a>
   </li>                    
   <li className="nav-item">
-    <a className="nav-link active" href='/users/adm/gastos/revisar'>Revisar Gastos Comunes</a>
+    <a className="nav-link active" href='/users/adm/usuarios/editar'>Editar Usuario</a>
   </li>
   <li className="nav-item">
-  <a className="nav-link active" href='/users/adm/gastos/crear'>Ingresar Gastos Comunes</a>
+  <a className="nav-link active" href='/users/adm/usuarios/eliminar'>Eliminar Usuario</a>
   </li>
   
 </ul>

@@ -16,4 +16,3 @@ export default class Init extends Component {
         )
     }
 }
-

@@ -1,0 +1,37 @@
+[
+    {
+            "id": 0,  
+            "rut" : "195837228",
+            "nombre": "benjamin",
+            "apellido": "moraleasdasds",
+            "telefono_casa": 0,
+            "password": "1",
+            "telefono_celular": 0,
+            "roles_id": 3,
+            "correo": "asd"
+    },
+
+    {       
+            "id": 1,
+            "rut" : "196443736",
+            "nombre": "cris",
+            "apellido": "urra",
+            "telefono_casa": 0,
+            "password": "1",
+            "telefono_celular": 0,
+            "roles_id": 3,
+            "correo": "asd"
+    },
+
+    {       
+        "id": 2,
+        "rut" : "11111111",
+        "nombre": "nn",
+        "apellido": "nn",
+        "telefono_casa": 0,
+        "password": "1",
+        "telefono_celular": 0,
+        "roles_id": 3,
+        "correo": "asd"
+}
+]
