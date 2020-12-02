@@ -12,7 +12,7 @@ export async function getAllCorreos(req, res) {
 
 export async function getCorreoUserId(req, res) {
     const {users_id} = req.params;
-    const correo = await turnos.findOne({
+    const correo = await correos.findOne({
         where:{
             users_id
         },
@@ -23,7 +23,7 @@ export async function getCorreoUserId(req, res) {
 
 export async function createCorreos(req, res) {
     const {correo, users_id} = req.body;
-    const newCorreo = await roles.create({
+    const newCorreo = await correos.create({
         correo,
         users_id
     },{
@@ -34,7 +34,7 @@ export async function createCorreos(req, res) {
 
 export async function updateCorreos(req, res) {
     const {id, correo, users_id} = req.body;
-    const updateCorreo = await roles.update({
+    const updateCorreo = await correos.update({
         correo,
         users_id
     },{

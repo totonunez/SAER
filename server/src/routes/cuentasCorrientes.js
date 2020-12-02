@@ -5,5 +5,12 @@ import * as cuentasCorrientes from '../controllers/cuentasCorrientes.controller.
 // cuentasCorrientes
 
 router.get('/', cuentasCorrientes.getAllCuentasCorrientes);
+router.post('/createCuentasCorrientes', cuentasCorrientes.createCuentasCorrientes);
+router.put('/updateCuentasCorrientes', cuentasCorrientes.updateCuentasCorrientes);
+router.delete('/deleteCuentasCorrientes', cuentasCorrientes.deleteCuentasCorrientes);
+
+// cuentasCorrientes/:n_cuenta
+
+router.get('/:n_cuenta', cuentasCorrientes.getCuentasCorrientesNcuenta);
 
 module.exports = router;
