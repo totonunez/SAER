@@ -52,12 +52,3 @@ export async function updateReclamos(req, res) {
     res.json({message: "Reclamo actualizado exitosamente", Reclamo: updateReclamo});
 };
 
-export async function deleteCorreos(req, res) {
-    const {n_reclamo} = req.body;
-    await correos.destroy({
-        where: {
-            n_reclamo
-        }
-    });
-    res.json({message: "Reclamo eliminado exitosamente"});
-};
