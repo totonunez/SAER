@@ -16,7 +16,6 @@ export default class AdminUsuariosCrear extends Component {
 
     addUsuario = ( rut, nombre, apellido, telefono_casa, telefono_celular, roles_id, correo, password) => {
         const newUsuario = {
-            id: this.state.usuarios.length,
             rut: rut,
             nombre: nombre,
             apellido: apellido,
@@ -26,9 +25,11 @@ export default class AdminUsuariosCrear extends Component {
             correo: correo,
             password: password
         }
+        axios.post("/auth/signup", newUsuario)
         this.setState({
             usuarios: [...this.state.usuarios, newUsuario]
         })
+        console.log(this.state.usuarios);
     }
 
     componentDidMount = async () => {

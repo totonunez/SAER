@@ -14,13 +14,15 @@ export default class CrearUsuarioForm extends Component {
     }
 
     onSubmit = e => { 
+        e.preventDefault();
         this.props.addUsuario(this.state.rut, this.state.nombre, this.state.apellido, this.state.telefono_casa, this.state.telefono_celular,this.state.roles_id, this.state.correo, this.state.password)
     }
 
     onChange = e => {
         this.setState({
             [e.target.name]: e.target.value
-        })        
+        })
+        console.log(e.target.value);     
     }
 
 
@@ -61,7 +63,7 @@ export default class CrearUsuarioForm extends Component {
                 </div>
                 <input 
                 type="text" 
-                name="Apellido"
+                name="apellido"
                 className="form-control" 
                 aria-label="Default" 
                 aria-describedby="inputGroup-sizing-default"
