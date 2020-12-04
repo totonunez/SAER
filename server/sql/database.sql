@@ -620,14 +620,9 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 --
 
 COPY public.asigna (roles_id, users_id, createdat, updatedat) FROM stdin;
-1	16	2020-11-27 04:35:52.306	2020-11-27 04:35:52.306
-1	17	2020-11-27 15:56:17.775	2020-11-27 15:56:17.775
-3	18	2020-11-28 00:49:25.182	2020-11-28 00:49:25.182
-3	21	2020-11-28 22:18:25.168	2020-11-28 22:18:25.168
-3	22	2020-11-29 21:12:07.172	2020-11-29 21:12:07.172
-3	23	2020-11-29 21:29:36.896	2020-11-29 21:29:36.896
-3	24	2020-11-29 21:39:31.25	2020-11-29 21:39:31.25
-3	25	2020-11-29 21:50:03.025	2020-11-29 21:50:03.025
+1	33	2020-12-04 04:40:14.763	2020-12-04 04:40:14.763
+3	34	2020-12-04 04:41:06.276	2020-12-04 04:41:06.276
+2	35	2020-12-04 04:41:24.614	2020-12-04 04:41:24.614
 \.
 
 
@@ -645,11 +640,9 @@ COPY public.bodegas (id, n_bodega, capacidad, cantidad_actual) FROM stdin;
 --
 
 COPY public.correos (id, correo, users_id) FROM stdin;
-1	albert@mail.cl	21
-2	albert@mail.cl	22
-3	albert@mail.cl	23
-4	albert@mail.cl	24
-5	alsdasdasdrt@mail.cl	25
+15	admin@mail.cl	33
+16	user@mail.cl	34
+17	mailco@mail.cl	35
 \.
 
 
@@ -692,7 +685,6 @@ COPY public.gastos_comunes (id, fecha_ingreso, fecha_vencimiento, gasto_depto, g
 --
 
 COPY public.involucra (departamentos_id, users_id, createdat, updatedat) FROM stdin;
-1	1	2020-11-29 01:51:18.052	2020-11-29 01:51:18.052
 \.
 
 
@@ -717,7 +709,6 @@ COPY public.productos (id, cod_prod, nombre, cantidad, fecha_modificacion, volum
 --
 
 COPY public.realizas (users_id, reclamos_id) FROM stdin;
-18	3
 \.
 
 
@@ -726,8 +717,6 @@ COPY public.realizas (users_id, reclamos_id) FROM stdin;
 --
 
 COPY public.reclamos (id, n_reclamo, descripcion, respuesta, fecha_ingreso, fecha_modificacion, departamentos_id) FROM stdin;
-3	1	Problemas con el water		2020-11-27	2020-11-27	1
-4	2	problemas con tu perro		2020-11-28	2020-11-28	1
 \.
 
 
@@ -744,9 +733,9 @@ COPY public.revisas (roles_id, productos_id) FROM stdin;
 --
 
 COPY public.roles (id, cod_rol, nombre) FROM stdin;
-1	adm	Administrador
 2	sup	Conserje
 3	usr	Residente
+1	adm	Administrador
 \.
 
 
@@ -755,7 +744,6 @@ COPY public.roles (id, cod_rol, nombre) FROM stdin;
 --
 
 COPY public.supervisas (users_id, reclamos_id) FROM stdin;
-17	4
 \.
 
 
@@ -772,19 +760,9 @@ COPY public.turnos (id, hora_inicio, hora_termino, fecha_inicio, fecha_termino, 
 --
 
 COPY public.users (id, rut, nombre, apellido, telefono_casa, telefono_celular, password) FROM stdin;
-1	123456781	adm	01	0	0	$2a$10$H.abHxceCdgMEz/u7Npxv.YcwrdtDPlPDsArJgcasH7jwpD.4TCM6
-2	123456782	sup	01	0	0	$2a$10$l9HRHY3N8dUmosUwuHan7ONRcoJzcfKC7IOGe8VBLCdNcdkSTHF4K
-3	123456783	usr	01	0	0	$2a$10$fvXEE6Q99v/tfTduWOA/oeEooaZkIsQH.Lql9pKbCdb9zdsy7EtLG
-16	123456785	adm	02	0	0	$2a$10$qvkLVpiHuQWRNq0BV2XQU.Xcdn2U6LJMVPZFbe2k6lJVqlds4wSc6
-17	196443736	albi	urri	0	0	$2a$10$jwsdyNQsAx0aU6oxxFIPw.c4IzOYqMQAAZuFm3O9AhMC8oyR4Mdve
-18	123456787	Alberto	loyola	0	\N	$2a$10$mIKbByAfzGS2WLjLuBbACu0UXPnGPQuhgOxr6X7gqZPtYy0qhqC3K
-19	123456788	Albert	wesker	0	\N	$2a$10$EjsJxAKooyw4PXRa8aOsdeQyVw2RNQGCpkAaWD3Nmm6mRTRokZFc2
-20	123456788	Albert	wesker	0	\N	$2a$10$b46SbCz8TtUe3LWMkd05sevgfhGrt0zZjdWTdxAE0KFIUVgO2KjbS
-21	123456788	Albert	wesker	0	\N	$2a$10$/lTzX2R9K6TI0WIETWzWbuS7XltxD3lsrqnKWQJNnFoX7rv5rJSCy
-22	123456789	Al	w	0	\N	$2a$10$c1/i002lS1BEDqRixkJ1Req.oRWBY2XrpJxdOxFoVvtBEILxtFK.2
-23	123456789	Al	w	0	\N	$2a$10$jzz7K9X8reUVELF4K05oF.rIYIuLM9vyaPTbozBpPmGct5Sg5yRqq
-24	123456789	Al	w	0	\N	$2a$10$nNXgQH031kQKb8BX2LSQUe4OZqrzg4ykYmk1Y9Ui5LclPeSngdcqK
-25	111111111	Al	w	0	\N	$2a$10$/uUFHWM9m2WExHDeiDLNT.Q4wbb72O0aHD/Nw0aSTdSont7YfqZVG
+33	123456781	Admin	01	22182378	932443568	$2a$10$uBYNlsQAkDP4uqp.iLreRuG5lQQfuXn7xc32S5YH5Mfre9hJ5xYha
+34	123456782	User	01	22182371	932443561	$2a$10$vxUJIIwgwJNO0I10OVWxzuylqTHtNXMgJqgtasBC8shTSlD7lBKjC
+35	123456783	Conserje	01	22184289	93233442	pass123
 \.
 
 
@@ -799,7 +777,7 @@ SELECT pg_catalog.setval('public.bodegas_id_seq', 1, true);
 -- Name: correos_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.correos_id_seq', 5, true);
+SELECT pg_catalog.setval('public.correos_id_seq', 18, true);
 
 
 --
@@ -862,14 +840,14 @@ SELECT pg_catalog.setval('public.roles_id_seq', 3, true);
 -- Name: turnos_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.turnos_id_seq', 1, false);
+SELECT pg_catalog.setval('public.turnos_id_seq', 1, true);
 
 
 --
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.users_id_seq', 25, true);
+SELECT pg_catalog.setval('public.users_id_seq', 36, true);
 
 
 --
