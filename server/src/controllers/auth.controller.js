@@ -69,7 +69,7 @@ export const signIn = async (req, res) => {
         const matchPassword = await comparePassword(req.body.password, user.password);
         let user_token = null;
         if(matchPassword){
-            user_token = jwt.sign({id: user.id}, config.SECRET, {expiresIn: 120});
+            user_token = jwt.sign({id: user.id}, config.SECRET, {expiresIn: 3600});
             res.cookie('token', user_token, {httpOnly: true});
             const codRol = user.roles[0].dataValues.cod_rol
             const result = {

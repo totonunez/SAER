@@ -8,24 +8,34 @@ import turnos from '../models/turnos';
 
 export async function updateUsers(req, res) {
     const {id} = req.params;
-    const {rut, nombre, apellido, password} =  req.body;
-    const users = await usuarios.findOne({
-        attributes: ['rut','nombre', 'apellido','password'],
+    const {correo, telefono_casa, telefono_celular, password} =  req.body;
+    const user = await usuarios.findOne({
+        attributes: ['telefono_casa','telefono_celular','password'],
         where: {id}
     });
-    const userUpdate = await usuarios.update({
-        rut,
-        nombre,
-        apellido,
-        password
-    },
-    {
-        where: {id}
-    });
-    res.json({
-        message: 'Usuario actualizado',
-        userUpdate
-    });
+    if(user){
+        console.log(correo, telefono_casa, telefono_celular, password);
+        const userUpdate = await usuarios.update({
+            telefono_casa: telefono_casa,
+            telefono_celular: telefono_celular,
+            password: password
+        },
+        {
+            where: {id}
+        });
+        const correoUpdate = await correos.update({
+            correo: correo
+        },
+        {
+            where: {users_id: id}
+        });
+        res.json({
+            message: 'Usuario actualizado correctamente',
+            resultado: true
+        });
+    }else{
+        res.json({message: "Ha ocurrido un problema al actualizar el usuario", resultado: false})
+    }
 };
 
 export async function deleteUsers(req, res) {
@@ -46,31 +56,55 @@ export async function deleteUsers(req, res) {
             },
             attributes: ['id', 'cod_rol', 'nombre']
         });
-        const depto = await departamentos.findOne({
+        let depto 
+        user.dataValues.departamento ? depto = await departamentos.findOne({
             where: {
                 id: user.dataValues.departamentos[0].dataValues.id
             },
             attributes: ['id', 'n_depto']
+        }) : depto = false;
+        const turno = await turnos.findOne({
+            where: {
+                users_id: id
+            },
+            attributes: ['id']
         });
-        console.log(user,rol,depto);
-        await user.removeRoles([rol]);
-        await user.removeDepartamentos([depto]);
-        await correos.destroy({
+        const realiza = await realizas.findOne({
+            where: {
+                users_id: id
+            },
+            attributes: ['users_id']
+        });
+        const supervisa = await supervisas.findOne({
+            where: {
+                users_id: id
+            },
+            attributes: ['users_id']
+        });
+        const correo = await correos.findOne({
+            where: {
+                users_id: id
+            },
+            attributes: ['users_id']
+        });
+        rol && await user.removeRoles([rol]);
+        depto && await user.removeDepartamentos([depto]);
+        correo && await correos.destroy({
             where: {
                 users_id: id
             }
         });
-        await turnos.destroy({
+        turno && await turnos.destroy({
             where: {
                 users_id: id
             }
         });
-        await realizas.destroy({
+        realiza && await realizas.destroy({
             where: {
                 users_id: id
             }
         });
-        await supervisas.destroy({
+        supervisa && await supervisas.destroy({
             where: {
                 users_id: id
             }
@@ -80,7 +114,7 @@ export async function deleteUsers(req, res) {
                 id
             }
         });
-        res.json({message: 'Usuario eliminado'});
+        res.json({message: 'Usuario eliminado exitosamente'});
     }catch(e){
         console.log(e);
         res.json({message: "Ha ocurrida un problema durante la eliminación del usuario"});
@@ -98,7 +132,11 @@ export async function getUsersId(req, res) {
 
 export async function getAllUsers(req, res) {
     const allUsers = await usuarios.findAll({
-        attributes: ['id', 'rut', 'nombre', 'apellido', 'password'],
+        attributes: ['id', 'rut', 'nombre', 'apellido', 'password', 'telefono_casa', 'telefono_celular',],
+        include: [
+            roles,
+            correos
+        ],
         order: [
             ['id', 'DESC']
         ]

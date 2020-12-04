@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import {Redirect,Link} from 'react-router-dom';
-
-import usuarios from './usuarios.json'
 import UsuariosE from './UsuariosE.js'
 
 export default class AdminUsuariosEliminar extends Component {
@@ -11,10 +9,23 @@ export default class AdminUsuariosEliminar extends Component {
         cod_rol: "",
         verify: undefined,
         message: "",
-        usuarios: usuarios
+        usuarios: []
     };
 
     componentDidMount = async () => {
+        const res = await axios.get("/users/")
+        for(let i = 0; i<res.data.allUsers.length; i++){
+            const usuarios = {
+                id: res.data.allUsers[i].id,  
+                rut: res.data.allUsers[i].rut,
+                nombre: res.data.allUsers[i].nombre,
+                apellido: res.data.allUsers[i].apellido,
+            }
+            this.setState({
+                usuarios: [...this.state.usuarios, usuarios]
+            })
+        }    
+        
         if(this.state.verify !== null){
             const res = await axios.get('/auth/adm/');
             this.setState({

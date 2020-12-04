@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import {Redirect,Link} from 'react-router-dom';
 
-import usuarios from './usuarios.json'
 import Usuarios from './Usuarios.js'
 
 export default class AdminUsuariosEditar extends Component {
@@ -11,10 +10,27 @@ export default class AdminUsuariosEditar extends Component {
         cod_rol: "",
         verify: undefined,
         message: "",
-        usuarios: usuarios
+        usuarios: []
     };
 
     componentDidMount = async () => {
+        const res = await axios.get("/users/")
+        for(let i = 0; i<res.data.allUsers.length; i++){
+            const usuarios = {
+                id: res.data.allUsers[i].id,  
+                rut: res.data.allUsers[i].rut,
+                nombre: res.data.allUsers[i].nombre,
+                apellido: res.data.allUsers[i].apellido,
+                telefono_casa: res.data.allUsers[i].telefono_casa,
+                password: res.data.allUsers[i].password,
+                telefono_celular: res.data.allUsers[i].telefono_celular,
+                roles_id: res.data.allUsers[i].roles[0].id,
+                correo: res.data.allUsers[i].correos[0].correo
+            }
+            this.setState({
+                usuarios: [...this.state.usuarios, usuarios]
+            })
+        }
         if(this.state.verify !== null){
             const res = await axios.get('/auth/adm/');
             this.setState({

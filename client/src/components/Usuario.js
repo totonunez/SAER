@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 class Usuario extends Component {
 
@@ -6,15 +7,48 @@ class Usuario extends Component {
         changeData: false,
         telefono_casa: '',
         telefono_celular: '',
-        correo: ''
+        correo: '',
+        password: '',
+        auxTelefono_casa: '',
+        auxTelefono_celular: '',
+        auxCorreo: '',
+        auxPassword: ''
+    }
+
+    componentDidMount = (props) =>  {
+        console.log(this.props.usuario);
+        this.setState({
+            telefono_casa: this.props.usuario.telefono_casa,
+            telefono_celular: this.props.usuario.telefono_celular,
+            correo: this.props.usuario.correo,
+            password: this.props.usuario.password
+        });
     }
 
     toggleShow = () => {
         this.setState({changeData: !this.state.changeData})
     }
 
-    onSubmit = e => { 
+    onSubmit = async (e, props) => { 
+        e.preventDefault();
      /*   this.props.addReclamo(this.state.descripcion) */
+        const editUsers = {
+            telefono_casa: this.state.auxTelefono_casa,
+            telefono_celular: this.state.auxTelefono_celular,
+            correo: this.state.auxCorreo,
+            password: this.state.auxPassword
+        }
+        const id = this.props.usuario.id
+        const res = await axios.put("/users/"+id, editUsers)
+        alert(res.data.message);
+        res.data.resultado && this.setState({
+            telefono_casa: this.state.auxTelefono_casa,
+            telefono_celular: this.state.auxTelefono_celular,
+            correo: this.state.auxCorreo,
+            password: this.state.auxPassword
+        })
+        this.toggleShow()
+        
     }
 
     onChange = e => {
@@ -34,9 +68,10 @@ class Usuario extends Component {
                     <h6 className="card-subtitle mb-2 text-muted">Nombre: {this.props.usuario.nombre} {this.props.usuario.apellido} </h6>
                     <h6 className="card-subtitle mb-2 text-muted">Datos de Contacto:</h6>
                     <ul className="list-group list-group-flush">
-                        <li className="list-group-item">Telefono de Casa: {this.props.usuario.telefono_casa} </li>
-                        <li className="list-group-item">Telefono Celular: {this.props.usuario.telefono_celular} </li>
-                        <li className="list-group-item">Correo: {this.props.usuario.correo} </li>
+                        <li className="list-group-item">Telefono de Casa: {this.state.telefono_casa} </li>
+                        <li className="list-group-item">Telefono Celular: {this.state.telefono_celular} </li>
+                        <li className="list-group-item">Correo: {this.state.correo} </li>
+                        <li className="list-group-item">Contraseña: ********</li>
                     </ul>
                     <button onClick={this.toggleShow}> Editar Datos</button>
                 </div>
@@ -48,7 +83,7 @@ class Usuario extends Component {
                 <div className="card-body">
                     <h5 className="card-title">Usuario: {this.props.usuario.rut} </h5>
                     <h6 className="card-subtitle mb-2 text-muted">Nombre: {this.props.usuario.nombre} {this.props.usuario.apellido} </h6>
-                <form> 
+                <form onSubmit = {this.onSubmit}> 
             <div className="input-group mb-3">
                 
                 <div className="input-group-prepend">
@@ -56,12 +91,12 @@ class Usuario extends Component {
                 </div>
                 <input 
                 type="text" 
-                name="telefono_casa"
+                name="auxTelefono_casa"
                 className="form-control" 
                 aria-label="Default" 
                 aria-describedby="inputGroup-sizing-default"    
                 onChange={this.onChange}
-                value={this.state.telefono_casa}            
+                value={this.state.auxTelefono_casa}            
                 />
             </div>  
             <div className="input-group mb-3">
@@ -70,12 +105,12 @@ class Usuario extends Component {
                 </div>
                 <input 
                 type="text" 
-                name="telefono_celular"
+                name="auxTelefono_celular"
                 className="form-control" 
                 aria-label="Default" 
                 aria-describedby="inputGroup-sizing-default"  
                 onChange={this.onChange}
-                value={this.state.telefono_celular}              
+                value={this.state.auxTelefono_celular}              
                 />
             </div>  
             <div className="input-group mb-3">
@@ -84,12 +119,26 @@ class Usuario extends Component {
                 </div>
                 <input 
                 type="text" 
-                name="correo"
+                name="auxCorreo"
                 className="form-control" 
                 aria-label="Default" 
                 aria-describedby="inputGroup-sizing-default"  
                 onChange={this.onChange}
-                value={this.state.correo}              
+                value={this.state.auxCorreo}              
+                />
+            </div>
+            <div className="input-group mb-3">
+                <div className="input-group-prepend">
+                    <span className="input-group-text" id="inputGroup-sizing-default">Password</span>
+                </div>
+                <input 
+                type="password" 
+                name="auxPassword"
+                className="form-control" 
+                aria-label="Default" 
+                aria-describedby="inputGroup-sizing-default"  
+                onChange={this.onChange}
+                value={this.state.auxPassword}              
                 />
             </div>  
             <button type="submit" className="btn btn-primary">Cambiar Datos</button>

@@ -14,7 +14,7 @@ export default class AdminUsuariosCrear extends Component {
         usuarios: usuarios
     };
 
-    addUsuario = ( rut, nombre, apellido, telefono_casa, telefono_celular, roles_id, correo, password) => {
+    addUsuario = async ( rut, nombre, apellido, telefono_casa, telefono_celular, roles_id, correo, password) => {
         const newUsuario = {
             rut: rut,
             nombre: nombre,
@@ -25,11 +25,8 @@ export default class AdminUsuariosCrear extends Component {
             correo: correo,
             password: password
         }
-        axios.post("/auth/signup", newUsuario)
-        this.setState({
-            usuarios: [...this.state.usuarios, newUsuario]
-        })
-        console.log(this.state.usuarios);
+        const res = await axios.post("/auth/signup", newUsuario)
+        alert(res.data.message)
     }
 
     componentDidMount = async () => {
