@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import axios from 'axios'
 
 export default class CrearForm extends Component {
 
@@ -10,11 +11,25 @@ export default class CrearForm extends Component {
         gastosbodega: '',
         gastosestacionamiento: '',
         gastosagua: '',
-        gastosvarios: ''
+        porcentajeInteres: '',
+        message: false
     }
 
-    onSubmit = e => { 
-        this.props.addGasto(this.state.depto, this.state.fechaingreso, this.state.fechavencimiento, this.state.gastosdepto, this.state.gastosbodega,this.state.gastosestacionamiento, this.state.gastosagua , this.state.gastosvarios)
+    onSubmit = async e => { 
+        e.preventDefault();
+        const res = await axios.get("http://localhost:4000/departamentos/"+this.state.depto)
+        res.data.result ? this.props.addGasto(
+          res.data.depto.id,
+          this.state.fechaingreso,
+          this.state.fechavencimiento,
+          this.state.gastosdepto,
+          this.state.gastosbodega,
+          this.state.gastosestacionamiento,
+          this.state.gastosagua, 
+          this.state.porcentajeInteres
+        ) : this.setState({
+          message: true
+        })
     }
 
     onChange = e => {
@@ -51,6 +66,7 @@ export default class CrearForm extends Component {
                 className="form-control" 
                 aria-label="Default" 
                 aria-describedby="inputGroup-sizing-default"
+                placeholder="FECHA-MES-DIA"
                 onChange={this.onChange}
                 value={this.state.fechaingreso}
                 />
@@ -65,6 +81,7 @@ export default class CrearForm extends Component {
                 className="form-control" 
                 aria-label="Default" 
                 aria-describedby="inputGroup-sizing-default"
+                placeholder="FECHA-MES-DIA"
                 onChange={this.onChange}
                 value={this.state.fechavencimiento}
                 />
@@ -127,19 +144,20 @@ export default class CrearForm extends Component {
             </div>
             <div className="input-group mb-3">
               <div className="input-group-prepend">
-                <span className="input-group-text">Gastos Varios</span>
+                <span className="input-group-text">Porcentaje de interes</span>
                 <span className="input-group-text">$</span>
               </div>
               <input 
               type="text" 
-              name="gastosvarios"
+              name="porcentajeInteres"
               className="form-control" 
               aria-label="Amount (to the nearest dollar)"
               onChange={this.onChange}
-              value={this.state.gastosvarios}
+              value={this.state.porcentajeInteres}
               />
             </div>
             <button type="submit" className="btn btn-primary">Subir Gastos a Planilla</button>
+            {this.state.message && <p className="text-white mt-2">El departamento no existe</p> }
         </form>
         )
     }

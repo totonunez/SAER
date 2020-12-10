@@ -12,16 +12,16 @@ const gastosComunes = database.define('gastos_comunes',{
     fecha_vencimiento:{
         type: sequelize.DATE
     },
-    gastos_depto:{
+    gasto_depto:{
         type: sequelize.INTEGER
     },
-    gastos_bodega:{
+    gasto_bodega:{
         type: sequelize.INTEGER
     },
-    gastos_estacionamiento:{
+    gasto_estacionamiento:{
         type: sequelize.INTEGER
     },
-    gastos_agua:{
+    gasto_agua:{
         type: sequelize.INTEGER
     },
     porcentaje_interes:{

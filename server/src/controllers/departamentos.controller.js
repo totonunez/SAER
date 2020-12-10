@@ -13,7 +13,7 @@ export async function getAllDepartamentos(req, res) {
 
 export async function getDepartamentosNdepto(req, res) {
     const {n_depto} = req.params;
-    const depto = await turnos.findOne({
+    const depto = await departamentos.findOne({
         where:{
             n_depto
         },
@@ -22,7 +22,7 @@ export async function getDepartamentosNdepto(req, res) {
             users
         ]
     });
-    res.json({depto: depto});
+    depto ? res.json({result: true, depto: depto}) : res.json({result: false});
 };
 
 export async function createDepartamentos(req, res) {

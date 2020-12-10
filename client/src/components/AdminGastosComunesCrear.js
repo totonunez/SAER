@@ -14,21 +14,20 @@ export default class AdminGastosComunesCrear extends Component {
         gastos: gastos
     };
 
-    addGasto = (depto,fechaingreso,fechavencimiento,gastosdepto,gastosbodega,gastosestacionamiento,gastosagua,gastosvarios) => {
+    addGasto = async (depto,fechaingreso,fechavencimiento,gastosdepto,gastosbodega,gastosestacionamiento,gastosagua, porcentajeInteres) => {
         const newGasto = {
-            id: this.state.gastos.length,
-            depto: depto,
-            fechaingreso: fechaingreso,
-            fechavencimiento: fechavencimiento,
-            gastosdepto: gastosdepto,
-            gastosbodega: gastosbodega,
-            gastosestacionamiento: gastosestacionamiento,
-            gastosagua: gastosagua,
-            gastosvarios: gastosvarios
+            departamentos_id: depto,
+            fecha_ingreso: fechaingreso,
+            fecha_vencimiento: fechavencimiento,
+            gasto_depto: gastosdepto,
+            gasto_bodega: gastosbodega,
+            gasto_estacionamiento: gastosestacionamiento,
+            gasto_agua: gastosagua,                                                                                         
+            porcentaje_interes: porcentajeInteres,
+            estado: false
         }
-        this.setState({
-            gastos: [...this.state.gastos, newGasto]
-        })
+        const res = await axios.post("http://localhost:4000/gastosComunes/createGastosComunes", newGasto)
+        alert(res.data.message)
     }
 
     componentDidMount = async () => {

@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import {Redirect,Link} from 'react-router-dom';
-
-import gastos from './gastos.json'
 import Gastos from './Gastos.js'
 
 export default class AdminGastosComunesRevisar extends Component {
@@ -11,11 +9,28 @@ export default class AdminGastosComunesRevisar extends Component {
         cod_rol: "",
         verify: undefined,
         message: "",
-        gastos: gastos
+        gastos: []
         
     };
 
     componentDidMount = async () => {
+        const res = await axios.get("/gastosComunes/")
+        for(let i = 0; i<res.data.GastosComunes.length; i++){
+            const gastos = {
+                id: res.data.GastosComunes[0].id,
+                depto: res.data.GastosComunes[0].departamento.id,
+                fechaingreso: res.data.GastosComunes[0].fecha_ingreso,
+                fechavencimiento: res.data.GastosComunes[0].fecha_vencimiento,
+                gastosdepto: res.data.GastosComunes[0].gasto_depto,
+                gastosbodega: res.data.GastosComunes[0].gasto_bodega,
+                gastosestacionamiento: res.data.GastosComunes[0].gasto_estacionamiento,
+                gastosagua: res.data.GastosComunes[0].gasto_agua,
+                gastosvarios: res.data.GastosComunes[0].estado
+            }
+            this.setState({
+                gastos: [...this.state.gastos, gastos]
+            })
+        }
         if(this.state.verify !== null){
             const res = await axios.get('/auth/adm/');
             this.setState({
