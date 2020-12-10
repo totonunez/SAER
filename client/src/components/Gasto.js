@@ -2,6 +2,20 @@ import React, { Component } from 'react';
 
 class Gasto extends Component {
 
+    state = {
+        id: null,
+        depto: null,
+        fechaIngreso: null,
+        fechaVencimiento: null,
+        gastoDepto: null,
+        gastoAgua: null,
+        gastoBodega: null,
+        gastoEstacionamiento: null,
+        estado: null,
+        changeEstado: false,
+        changeCard: false
+    }
+
     render(){
         return(
             <div className="card">
@@ -17,8 +31,12 @@ class Gasto extends Component {
                         <li className="list-group-item">Gasto Agua: {this.props.gasto.gastosagua}</li>
                         <li className="list-group-item">Gasto Bodega: {this.props.gasto.gastosbodega}</li>
                         <li className="list-group-item">Gasto Estacionamiento: {this.props.gasto.gastosestacionamiento}</li>
-                        <li className="list-group-item">Gastos Varios: {this.props.gasto.gastosvarios}</li>
+                        <li className="list-group-item mb-3">Estado: {this.props.gasto.gastosvarios ? <p className="mt-3">Pagado</p> : <p className="mt-3">No pagado</p>}</li>
                     </ul>
+                    <div className="row">
+                        <button className="btn btn-primary col-xs-12 col-md-4 mr-3" /*onClick={this.toggleShow}*/> Editar Datos</button>
+                        <button className="btn btn-primary col-xs-12 col-md-4 mr-3" /*onClick={this.toggleShow}*/> Cambiar Estado</button>
+                    </div>
                 </div>
             </div>
         )
