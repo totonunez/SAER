@@ -82,3 +82,21 @@ export async function deleteGastosComunes(req, res) {
     });
     res.json({message: "Gasto común eliminado exitosamente"});
 };
+
+export async function updateEstadoGastosComunes(req, res) {
+    try{
+        const {estado, id} = req.body;
+        console.log(estado);
+        const updateEstado = await gastosComunes.update({
+            estado
+        },{
+            where: {
+                id
+            } 
+        });
+        res.json({message: "Estado actualizado correctamente", estado: estado, result: true});
+    }catch(e){
+        console.log(e);
+        res.json({message: "Ha ocurrido un error al actualizar el estado", result: false});
+    }
+};
