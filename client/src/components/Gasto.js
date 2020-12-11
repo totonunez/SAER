@@ -14,15 +14,23 @@ class Gasto extends Component {
         gastoEstacionamiento: null,
         estado: false,
         changeEstado: false,
-        changeCard: false
+        changeCard: false,
+        auxFechaIngreso: null,
+        auxFechaVencimiento: null,
+        auxGastoDepto: null,
+        auxGastoAgua: null,
+        auxGastoBodega: null,
+        auxGastoEstacionamiento: null,
     }
 
     componentDidMount = (props) => {
+        console.log(this.props.gastosbodega);
         this.setState({
             id: this.props.gasto.id,
             depto: this.props.gasto.depto,
             fechaIngreso: this.props.gasto.fechaingreso,
             fechaVencimiento: this.props.gasto.fechavencimiento,
+            gastoBodega: this.props.gasto.gastosbodega,
             gastoDepto:  this.props.gasto.gastosdepto,
             gastoAgua: this.props.gasto.gastosagua,
             gastoEstacionamiento: this.props.gasto.gastosestacionamiento,
@@ -47,30 +55,163 @@ class Gasto extends Component {
         alert(res.data.message)
     }
 
+    changeCard = async () => {
+        this.setState({
+            changeCard: !this.state.changeCard
+        })
+    }
+
+    onChange = e => {
+        this.setState({
+            [e.target.name]: e.target.value
+        })        
+    }
+
+    onSubmit = async (e) => {
+        e.preventDefault()
+        const updateGasto = {
+            id: this.state.id,
+            fecha_ingreso: this.state.auxFechaIngreso,
+            fecha_vencimiento: this.state.auxFechaVencimiento,
+            gasto_depto: this.state.auxGastoDepto,
+            gasto_bodega: this.state.auxGastoBodega,
+            gasto_estacionamiento: this.state.auxGastoEstacionamiento,
+            gasto_agua: this.state.auxGastoAgua
+        }
+        const res = await axios.put("/gastosComunes/updateGastosComunes", updateGasto)
+        res.data.result && this.setState({
+            fechaIngreso: this.state.auxFechaIngreso,
+            fechaVencimiento: this.state.auxFechaVencimiento,
+            gastoDepto: this.state.auxGastoDepto,
+            gastoBodega: this.state.auxGastoBodega,
+            gastoEstacionamiento: this.state.auxGastoEstacionamiento,
+            gastoAgua: this.state.auxGastoAgua
+        })
+        alert(res.data.message)
+        res.data.result && this.changeCard()
+    }
+
     render(){
-        return(
-            <div className="card">
+        if(this.state.changeCard)
+            return <div className="card">
                 <div className="card-body">
-                    <h5 className="card-title">Gasto Común </h5>
+                    <h5 className="card-title">Gasto Común</h5>
                     <h6 className="card-subtitle mb-2 text-muted">Numero ° {this.state.id}</h6>
                     <h6 className="card-subtitle mb-2 text-muted">Depto: {this.state.depto}</h6>
-                    <p className="card-text">Este Gasto Común corresponde a la fecha del: {this.state.fechaIngreso}</p>
-                    <p className="card-text">Fecha de Vencimiento: {this.state.fechaVencimiento}</p>
-                    <h6 className="card-subtitle mb-2 text-muted">Desglose de gastos:</h6>
-                    <ul className="list-group list-group-flush">
-                        <li className="list-group-item">Gasto Depto: {this.state.gastoDepto} </li>
-                        <li className="list-group-item">Gasto Agua: {this.state.gastoAgua}</li>
-                        <li className="list-group-item">Gasto Bodega: {this.state.gastoBodega}</li>
-                        <li className="list-group-item">Gasto Estacionamiento: {this.state.gastoEstacionamiento}</li>
-                        <li className="list-group-item mb-3">Estado: {this.state.estado ? <p className="mt-3">Pagado</p> : <p className="mt-3">No pagado</p>}</li>
-                    </ul>
+                    <div className="input-group mb-3">                
+                        <div className="input-group-prepend">
+                            <span className="input-group-text" id="inputGroup-sizing-default">Fecha de ingreso:</span>
+                        </div>
+                        <input 
+                            type="text" 
+                            name="auxFechaIngreso"
+                            className="form-control"
+                            placeHolder="AÑO-MES-DIA" 
+                            aria-label="Default" 
+                            aria-describedby="inputGroup-sizing-default"    
+                            onChange={this.onChange}
+                            value={this.state.auxFechaIngreso}            
+                        />
+                    </div>  
+                    <div className="input-group mb-3">                
+                        <div className="input-group-prepend">
+                            <span className="input-group-text" id="inputGroup-sizing-default">Fecha de vencimiento:</span>
+                        </div>
+                        <input 
+                            type="text" 
+                            name="auxFechaVencimiento"
+                            className="form-control"
+                            placeHolder="AÑO-MES-DIA" 
+                            aria-label="Default" 
+                            aria-describedby="inputGroup-sizing-default"    
+                            onChange={this.onChange}
+                            value={this.state.auxFechaVencimiento}            
+                        />
+                    </div> 
+                    <div className="input-group mb-3">                
+                        <div className="input-group-prepend">
+                            <span className="input-group-text" id="inputGroup-sizing-default">Gasto de Depto:</span>
+                        </div>
+                        <input 
+                            type="text" 
+                            name="auxGastoDepto"
+                            className="form-control" 
+                            aria-label="Default" 
+                            aria-describedby="inputGroup-sizing-default"    
+                            onChange={this.onChange}
+                            value={this.state.auxGastoDepto}            
+                        />
+                    </div>
+                    <div className="input-group mb-3">                
+                        <div className="input-group-prepend">
+                            <span className="input-group-text" id="inputGroup-sizing-default">Gasto de agua:</span>
+                        </div>
+                        <input 
+                            type="text" 
+                            name="auxGastoAgua"
+                            className="form-control" 
+                            aria-label="Default" 
+                            aria-describedby="inputGroup-sizing-default"    
+                            onChange={this.onChange}
+                            value={this.state.auxGastoAgua}            
+                        />
+                    </div>
+                    <div className="input-group mb-3">                
+                        <div className="input-group-prepend">
+                            <span className="input-group-text" id="inputGroup-sizing-default">Gasto de bodega:</span>
+                        </div>
+                        <input 
+                            type="text" 
+                            name="auxGastoBodega"
+                            className="form-control" 
+                            aria-label="Default" 
+                            aria-describedby="inputGroup-sizing-default"    
+                            onChange={this.onChange}
+                            value={this.state.auxGastoBodega}            
+                        />
+                    </div>
+                    <div className="input-group mb-3">                
+                        <div className="input-group-prepend">
+                            <span className="input-group-text" id="inputGroup-sizing-default">Gasto de estacionamiento:</span>
+                        </div>
+                        <input 
+                            type="text" 
+                            name="auxGastoEstacionamiento"
+                            className="form-control" 
+                            aria-label="Default" 
+                            aria-describedby="inputGroup-sizing-default"    
+                            onChange={this.onChange}
+                            value={this.state.auxGastoEstacionamiento}            
+                        />
+                    </div>  
                     <div className="row">
-                        <button className="btn btn-primary col-xs-12 col-md-4 mr-3" /*onClick={this.toggleShow}*/> Editar Datos</button>
-                        <button className="btn btn-primary col-xs-12 col-md-4 mr-3" onClick={this.changeEstado}> Cambiar Estado</button>
+                        <button className="btn btn-primary col-xs-12 col-md-4 mr-3" onClick={this.onSubmit}>Actualizar datos</button>
+                        <button className="btn btn-primary col-xs-12 col-md-4 mr-3" onClick={this.changeCard}>Volver</button>
+                    </div>
+                </div>  
+            </div>
+        else
+            return <div className="card">
+                    <div className="card-body">
+                        <h5 className="card-title">Gasto Común </h5>
+                        <h6 className="card-subtitle mb-2 text-muted">Numero ° {this.state.id}</h6>
+                        <h6 className="card-subtitle mb-2 text-muted">Depto: {this.state.depto}</h6>
+                        <p className="card-text">Este Gasto Común corresponde a la fecha del: {this.state.fechaIngreso}</p>
+                        <p className="card-text">Fecha de Vencimiento: {this.state.fechaVencimiento}</p>
+                        <h6 className="card-subtitle mb-2 text-muted">Desglose de gastos:</h6>
+                        <ul className="list-group list-group-flush">
+                            <li className="list-group-item">Gasto Depto: {this.state.gastoDepto} </li>
+                            <li className="list-group-item">Gasto Agua: {this.state.gastoAgua}</li>
+                            <li className="list-group-item">Gasto Bodega: {this.state.gastoBodega}</li>
+                            <li className="list-group-item">Gasto Estacionamiento: {this.state.gastoEstacionamiento}</li>
+                            <li className="list-group-item mb-3">Estado: {this.state.estado ? <p className="mt-3">Pagado</p> : <p className="mt-3">No pagado</p>}</li>
+                        </ul>
+                        <div className="row">
+                            <button className="btn btn-primary col-xs-12 col-md-4 mr-3" onClick={this.changeCard}> Editar Datos</button>
+                            <button className="btn btn-primary col-xs-12 col-md-4 mr-3" onClick={this.changeEstado}> Cambiar Estado</button>
+                        </div>
                     </div>
                 </div>
-            </div>
-        )
     }
 
 }

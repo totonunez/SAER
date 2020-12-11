@@ -17,7 +17,6 @@ class UGasto extends Component {
                         <li className="list-group-item">Gasto Agua: {this.props.gasto.gastosagua}</li>
                         <li className="list-group-item">Gasto Bodega: {this.props.gasto.gastosbodega}</li>
                         <li className="list-group-item">Gasto Estacionamiento: {this.props.gasto.gastosestacionamiento}</li>
-                        <li className="list-group-item">Gastos Varios: {this.props.gasto.gastosvarios}</li>
                     </ul>
                 </div>
             </div>

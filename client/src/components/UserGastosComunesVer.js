@@ -11,10 +11,29 @@ export default class UserGastosComunesVer extends Component {
         cod_rol: "",
         verify: undefined,
         message: "",
-        gastos: gastos
+        gastos: []
     };
 
     componentDidMount = async () => {
+        const res = await axios.get("/gastosComunes/")
+        console.log(res);
+        for(let i = 0; i<res.data.GastosComunes.length; i++){
+            const gastos = {
+                id: res.data.GastosComunes[i].id,
+                depto: res.data.GastosComunes[i].departamento.id,
+                fechaingreso: res.data.GastosComunes[i].fecha_ingreso,
+                fechavencimiento: res.data.GastosComunes[i].fecha_vencimiento,
+                gastosdepto: res.data.GastosComunes[i].gasto_depto,
+                gastosbodega: res.data.GastosComunes[i].gasto_bodega,
+                gastosestacionamiento: res.data.GastosComunes[i].gasto_estacionamiento,
+                gastosagua: res.data.GastosComunes[i].gasto_agua,
+                gastosvarios: res.data.GastosComunes[i].estado
+            }
+            console.log(res.data.GastosComunes[0].gasto_bodega);
+            this.setState({
+                gastos: [...this.state.gastos, gastos]
+            })
+        }
         if(this.state.verify !== null){
             const res = await axios.get('/auth/usr/');
             this.setState({

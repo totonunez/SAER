@@ -15,18 +15,20 @@ export default class AdminGastosComunesRevisar extends Component {
 
     componentDidMount = async () => {
         const res = await axios.get("/gastosComunes/")
+        console.log(res);
         for(let i = 0; i<res.data.GastosComunes.length; i++){
             const gastos = {
-                id: res.data.GastosComunes[0].id,
-                depto: res.data.GastosComunes[0].departamento.id,
-                fechaingreso: res.data.GastosComunes[0].fecha_ingreso,
-                fechavencimiento: res.data.GastosComunes[0].fecha_vencimiento,
-                gastosdepto: res.data.GastosComunes[0].gasto_depto,
-                gastosbodega: res.data.GastosComunes[0].gasto_bodega,
-                gastosestacionamiento: res.data.GastosComunes[0].gasto_estacionamiento,
-                gastosagua: res.data.GastosComunes[0].gasto_agua,
-                gastosvarios: res.data.GastosComunes[0].estado
+                id: res.data.GastosComunes[i].id,
+                depto: res.data.GastosComunes[i].departamento.id,
+                fechaingreso: res.data.GastosComunes[i].fecha_ingreso,
+                fechavencimiento: res.data.GastosComunes[i].fecha_vencimiento,
+                gastosdepto: res.data.GastosComunes[i].gasto_depto,
+                gastosbodega: res.data.GastosComunes[i].gasto_bodega,
+                gastosestacionamiento: res.data.GastosComunes[i].gasto_estacionamiento,
+                gastosagua: res.data.GastosComunes[i].gasto_agua,
+                gastosvarios: res.data.GastosComunes[i].estado
             }
+            console.log(res.data.GastosComunes[0].gasto_bodega);
             this.setState({
                 gastos: [...this.state.gastos, gastos]
             })
@@ -116,15 +118,6 @@ export default class AdminGastosComunesRevisar extends Component {
                     </li>
                     <li className="nav-item col-xs-12 col-md-4">
                         <a className="nav-link active" href='/users/adm/gastos/crear'>Ingresar Gastos Comunes</a>
-                    </li>
-                    <li className="nav-item col-xs-12 col-md-4 mt-3">
-                        <a className="nav-link active" href='/users/adm/gastos/crear'>Ingresar Detalles Gastos</a>
-                    </li>
-                    <li className="nav-item col-xs-12 col-md-4 mt-3">
-                        <a className="nav-link active" href='/users/adm/gastos/crear'>Revisar Detalles Gastos</a>
-                    </li>
-                    <li className="nav-item col-xs-12 col-md-4 mt-3">
-                        <a className="nav-link active" href='/users/adm/gastos/crear'>Eliminar Detalles Gastos</a>
                     </li>
                 </ul>
                 <br/>

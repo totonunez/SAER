@@ -12,7 +12,7 @@ export async function getAllMovimientos(req, res) {
 
 export async function getMovimientosCuentasCorrientesId(req, res) {
     const {cuentas_corrientes_id} = req.params;
-    const movimiento = await movimientos.findOne({
+    const movimiento = await movimientos.findAll({
         where:{
             cuentas_corrientes_id
         },
@@ -23,19 +23,19 @@ export async function getMovimientosCuentasCorrientesId(req, res) {
 
 export async function createMovimientos(req, res) {
     const {nombre_movimiento, monto, cuentas_corrientes_id} = req.body;
-    const newMovimiento = await correos.create({
+    const newMovimiento = await movimientos.create({
         nombre_movimiento,
         monto,
         cuentas_corrientes_id
     },{
         fields: ['nombre_movimiento', 'monto', 'cuentas_corrientes_id']
     });
-    res.json({message: "Movimiento creado exitosamente", movimiento: newMovimiento});
+    res.json({message: "Movimiento creado exitosamente", movimiento: newMovimiento, result: true});
 };
 
 export async function updateMovimientos(req, res) {
     const {id, nombre_movimiento, monto, cuentas_corrientes_id} = req.body;
-    const updateMovimiento = await correos.update({
+    const updateMovimiento = await movimientos.update({
         nombre_movimiento,
         monto,
         cuentas_corrientes_id
@@ -49,10 +49,10 @@ export async function updateMovimientos(req, res) {
 
 export async function deleteMovimientos(req, res) {
     const {id} = req.params;
-    await correos.destroy({
+    const drop = await movimientos.destroy({
         where: {
             id: id
         }
     });
-    res.json({message: "Movimiento eliminado exitosamente"});
+    drop ? res.json({message: "Movimiento eliminado exitosamente", result: true}) : res.json({message: "Movimiento no encontrado", result: false})
 };

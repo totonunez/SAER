@@ -7,7 +7,7 @@ import * as movimientos from '../controllers/movimientos.controller.js';
 router.get('/', movimientos.getAllMovimientos);
 router.post('/createMovimientos', movimientos.createMovimientos);
 router.put('/updateMovimientos', movimientos.updateMovimientos);
-router.delete('/deleteMovimientos', movimientos.deleteMovimientos);
+router.delete('/:id', movimientos.deleteMovimientos);
 
 // movimientos/:cuentas_corrientes_id
 

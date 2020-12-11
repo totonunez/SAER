@@ -87,18 +87,17 @@ export default class AdminGastosComunes extends Component {
                 </nav>
                 <div>
                 <h1> <span className="badge badge-secondary">Gestionar Gastos Comunes</span></h1>
-                <ul className="nav nav-pills nav-fill">
-  <li className="nav-item">
-  <a className="nav-link active" href='/users/adm/gastos/cuenta'>Revisar Cuentas</a>
-  </li>                    
-  <li className="nav-item">
-    <a className="nav-link active" href='/users/adm/gastos/revisar'>Revisar Gastos Comunes</a>
-  </li>
-  <li className="nav-item">
-  <a className="nav-link active" href='/users/adm/gastos/crear'>Ingresar Gastos Comunes</a>
-  </li>
-  
-</ul>
+                <ul className="nav nav-pills nav-fill row">
+                    <li className="nav-item col-xs-12 col-md-4">
+                        <a className="nav-link active" href='/users/adm/gastos/cuenta'>Revisar Cuentas</a>
+                    </li>                    
+                    <li className="nav-item col-xs-12 col-md-4">
+                        <a className="nav-link active" href='/users/adm/gastos/revisar'>Revisar Gastos Comunes</a>
+                    </li>
+                    <li className="nav-item col-xs-12 col-md-4">
+                        <a className="nav-link active" href='/users/adm/gastos/crear'>Ingresar Gastos Comunes</a>
+                    </li>
+                </ul>
 <div className="jumbotron jumbotron-fluid">
   <div className="container">
   <br/>

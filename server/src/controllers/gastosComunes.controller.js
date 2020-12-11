@@ -54,23 +54,25 @@ export async function createGastosComunes(req, res) {
 };
 
 export async function updateGastosComunes(req, res) {
-    const {id, fecha_ingreso, fecha_vencimiento, gasto_depto, gasto_bodega, gasto_estacionamiento, gasto_agua, porcentaje_interes, estado, departamentos_id} = req.body;
-    const updateGastoComun = await gastosComunes.update({
-        fecha_ingreso,
-        fecha_vencimiento,
-        gasto_depto,
-        gasto_bodega,
-        gasto_estacionamiento,
-        gasto_agua,
-        porcentaje_interes,
-        estado,
-        departamentos_id
-    },{
-        where: {
-            id
-        } 
-    });
-    res.json({message: "Gasto común actualizado exitosamente", gastoComun: updateGastoComun});
+    const {id, fecha_ingreso, fecha_vencimiento, gasto_depto, gasto_bodega, gasto_estacionamiento, gasto_agua} = req.body;
+    try{
+        const updateGastoComun = await gastosComunes.update({
+            fecha_ingreso,
+            fecha_vencimiento,
+            gasto_depto,
+            gasto_bodega,
+            gasto_estacionamiento,
+            gasto_agua
+        },{
+            where: {
+                id
+            } 
+        });
+        res.json({message: "Gasto común actualizado exitosamente", result: true});
+    }catch(e){
+        console.log(e);
+        res.json({message: "Hubo un problema al actualizar el gasto común", result: false});
+    }
 };
 
 export async function deleteGastosComunes(req, res) {

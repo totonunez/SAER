@@ -2,7 +2,7 @@ import cuentas_corrientes from '../models/cuentasCorrientes';
 
 export async function getAllCuentasCorrientes(req, res) {
     const allCuentasCorrientes = await cuentas_corrientes.findAll({
-        attributes: ['id', 'deuda_total', 'abono','total_pago','departamentos_id'],
+        attributes: ['id', 'deuda_total', 'abono','total_pago','departamentos_id','n_cuenta'],
         order: [
             ['id', 'DESC']
         ]
@@ -48,7 +48,7 @@ export async function updateCuentasCorrientes(req, res) {
             n_cuenta
         } 
     });
-    res.json({message: "Cuenta corriente actualizada exitosamente", cuenta: updateCuentaCorriente});
+    res.json({message: "Cuenta corriente actualizada exitosamente", cuenta: updateCuentaCorriente, result: true});
 };
 
 export async function deleteCuentasCorrientes(req, res) {

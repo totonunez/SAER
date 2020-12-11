@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import {Redirect,Link} from 'react-router-dom';
 
-import movimientos from './movimientos.json'
 import Movimientos from './Movimientos.js'
 
 
@@ -12,10 +11,21 @@ export default class AdminGastosComunesHistorial extends Component {
         cod_rol: "",
         verify: undefined,
         message: "",
-        movimientos: movimientos
+        movimientos: []
     };
 
-    componentDidMount = async () => {
+    componentDidMount = async (props) => {
+        const res = await axios.get("/movimientos/"+this.props.location.state.cuentaId)
+        for(let i = 0; i<res.data.movimiento.length; i++){
+            const movimientos = {
+                id: res.data.movimiento[i].id,
+                nombre: res.data.movimiento[i].nombre_movimiento,
+                monto: res.data.movimiento[i].monto,
+            }
+            this.setState({
+                movimientos: [...this.state.movimientos, movimientos]
+            })
+        }
         if(this.state.verify !== null){
             const res = await axios.get('/auth/adm/');
             this.setState({
@@ -92,17 +102,17 @@ export default class AdminGastosComunesHistorial extends Component {
                 </nav>
                 <div>
                     <h1> <span className="badge badge-secondary">Gestionar Gastos Comunes</span></h1>
-                        <ul className="nav nav-pills nav-fill">
-                            <li className="nav-item">
-                                <a className="nav-link active" href='/users/adm/gastos/cuenta'>Revisar Cuentas</a>
-                            </li>                    
-                            <li className="nav-item">
-                                <a className="nav-link active" href='/users/adm/gastos/revisar'>Revisar Gastos Comunes</a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link active" href='/users/adm/gastos/crear'>Ingresar Gastos Comunes</a>
-                            </li>
-                        </ul>
+                    <ul className="nav nav-pills nav-fill row">
+                    <li className="nav-item col-xs-12 col-md-4">
+                        <a className="nav-link active" href='/users/adm/gastos/cuenta'>Revisar Cuentas</a>
+                    </li>                    
+                    <li className="nav-item col-xs-12 col-md-4">
+                        <a className="nav-link active" href='/users/adm/gastos/revisar'>Revisar Gastos Comunes</a>
+                    </li>
+                    <li className="nav-item col-xs-12 col-md-4">
+                        <a className="nav-link active" href='/users/adm/gastos/crear'>Ingresar Gastos Comunes</a>
+                    </li>
+                </ul>
 
                     <Movimientos movimientos = {this.state.movimientos}/>
 
