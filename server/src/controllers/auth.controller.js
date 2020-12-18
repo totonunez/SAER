@@ -96,19 +96,17 @@ export const verifyAdm = async (req, res) => {
         res.json({resul: null, cod_rol: "", message: "Su sesión ha expirado"});
     }else{
         const decoded = jwt.verify(token, config.SECRET)
-        let id = decoded.id;
         const user = await usuarios.findOne({
-            where: {id},
-            attributes: ['roles_id']
+            where: {
+                id: decoded.id
+            },
+            include: [
+                roles
+            ]
         });
-        id = user.roles_id;
-        const rol = await roles.findOne({
-            where: {id},
-            attributes: ['cod_rol']
-        });
-        rol.cod_rol === "adm" ? res.json({resul: true, cod_rol: rol.cod_rol, message: ""}) : res.json({
+        user.dataValues.roles[0].dataValues.cod_rol === "adm" ? res.json({resul: true, cod_rol: user.dataValues.roles[0].dataValues.cod_rol}) : res.json({
             resul: false, 
-            cod_rol: rol.cod_rol, 
+            cod_rol: user.dataValues.roles[0].dataValues.cod_rol, 
             message: "Su usuario no se encuentra autorizado para acceder a esta interfaz"
         });
     } 
@@ -123,15 +121,17 @@ export const verifySup = async (req, res) => {
         res.json({resul: null, cod_rol: "", message: "Su sesión ha expirado"});
     }else{
         const decoded = jwt.verify(token, config.SECRET)
-        let id = decoded.id;
         const user = await usuarios.findOne({
-            where: {id},
-            attributes: ['roles_id']
+            where: {
+                id: decoded.id
+            },
+            include: [
+                roles
+            ]
         });
-        id = user.roles_id;
-        rol.cod_rol === "sup" ? res.json({resul: true, cod_rol: rol.cod_rol, message: ""}) : res.json({
+        user.dataValues.roles[0].dataValues.cod_rol === "sup" ? res.json({resul: true, cod_rol: user.dataValues.roles[0].dataValues.cod_rol}) : res.json({
             resul: false, 
-            cod_rol: rol.cod_rol, 
+            cod_rol: user.dataValues.roles[0].dataValues.cod_rol, 
             message: "Su usuario no se encuentra autorizado para acceder a esta interfaz"
         });
     } 
@@ -146,19 +146,17 @@ export const verifyUsr = async (req, res) => {
         res.json({resul: null, cod_rol: "", message: "Su sesión ha expirado"});
     }else{
         const decoded = jwt.verify(token, config.SECRET)
-        let id = decoded.id;
         const user = await usuarios.findOne({
-            where: {id},
-            attributes: ['roles_id']
+            where: {
+                id: decoded.id
+            },
+            include: [
+                roles
+            ]
         });
-        id = user.roles_id;
-        const rol = await roles.findOne({
-            where: {id},
-            attributes: ['cod_rol']
-        });
-        rol.cod_rol === "usr" ? res.json({resul: true, cod_rol: rol.cod_rol, message: ""}) : res.json({
+        user.dataValues.roles[0].dataValues.cod_rol === "usr" ? res.json({resul: true, cod_rol: user.dataValues.roles[0].dataValues.cod_rol}) : res.json({
             resul: false, 
-            cod_rol: rol.cod_rol, 
+            cod_rol: user.dataValues.roles[0].dataValues.cod_rol, 
             message: "Su usuario no se encuentra autorizado para acceder a esta interfaz"
         });
     } 

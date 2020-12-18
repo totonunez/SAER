@@ -9,7 +9,8 @@ export default class AdminUsuariosEliminar extends Component {
         cod_rol: "",
         verify: undefined,
         message: "",
-        usuarios: []
+        usuarios: [],
+        verifyMessage: false,
     };
 
     componentDidMount = async () => {
@@ -37,9 +38,8 @@ export default class AdminUsuariosEliminar extends Component {
     };
 
     componentWillUnmount = () => {
-        alert(this.state.message);
+        this.state.verifyMessage && alert(this.state.message);
     };
-
 
 
     logOut = async () => {
@@ -55,8 +55,14 @@ export default class AdminUsuariosEliminar extends Component {
     render() {
         switch(this.state.verify) {
             case false:
+                this.setState({
+                    verifyMessage: true
+                });
                 return <Redirect to={{ pathname: '/users/'+this.state.cod_rol}}/>;
             case null:
+                this.setState({
+                    verifyMessage: true
+                });
                 return <Redirect to={{ pathname: '/'}}/>; 
             default:
                 break;

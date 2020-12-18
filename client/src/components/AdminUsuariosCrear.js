@@ -11,7 +11,8 @@ export default class AdminUsuariosCrear extends Component {
         cod_rol: "",
         verify: undefined,
         message: "",
-        usuarios: usuarios
+        usuarios: usuarios,
+        verifyMessage: false,
     };
 
     addUsuario = async ( rut, nombre, apellido, telefono_casa, telefono_celular, roles_id, correo, password) => {
@@ -41,7 +42,7 @@ export default class AdminUsuariosCrear extends Component {
     };
 
     componentWillUnmount = () => {
-        alert(this.state.message);
+        this.state.verifyMessage && alert(this.state.message);
     };
 
 
@@ -59,8 +60,14 @@ export default class AdminUsuariosCrear extends Component {
     render() {
         switch(this.state.verify) {
             case false:
+                this.setState({
+                    verifyMessage: true
+                });
                 return <Redirect to={{ pathname: '/users/'+this.state.cod_rol}}/>;
             case null:
+                this.setState({
+                    verifyMessage: true
+                });
                 return <Redirect to={{ pathname: '/'}}/>; 
             default:
                 break;

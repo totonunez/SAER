@@ -22,15 +22,21 @@ export async function getDetallesGastosId(req, res) {
 };
 
 export async function createDetallesGastos(req, res) {
-    const {pago_interes, monto_mes, gastos_comunes_id} = req.body;
-    const newDetallesGastos = await detallesGastos.create({
-        pago_interes,
-        monto_mes,
-        gastos_comunes_id
-    },{
-        fields: ['id', 'pago_interes', 'monto_mes','gastos_comunes_id']
-    });
-    res.json({message: "Detalle de gasto creado exitosamente", detallesGastos: newDetallesGastos});
+    try{
+        const {pago_interes, monto_mes, gastos_comunes_id} = req.body;
+        console.log(gastos_comunes_id);
+        const newDetallesGastos = await detallesGastos.create({
+            pago_interes,
+            monto_mes,
+            gastos_comunes_id
+        },{
+            fields: ['pago_interes', 'monto_mes','gastos_comunes_id']
+        });
+        res.json({result: true, message: "Detalle de gasto creado exitosamente"});
+    }catch(e){
+        console.log(e);
+        res.json({result: false, message: "Ha ocurrido un error al ingresas el detalle de gasto"});
+    }
 };
 
 export async function updateDetallesGastos(req, res) {
@@ -48,11 +54,26 @@ export async function updateDetallesGastos(req, res) {
 };
 
 export async function deleteDetallesGastos(req, res) {
-    const {id} = req.params;
-    await detallesGastos.destroy({
-        where: {
-            id
-        }
-    });
-    res.json({message: "Detalle de gasto eliminado exitosamente"});
+    try{
+        const {gastos_comunes_id} = req.params;
+        const detalle = await detallesGastos.findOne({
+            where: {
+                gastos_comunes_id
+            },
+            attributes: ['id']
+        });
+        if(detalle){
+            await detallesGastos.destroy({
+                where: {
+                    gastos_comunes_id
+                }
+            });
+            res.json({message: "Detalle de gasto eliminado exitosamente"});
+        }else{
+            res.json({message: "Detalle no encontrado"});
+        }    
+    }catch(e){
+        console.log(e);
+        res.json({message: "Ha ocurrido un error al eliminar el detalle del gasto"})
+    }
 };

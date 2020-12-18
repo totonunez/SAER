@@ -23,6 +23,7 @@ export async function getCuentasCorrientesNcuenta(req, res) {
 
 export async function createCuentasCorrientes(req, res) {
     const {deuda_total, abono, total_pago, n_cuenta, departamentos_id} = req.body;
+    console.log(departamentos_id);
     const newCuentaCorriente = await cuentas_corrientes.create({
         deuda_total,
         abono,

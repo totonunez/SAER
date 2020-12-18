@@ -6,8 +6,8 @@ import * as detallesGastos from '../controllers/detallesGastos.controller.js';
 
 router.get('/', detallesGastos.getAllDetallesGastos);
 router.post('/createDetallesGastos', detallesGastos.createDetallesGastos);
-router.put('updateDetallesGastos', detallesGastos.updateDetallesGastos);
-router.delete('deleteDetallesGastos', detallesGastos.deleteDetallesGastos);
+router.put('/updateDetallesGastos', detallesGastos.updateDetallesGastos);
+router.delete('/deleteDetallesGastos/:gastos_comunes_id', detallesGastos.deleteDetallesGastos);
 
 // detallesGastos/gastos_comunes_id
 

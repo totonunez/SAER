@@ -225,7 +225,7 @@ CREATE TABLE public.gastos_comunes (
     gasto_bodega integer,
     gasto_estacionamiento integer,
     gasto_agua integer,
-    porcentaje_interes integer,
+    porcentaje_interes double precision,
     estado boolean,
     departamentos_id integer
 );
@@ -651,6 +651,8 @@ COPY public.correos (id, correo, users_id) FROM stdin;
 --
 
 COPY public.cuentas_corrientes (id, deuda_total, abono, total_pago, n_cuenta, departamentos_id) FROM stdin;
+1	3	3	3	1	1
+2	0	0	0	2	2
 \.
 
 
@@ -677,6 +679,7 @@ COPY public.detalles_gastos (id, pago_interes, monto_mes, gastos_comunes_id) FRO
 --
 
 COPY public.gastos_comunes (id, fecha_ingreso, fecha_vencimiento, gasto_depto, gasto_bodega, gasto_estacionamiento, gasto_agua, porcentaje_interes, estado, departamentos_id) FROM stdin;
+17	2020-12-11	2020-02-01	99999	99999	99999	99999	0.270000000000000018	t	1
 \.
 
 
@@ -693,6 +696,9 @@ COPY public.involucra (departamentos_id, users_id, createdat, updatedat) FROM st
 --
 
 COPY public.movimientos (id, nombre_movimiento, monto, cuentas_corrientes_id) FROM stdin;
+2	test	1000	1
+3	test1	10001	1
+4	test3	12121212	2
 \.
 
 
@@ -784,7 +790,7 @@ SELECT pg_catalog.setval('public.correos_id_seq', 18, true);
 -- Name: cuenta_corriente_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.cuenta_corriente_id_seq', 1, false);
+SELECT pg_catalog.setval('public.cuenta_corriente_id_seq', 2, true);
 
 
 --
@@ -798,21 +804,21 @@ SELECT pg_catalog.setval('public.departamentos_id_seq', 2, true);
 -- Name: detalles_gastos_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.detalles_gastos_id_seq', 1, false);
+SELECT pg_catalog.setval('public.detalles_gastos_id_seq', 1, true);
 
 
 --
 -- Name: gastos_comunes_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.gastos_comunes_id_seq', 1, false);
+SELECT pg_catalog.setval('public.gastos_comunes_id_seq', 17, true);
 
 
 --
 -- Name: movimientos_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.movimientos_id_seq', 1, false);
+SELECT pg_catalog.setval('public.movimientos_id_seq', 4, true);
 
 
 --

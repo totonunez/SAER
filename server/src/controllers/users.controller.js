@@ -125,7 +125,7 @@ export async function getUsersId(req, res) {
     const {id} = req.params;
     const user = await usuarios.findOne({
         where: {id},
-        attributes: ['id', 'rut', 'nombre', 'apellido','password'],
+        attributes: ['id', 'rut', 'nombre', 'apellido','password']
     });
     res.json(user);
 };

@@ -11,7 +11,8 @@ export default class AdminGastosComunesHistorial extends Component {
         cod_rol: "",
         verify: undefined,
         message: "",
-        movimientos: []
+        movimientos: [],
+        verifyMessage: false
     };
 
     componentDidMount = async (props) => {
@@ -37,10 +38,8 @@ export default class AdminGastosComunesHistorial extends Component {
     };
 
     componentWillUnmount = () => {
-        alert(this.state.message);
+        this.state.verifyMessage && alert(this.state.message);
     };
-
-
 
     logOut = async () => {
         const res = await axios.get("/auth/logout");
@@ -55,8 +54,14 @@ export default class AdminGastosComunesHistorial extends Component {
     render() {
         switch(this.state.verify) {
             case false:
+                this.setState({
+                    verifyMessage: true
+                });
                 return <Redirect to={{ pathname: '/users/'+this.state.cod_rol}}/>;
             case null:
+                this.setState({
+                    verifyMessage: true
+                });
                 return <Redirect to={{ pathname: '/'}}/>; 
             default:
                 break;

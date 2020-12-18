@@ -11,7 +11,8 @@ export default class AdminBodega extends Component {
         cod_rol: "",
         verify: undefined,
         message: "",
-        articulos:articulos
+        verifyMessage: false,
+        articulos: articulos
     };
 
     componentDidMount = async () => {
@@ -26,10 +27,8 @@ export default class AdminBodega extends Component {
     };
 
     componentWillUnmount = () => {
-        alert(this.state.message);
+        this.state.verifyMessage && alert(this.state.message);
     };
-
-
 
     logOut = async () => {
         const res = await axios.get("/auth/logout");
@@ -38,14 +37,18 @@ export default class AdminBodega extends Component {
             message: res.data.message
         });
     };
-
- 
     
     render() {
         switch(this.state.verify) {
             case false:
+                this.setState({
+                    verifyMessage: true
+                });
                 return <Redirect to={{ pathname: '/users/'+this.state.cod_rol}}/>;
             case null:
+                this.setState({
+                    verifyMessage: true
+                });
                 return <Redirect to={{ pathname: '/'}}/>; 
             default:
                 break;

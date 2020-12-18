@@ -10,6 +10,7 @@ export default class AdminInterface extends Component {
         cod_rol: "",
         verify: undefined,
         message: "",
+        verifyMessage: false
     };
 
     componentDidMount = async () => {
@@ -24,7 +25,7 @@ export default class AdminInterface extends Component {
     };
 
     componentWillUnmount = () => {
-        alert(this.state.message);
+        this.state.verifyMessage && alert(this.state.message);
     };
 
     logOut = async () => {
@@ -38,8 +39,14 @@ export default class AdminInterface extends Component {
     render() {
         switch(this.state.verify) {
             case false:
+                this.setState({
+                    verifyMessage: true
+                });
                 return <Redirect to={{ pathname: '/users/'+this.state.cod_rol}}/>;
             case null:
+                this.setState({
+                    verifyMessage: true
+                });
                 return <Redirect to={{ pathname: '/'}}/>; 
             default:
                 break;
@@ -85,17 +92,16 @@ export default class AdminInterface extends Component {
                 </nav>
                 <div>
                 <div className="jumbotron jumbotron-fluid">
-  <div className="container">
-  <br/>
-  <br/>
-  <br/>
-  <br/>  
-    <h1 className="display-4">BIENVENIDO A SAER</h1>
-    <br/>
-    <p className="lead">Sistema de Administración de Edificios y Residencias</p>
-
-  </div>
-</div>
+                    <div className="container">
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>  
+                        <h1 className="display-4">BIENVENIDO A SAER</h1>
+                        <br/>
+                        <p className="lead">Sistema de Administración de Edificios y Residencias</p>
+                    </div>
+                    </div>
                 </div>
             </div>  
         )

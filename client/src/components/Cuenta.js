@@ -5,17 +5,17 @@ import {Redirect} from 'react-router-dom';
 class Cuenta extends Component {
 
     state = {
-        nCuenta: null,
-        depto: null,
-        abono: null,
-        deudaTotal: null,
-        totalPago: null,
-        auxAbono: null,
-        auxDeudaTotal: null,
-        auxTotalPago: null,
-        nombreMovimiento: null,
-        monto: null,
-        numeroMovimiento: null,
+        nCuenta: 0,
+        depto: 0,
+        abono: 0,
+        deudaTotal: 0,
+        totalPago: 0,
+        auxAbono: 0,
+        auxDeudaTotal: 0,
+        auxTotalPago: 0,
+        nombreMovimiento: 0,
+        monto: 0,
+        numeroMovimiento: 0,
         changeCard: 0,
         route: false
     }

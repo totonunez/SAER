@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
+import AdminAñadirDetalle from './AdminAñadirDetalle';
+import AdminDetalle from './AdminDetalle';
+
 class Gasto extends Component {
 
     state = {
@@ -14,7 +17,7 @@ class Gasto extends Component {
         gastoEstacionamiento: null,
         estado: false,
         changeEstado: false,
-        changeCard: false,
+        changeCard: 0,
         auxFechaIngreso: null,
         auxFechaVencimiento: null,
         auxGastoDepto: null,
@@ -55,10 +58,33 @@ class Gasto extends Component {
         alert(res.data.message)
     }
 
-    changeCard = async () => {
+    changeCardInfo = () => {
         this.setState({
-            changeCard: !this.state.changeCard
+            changeCard: 0
         })
+    }
+
+    changeCardEdit = () => {
+        this.setState({
+            changeCard: 1
+        })
+    }
+
+    changeCardAddDetalle = () => {
+        this.setState({
+            changeCard: 2
+        })
+    }
+
+    changeCardDetalle = () => {
+        this.setState({
+            changeCard: 3
+        })
+    }
+
+    dropDetalle = async () => {
+        const res = await axios.delete("http://localhost:4000/detallesGastos/deleteDetallesGastos/"+this.props.gasto.id)
+        alert(res.data.message)
     }
 
     onChange = e => {
@@ -92,7 +118,7 @@ class Gasto extends Component {
     }
 
     render(){
-        if(this.state.changeCard)
+        if(this.state.changeCard === 1)
             return <div className="card">
                 <div className="card-body">
                     <h5 className="card-title">Gasto Común</h5>
@@ -106,7 +132,7 @@ class Gasto extends Component {
                             type="text" 
                             name="auxFechaIngreso"
                             className="form-control"
-                            placeHolder="AÑO-MES-DIA" 
+                            placeholder="AÑO-MES-DIA" 
                             aria-label="Default" 
                             aria-describedby="inputGroup-sizing-default"    
                             onChange={this.onChange}
@@ -121,7 +147,7 @@ class Gasto extends Component {
                             type="text" 
                             name="auxFechaVencimiento"
                             className="form-control"
-                            placeHolder="AÑO-MES-DIA" 
+                            placeholder="AÑO-MES-DIA" 
                             aria-label="Default" 
                             aria-describedby="inputGroup-sizing-default"    
                             onChange={this.onChange}
@@ -186,11 +212,11 @@ class Gasto extends Component {
                     </div>  
                     <div className="row">
                         <button className="btn btn-primary col-xs-12 col-md-4 mr-3" onClick={this.onSubmit}>Actualizar datos</button>
-                        <button className="btn btn-primary col-xs-12 col-md-4 mr-3" onClick={this.changeCard}>Volver</button>
+                        <button className="btn btn-primary col-xs-12 col-md-4 mr-3" onClick={this.changeCardInfo}>Volver</button>
                     </div>
                 </div>  
             </div>
-        else
+        else if(this.state.changeCard === 0)
             return <div className="card">
                     <div className="card-body">
                         <h5 className="card-title">Gasto Común </h5>
@@ -204,14 +230,25 @@ class Gasto extends Component {
                             <li className="list-group-item">Gasto Agua: {this.state.gastoAgua}</li>
                             <li className="list-group-item">Gasto Bodega: {this.state.gastoBodega}</li>
                             <li className="list-group-item">Gasto Estacionamiento: {this.state.gastoEstacionamiento}</li>
-                            <li className="list-group-item mb-3">Estado: {this.state.estado ? <p className="mt-3">Pagado</p> : <p className="mt-3">No pagado</p>}</li>
+                            <li className="list-group-item mb-3 col-md-2">Estado: {this.state.estado ? "Pagado" : "No pagado"}</li>
                         </ul>
+                        <nav aria-label="breadcrumb">
+                            <ol className="breadcrumb">
+                                <button className="btn btn-secondary col-xs-12" onClick={this.changeCardDetalle}> Ver detalles</button>
+                            </ol>
+                        </nav>
                         <div className="row">
-                            <button className="btn btn-primary col-xs-12 col-md-4 mr-3" onClick={this.changeCard}> Editar Datos</button>
-                            <button className="btn btn-primary col-xs-12 col-md-4 mr-3" onClick={this.changeEstado}> Cambiar Estado</button>
+                            <button className="btn btn-primary col-xs-12 col-md-2 mr-3" onClick={this.changeCardEdit}> Editar Datos</button>
+                            <button className="btn btn-primary col-xs-12 col-md-2 mr-3" onClick={this.changeEstado}> Cambiar Estado</button>
+                            <button className="btn btn-primary col-xs-12 col-md-2 mr-3" onClick={this.changeCardAddDetalle}> Añadir Detalle</button>
+                            <button className="btn btn-primary col-xs-12 col-md-2 mr-3" onClick={this.dropDetalle}> Eliminar detalle</button>
                         </div>
                     </div>
                 </div>
+        else if(this.state.changeCard === 2)  
+            return <AdminAñadirDetalle gasto={this.props.gasto} volver = {this.changeCardInfo}/>
+        else if(this.state.changeCard === 3) 
+            return <AdminDetalle gasto={this.props.gasto} volver = {this.changeCardInfo}/>   
     }
 
 }
