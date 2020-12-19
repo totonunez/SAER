@@ -6,10 +6,10 @@ import * as reclamos from '../controllers/reclamos.controller.js';
 
 router.get('/', reclamos.getAllReclamos);
 router.post('/createReclamos', reclamos.createReclamos);
-router.put('/createReclamos', reclamos.updateReclamos);
+router.put('/updateReclamos', reclamos.updateReclamos);
 
 // reclamos/n_reclamo
 
-router.post('/:n_reclamo', reclamos.getReclamosNreclamo);
+router.get('/:n_reclamo', reclamos.getReclamosNreclamo);
 
 module.exports = router;

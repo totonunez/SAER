@@ -14,10 +14,26 @@ export default class AdminReclamos extends Component {
         verify: undefined,
         message: "",
         verifyMessage: false,
-        tasks: tasks
+        tasks: []
     };
 
     componentDidMount = async () => {
+        const res = await axios.get("/reclamos/")
+        console.log(res);
+        for(let i = 0; i<res.data.allReclamos.length; i++){
+            const resUser = await axios.get("/realiza/"+res.data.allReclamos[i].id)
+            const tasks = {
+                id: res.data.allReclamos[i].n_reclamo,
+                residente: resUser.data.idRealizas.user.rut,
+                descripcion: res.data.allReclamos[i].descripcion,
+                respuesta: res.data.allReclamos[i].respuesta,
+                resuelto: false,
+                reclamos_id: res.data.allReclamos[i].id
+            }
+            this.setState({
+                tasks: [...this.state.tasks, tasks]
+            })
+        }
         if(this.state.verify !== null){
             const res = await axios.get('/auth/adm/');
             this.setState({

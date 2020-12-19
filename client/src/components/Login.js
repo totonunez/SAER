@@ -30,11 +30,11 @@ export default class Login extends Component {
     render() {
         switch(this.state.cod_rol) {
             case "adm":
-                return <Redirect to={{ pathname: '/users/adm'}} />;
+                return <Redirect to={{ pathname: '/users/adm', state: {rut: this.state.rut}}} />;
             case "sup":
-                return <Redirect to={{ pathname: '/users/sup'}} />;
+                return <Redirect to={{ pathname: '/users/sup', state: {rut: this.state.rut}}} />;
             case "usr":
-                return <Redirect to={{ pathname: '/users/usr'}} />;
+                return <Redirect to={{ pathname: '/users/usr', state: {rut: this.state.rut}}} />;
             default:
                 break;
         };

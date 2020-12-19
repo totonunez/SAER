@@ -1,4 +1,5 @@
 import reclamos from '../models/reclamos';
+import sequelize from 'sequelize';
 
 export async function getAllReclamos(req, res) {
     const allReclamos = await reclamos.findAll({
@@ -26,7 +27,7 @@ export async function createReclamos(req, res){
 };
 
 export async function getReclamosNreclamo(req, res) {
-    const {n_reclamo} = req.params;
+    let {n_reclamo} = req.params;
     const reclamo = await reclamos.findOne({
         where:{
             n_reclamo
@@ -37,18 +38,21 @@ export async function getReclamosNreclamo(req, res) {
 };
 
 export async function updateReclamos(req, res) {
-    const {n_reclamo, descripcion, respuesta, fecha_ingreso, fecha_modificacion, departamentos_id} = req.body;
-    const updateReclamo = await reclamos.update({
-        descripcion,
-        respuesta,
-        fecha_ingreso,
-        fecha_modificacion,
-        departamentos_id
-    },{
-        where: {
-            n_reclamo: n_reclamo
-        } 
-    });
-    res.json({message: "Reclamo actualizado exitosamente", Reclamo: updateReclamo});
+    try{
+        const {n_reclamo, respuesta} = req.body;
+        console.log(n_reclamo, respuesta);
+        const updateReclamo = await reclamos.update({
+            fecha_modificacion: sequelize.literal('CURRENT_TIMESTAMP'),
+            respuesta
+        },{
+            where: {
+                n_reclamo: n_reclamo
+            } 
+        });
+        res.json({result: true, message: "Reclamo actualizado exitosamente", Reclamo: updateReclamo});
+    }catch(e){
+        console.log(e);
+        res.json({result: false, message: "Error al actualizar reclamo", Reclamo: updateReclamo})
+    }
 };
 

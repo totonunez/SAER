@@ -5,6 +5,8 @@ import realizas from '../models/realizas';
 import supervisas from '../models/supervisas';
 import correos from '../models/correos';
 import turnos from '../models/turnos';
+import jwt from 'jsonwebtoken';
+import config from '../config';
 
 export async function updateUsers(req, res) {
     const {id} = req.params;
@@ -160,34 +162,44 @@ export async function relationDepto(req, res) {
 };
 
 export async function relationReclamo(req, res) {
-    let id = req.body.users_id;
-    const user = await usuarios.findOne({
-        where: {id},
-        attributes: ['id','rut','nombre','apellido','telefono_casa','password', 'telefono_celular'],
-        include:[
-            roles
-        ]
-    });
-    const {users_id, reclamos_id} = req.body;
-    const cod_rol = user.roles[0].dataValues.cod_rol;
-    console.log(cod_rol);
-    let relationReclamos;
-    if(cod_rol === "usr"){
-        relationReclamos = await realizas.create({
-            users_id,
-            reclamos_id,
-        },{
-            fields: ['users_id','reclamos_id']
+    try{
+        const token = req.cookies.token;
+        !token && res.json({resul: null, message: "Ha ocurrido un problema"});
+        const decoded = jwt.verify(token, config.SECRET);
+        const user = await usuarios.findOne({
+            where: {
+                id: decoded.id
+            },
+            attributes: ['id','rut','nombre','apellido','telefono_casa','password', 'telefono_celular'],
+            include:[
+                roles
+            ]
         });
-    }else if(cod_rol === "adm"){
-        relationReclamos = await supervisas.create({
-            users_id,
-            reclamos_id,
-        },{
-            fields: ['users_id','reclamos_id']
-        });
+        const {reclamos_id} = req.body;
+        const users_id = decoded.id;
+        const cod_rol = user.roles[0].dataValues.cod_rol;
+        console.log(cod_rol);
+        let relationReclamos;
+        if(cod_rol === "usr"){
+            relationReclamos = await realizas.create({
+                users_id,
+                reclamos_id,
+            },{
+                fields: ['users_id','reclamos_id']
+            });
+        }else if(cod_rol === "adm"){
+            relationReclamos = await supervisas.create({
+                users_id,
+                reclamos_id,
+            },{
+                fields: ['users_id','reclamos_id']
+            });
+        }
+        res.json({result: true, relation: relationReclamos, message: ""});
+    }catch(e){
+        console.log(e);
+        res.json({result: false, relation: relationReclamos, message: "Ha ocurrido un problema"});
     }
-    res.json({relation: relationReclamos});
 };
 
 export async function updateRelationDepto(req, res) {

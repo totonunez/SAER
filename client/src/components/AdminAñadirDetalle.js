@@ -60,7 +60,7 @@ export default class AdminAñadirDetalle extends Component {
                         />
                     </div> 
                     <div className="row">
-                        <button className="btn btn-primary col-xs-12 col-md-4 mr-3" onClick={this.onSubmit}>Actualizar datos</button>
+                        <button className="btn btn-primary col-xs-12 col-md-4 mr-3" onClick={this.onSubmit}>Enviar datos</button>
                         <button className="btn btn-primary col-xs-12 col-md-4 mr-3" onClick={this.props.volver}>Volver</button>
                     </div>
                 </div>  

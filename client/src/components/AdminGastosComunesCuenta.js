@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import {Redirect,Link} from 'react-router-dom';
 
-import cuentas from './cuentas.json'
 import Cuentas from './Cuentas.js'
 
 export default class AdminGastosComunesCuenta extends Component {
