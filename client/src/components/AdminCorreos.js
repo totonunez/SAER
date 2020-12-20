@@ -2,18 +2,38 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import {Redirect,Link} from 'react-router-dom';
 
+import articulos from "./articulos.json"
+import Articulos from "./Articulos.js"
 
-
-export default class AdminInterface extends Component {
+export default class AdminBodega extends Component {
     state = {
         rut: 0,
         cod_rol: "",
         verify: undefined,
         message: "",
-        verifyMessage: false
+        verifyMessage: false,
+        articulos: []
     };
 
     componentDidMount = async () => {
+        const res = await axios.get("/productos/")
+        console.log(res);
+        for(let i = 0; i<res.data.allProductos.length; i++){
+            const articulos = {
+                id: res.data.allProductos[i].id,
+                nombre: res.data.allProductos[i].nombre,
+                cantidad: res.data.allProductos[i].cantidad,
+                codigo: res.data.allProductos[i].cod_prod,
+                volumen: res.data.allProductos[i].volumen,
+                bodega: res.data.allProductos[i].bodega.n_bodega,
+                fechaModificacion: res.data.allProductos[i].fecha_modificacion,
+                bodegaCapacidad: res.data.allProductos[i].bodega.capacidad,
+                bodegaCapacidadActual: res.data.allProductos[i].bodega.cantidad_actual,
+            }
+            this.setState({
+                articulos: [...this.state.articulos, articulos]
+            })
+        }
         if(this.state.verify !== null){
             const res = await axios.get('/auth/adm/');
             this.setState({
@@ -78,7 +98,7 @@ export default class AdminInterface extends Component {
                                 <li className="nav-item">
                                     <Link className="nav-link" to={{ pathname: '/users/adm/usuarios'}}>Gestion Usuarios</Link>
                                 </li>
-                                <li className="nav-item">        
+                                <li className="nav-item">
                                     <Link className="nav-link" to={{ pathname: '/users/adm/bodega'}}>Bodega</Link>
                                 </li>
                                 <li className="nav-item">
@@ -97,17 +117,19 @@ export default class AdminInterface extends Component {
                     </div>
                 </nav>
                 <div>
-                <div className="jumbotron jumbotron-fluid">
-                    <div className="container">
-                    <br/>
-                    <br/>
-                    <br/>
-                    <br/>  
-                        <h1 className="display-4">BIENVENIDO A SAER</h1>
-                        <br/>
-                        <p className="lead">Sistema de Administración de Edificios y Residencias</p>
-                    </div>
-                    </div>
+                <h1> <span className="badge badge-secondary">Administrar Correos</span></h1>
+                <ul className="nav nav-pills nav-fill row">
+                    <li className="nav-item col-xs-12 col-md-4 mb-3">
+                        <a className="nav-link active" href='/users/adm/correos/'>Revisar Correos</a>
+                    </li>                    
+                    <li className="nav-item col-xs-12 col-md-4 mb-3">
+                        <a className="nav-link active" href='/users/adm/correos/eliminar'>Eliminar Correos</a>
+                    </li>
+                    <li className="nav-item col-xs-12 col-md-4 mb-3">
+                        <a className="nav-link active" href='/users/adm/correos/agregar'>Agregar Correos</a>
+                    </li>
+                </ul>
+                <Articulos articulos={this.state.articulos}/>
                 </div>
             </div>  
         )

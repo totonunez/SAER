@@ -1,4 +1,6 @@
 import turnos from '../models/turnos';
+import users from '../models/users';
+import roles from '../models/roles';
 
 export async function getAllTurnos(req, res) {
     const allTurnos = await turnos.findAll({
@@ -22,17 +24,40 @@ export async function getTurnosDia(req, res) {
 };
 
 export async function createTurnos(req, res) {
-    const {hora_inicio, hora_termino, fecha_inicio, fecha_termino, users_id} = req.body;
-    const turno = await roles.create({
-        hora_inicio,
-        hora_termino,
-        fecha_inicio,
-        fecha_termino,
-        users_id
-    },{
-        fields: ['id', 'hora_inicio', 'hora_termino', 'fecha_inicio', 'fecha_termino', 'users_id']
-    });
-    res.json({message: "Turno creado exitosamente", turno: turno});
+    try{
+        const {hora_inicio, hora_termino, fecha_inicio, fecha_termino, rut} = req.body;
+        const user = await users.findOne({
+            where: {
+                rut
+            },
+            attributes: ['id', "rut"],
+            include: [
+                roles
+            ]
+        });
+        let bool;
+        console.log(user.dataValues.roles.length);
+        for(let i = 0; i < user.dataValues.roles.length; i++){
+            user.dataValues.roles[i].dataValues.cod_rol === "sup" ? bool = true : bool = false;
+        };
+        if(bool){
+            const turno = await turnos.create({
+                hora_inicio,
+                hora_termino,
+                fecha_inicio,
+                fecha_termino,
+                users_id: user.dataValues.id
+            },{
+                fields: ['hora_inicio', 'hora_termino', 'fecha_inicio', 'fecha_termino', 'users_id']
+            });
+            res.json({message: "Turno creado exitosamente", result: true});
+        }else{
+            res.json({message: "El rut ingresado no es de un conserje", result: false});
+        }
+    }catch(e){
+        console.log(e);
+        res.json({message: "Ha ocurrido un error al ingresar el turno", result: false});
+    }
 };
 
 export async function updateTurnos(req, res) {

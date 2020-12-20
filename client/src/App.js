@@ -25,11 +25,16 @@ import AdminUsuariosEditar from './components/AdminUsuariosEditar';
 import AdminUsuariosEliminar from './components/AdminUsuariosEliminar';
 import AdminAgregarArticulo from './components/AdminAgregarArticulo';
 import AdminEliminarArticulo from './components/AdminBodegaE';
+import AdminTurnos from './components/AdminTurnos';
+import AdminCorreos from './components/AdminCorreos';
+import AdminAgregarTurno from './components/AdminAgregarTurno';
+import AdminAgregarCorreo from './components/AdminAgregarCorreo';
 
 function App() {
   return (
     <BrowserRouter>
       <Route path="/" exact component={Init}/>
+
       <Route path="/users/adm" exact component={AdminInterface}/>
       <Route path="/users/adm/usuarios" exact component={AdminUsuarios}/>
       <Route path="/users/adm/usuarios/crear" exact component={AdminUsuariosCrear}/>
@@ -44,7 +49,11 @@ function App() {
       <Route path="/users/adm/gastos/cuenta/historial" exact component={AdminGastosComunesHistorial}/>
       <Route path="/users/adm/bodega/agregar" exact component={AdminAgregarArticulo}/>
       <Route path="/users/adm/bodega/eliminar" exact component={AdminEliminarArticulo}/>
-
+      <Route path="/users/adm/turnos/" exact component={AdminTurnos}/>
+      <Route path="/users/adm/correos/" exact component={AdminCorreos}/>   
+      <Route path="/users/adm/turnos/agregar" exact component={AdminAgregarTurno}/>
+      <Route path="/users/adm/correos/agregar" exact component={AdminAgregarCorreo}/>   
+      
       <Route path="/users/sup" exact component={SuperUserInterface}/>
 
 

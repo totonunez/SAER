@@ -2,30 +2,27 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import {Redirect,Link} from 'react-router-dom';
 
-class AdminAgregarArticulo extends Component {
+class AdminAgregarTurno extends Component {
 
     state = {
-        changeData: false,
-        telefono_casa: '',
-        telefono_celular: '',
-        correo: '',
-        password: '',
-        auxTelefono_casa: '',
-        auxTelefono_celular: '',
-        auxCorreo: '',
-        auxPassword: ''
+        horaInicio: "",
+        horaTermino: "",
+        fechaInicio: "",
+        fechaTermino: "",
+        rutCon: ""
     }
 
-    componentDidMount = (props) =>  {
-    }
-
-    toggleShow = () => {
-        this.setState({changeData: !this.state.changeData})
-    }
-
-    onSubmit = async (e, props) => { 
+    onSubmit = async (e) => { 
         e.preventDefault();
-        
+        const turno = {
+           hora_inicio: this.state.horaInicio,
+           hora_termino: this.state.horaTermino,
+           fecha_inicio: this.state.fechaInicio,
+           fecha_termino: this.state.fechaTermino,
+           rut: this.state.rutCon
+        }
+        const res = await axios.post("/turnos/createTurnos", turno)
+        alert(res.data.message)
     }
 
     onChange = e => {
@@ -66,6 +63,12 @@ class AdminAgregarArticulo extends Component {
                                 <li className="nav-item">
                                     <Link className="nav-link" to={{ pathname: '/users/adm/bodega'}}>Bodega</Link>
                                 </li>
+                                <li className="nav-item">
+                                    <Link className="nav-link" to={{ pathname: '/users/adm/turnos'}}>Turnos</Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link className="nav-link" to={{ pathname: '/users/adm/correos'}}>Correos</Link>
+                                </li>
                                 <li className="nav-item active">
                                     <button type="button" className="btn btn-primary" onClick={this.logOut}>
                                         Cerrar sesión
@@ -75,81 +78,93 @@ class AdminAgregarArticulo extends Component {
                         </div>
                     </div>
                 </nav>
-                <h1> <span className="badge badge-secondary">Administrar Bodega</span></h1>
+                <h1> <span className="badge badge-secondary">Administrar Turnos</span></h1>
                 <ul className="nav nav-pills nav-fill row">
                     <li className="nav-item col-xs-12 col-md-4 mb-3">
-                        <a className="nav-link active" href='/users/adm/gastos/cuenta'>Revisar articulos</a>
+                        <a className="nav-link active" href='/users/adm/turnos/'>Revisar Turnos</a>
                     </li>                    
                     <li className="nav-item col-xs-12 col-md-4 mb-3">
-                        <a className="nav-link active" href='/users/adm/gastos/revisar'>Eliminar articulos</a>
+                        <a className="nav-link active" href='/users/adm/turnos/eliminar'>Eliminar Turnos</a>
                     </li>
                     <li className="nav-item col-xs-12 col-md-4 mb-3">
-                        <a className="nav-link active" href='/users/adm/bodega/agregar'>Agregar articulos</a>
+                        <a className="nav-link active" href='/users/adm/turnos/agregar'>Crear Turnos</a>
                     </li>
                 </ul>
                         <div className="card">
                             <div className="card-body">
-                                <h5 className="card-title">Usuario:  </h5>
-                                <h6 className="card-subtitle mb-2 text-muted">Nombre:  </h6>
                             <form onSubmit = {this.onSubmit}> 
                         <div className="input-group mb-3">
                             
                             <div className="input-group-prepend">
-                                <span className="input-group-text" id="inputGroup-sizing-default">Telefono de Casa</span>
+                                <span className="input-group-text" id="inputGroup-sizing-default">Hora de inicio:</span>
                             </div>
                             <input 
                             type="text" 
-                            name="auxTelefono_casa"
+                            name="horaInicio"
                             className="form-control" 
                             aria-label="Default" 
                             aria-describedby="inputGroup-sizing-default"    
                             onChange={this.onChange}
-                            value={this.state.auxTelefono_casa}            
+                            value={this.state.horaInicio}            
                             />
                         </div>  
                         <div className="input-group mb-3">
                             <div className="input-group-prepend">
-                                <span className="input-group-text" id="inputGroup-sizing-default">telefono Celular</span>
+                                <span className="input-group-text" id="inputGroup-sizing-default">Hora de termino</span>
                             </div>
                             <input 
                             type="text" 
-                            name="auxTelefono_celular"
+                            name="horaTermino"
                             className="form-control" 
                             aria-label="Default" 
                             aria-describedby="inputGroup-sizing-default"  
                             onChange={this.onChange}
-                            value={this.state.auxTelefono_celular}              
+                            value={this.state.horaTermino}              
                             />
                         </div>  
                         <div className="input-group mb-3">
                             <div className="input-group-prepend">
-                                <span className="input-group-text" id="inputGroup-sizing-default">Correo</span>
+                                <span className="input-group-text" id="inputGroup-sizing-default">Fecha de inicio</span>
                             </div>
                             <input 
                             type="text" 
-                            name="auxCorreo"
+                            name="fechaInicio"
                             className="form-control" 
                             aria-label="Default" 
                             aria-describedby="inputGroup-sizing-default"  
                             onChange={this.onChange}
-                            value={this.state.auxCorreo}              
+                            value={this.state.fechaInicio}              
                             />
                         </div>
                         <div className="input-group mb-3">
                             <div className="input-group-prepend">
-                                <span className="input-group-text" id="inputGroup-sizing-default">Password</span>
+                                <span className="input-group-text" id="inputGroup-sizing-default">Fecha de termino</span>
                             </div>
                             <input 
-                            type="password" 
-                            name="auxPassword"
+                            type="text" 
+                            name="fechaTermino"
                             className="form-control" 
                             aria-label="Default" 
                             aria-describedby="inputGroup-sizing-default"  
                             onChange={this.onChange}
-                            value={this.state.auxPassword}              
+                            value={this.state.fechaTermino}              
+                            />
+                        </div>
+                        <div className="input-group mb-3">
+                            <div className="input-group-prepend">
+                                <span className="input-group-text" id="inputGroup-sizing-default">Rut de conserje: </span>
+                            </div>
+                            <input 
+                            type="text" 
+                            name="rutCon"
+                            className="form-control" 
+                            aria-label="Default" 
+                            aria-describedby="inputGroup-sizing-default"  
+                            onChange={this.onChange}
+                            value={this.state.rutCon}              
                             />
                         </div>  
-                        <button type="submit" className="btn btn-primary">Cambiar Datos</button>
+                        <button type="submit" className="btn btn-primary">Crear Turno</button>
                     </form>
                     </div>
                 </div>
@@ -158,4 +173,4 @@ class AdminAgregarArticulo extends Component {
 
 }
 
-export default AdminAgregarArticulo;
+export default AdminAgregarTurno;

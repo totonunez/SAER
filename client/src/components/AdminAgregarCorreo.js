@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import {Redirect,Link} from 'react-router-dom';
 
-class AdminAgregarArticulo extends Component {
+class AdminAgregarCorreo extends Component {
 
     state = {
         changeData: false,
@@ -66,6 +66,12 @@ class AdminAgregarArticulo extends Component {
                                 <li className="nav-item">
                                     <Link className="nav-link" to={{ pathname: '/users/adm/bodega'}}>Bodega</Link>
                                 </li>
+                                <li className="nav-item">
+                                    <Link className="nav-link" to={{ pathname: '/users/adm/turnos'}}>Turnos</Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link className="nav-link" to={{ pathname: '/users/adm/correos'}}>Correos</Link>
+                                </li>
                                 <li className="nav-item active">
                                     <button type="button" className="btn btn-primary" onClick={this.logOut}>
                                         Cerrar sesión
@@ -75,22 +81,20 @@ class AdminAgregarArticulo extends Component {
                         </div>
                     </div>
                 </nav>
-                <h1> <span className="badge badge-secondary">Administrar Bodega</span></h1>
+                <h1> <span className="badge badge-secondary">Administrar Correos</span></h1>
                 <ul className="nav nav-pills nav-fill row">
                     <li className="nav-item col-xs-12 col-md-4 mb-3">
-                        <a className="nav-link active" href='/users/adm/gastos/cuenta'>Revisar articulos</a>
+                        <a className="nav-link active" href='/users/adm/correos/'>Revisar Correos</a>
                     </li>                    
                     <li className="nav-item col-xs-12 col-md-4 mb-3">
-                        <a className="nav-link active" href='/users/adm/gastos/revisar'>Eliminar articulos</a>
+                        <a className="nav-link active" href='/users/adm/correos/eliminar'>Eliminar Correos</a>
                     </li>
                     <li className="nav-item col-xs-12 col-md-4 mb-3">
-                        <a className="nav-link active" href='/users/adm/bodega/agregar'>Agregar articulos</a>
+                        <a className="nav-link active" href='/users/adm/correos/agregar'>Agregar Correos</a>
                     </li>
                 </ul>
                         <div className="card">
                             <div className="card-body">
-                                <h5 className="card-title">Usuario:  </h5>
-                                <h6 className="card-subtitle mb-2 text-muted">Nombre:  </h6>
                             <form onSubmit = {this.onSubmit}> 
                         <div className="input-group mb-3">
                             
@@ -158,4 +162,4 @@ class AdminAgregarArticulo extends Component {
 
 }
 
-export default AdminAgregarArticulo;
+export default AdminAgregarCorreo;

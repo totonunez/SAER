@@ -99,6 +99,12 @@ export default class AdminBodegaE extends Component {
                                 <li className="nav-item">
                                     <Link className="nav-link" to={{ pathname: '/users/adm/bodega'}}>Bodega</Link>
                                 </li>
+                                <li className="nav-item">
+                                    <Link className="nav-link" to={{ pathname: '/users/adm/turnos'}}>Turnos</Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link className="nav-link" to={{ pathname: '/users/adm/correos'}}>Correos</Link>
+                                </li>
                                 <li className="nav-item active">
                                     <button type="button" className="btn btn-primary" onClick={this.logOut}>
                                         Cerrar sesión
