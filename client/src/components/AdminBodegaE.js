@@ -3,9 +3,9 @@ import axios from 'axios';
 import {Redirect,Link} from 'react-router-dom';
 
 import articulos from "./articulos.json"
-import Articulos from "./Articulos.js"
+import Articulos from "./ArticulosE.js"
 
-export default class AdminBodega extends Component {
+export default class AdminBodegaE extends Component {
     state = {
         rut: 0,
         cod_rol: "",
@@ -26,9 +26,7 @@ export default class AdminBodega extends Component {
                 codigo: res.data.allProductos[i].cod_prod,
                 volumen: res.data.allProductos[i].volumen,
                 bodega: res.data.allProductos[i].bodega.n_bodega,
-                fechaModificacion: res.data.allProductos[i].fecha_modificacion,
-                bodegaCapacidad: res.data.allProductos[i].bodega.capacidad,
-                bodegaCapacidadActual: res.data.allProductos[i].bodega.cantidad_actual,
+                fechaModificacion: res.data.allProductos[i].fecha_modificacion
             }
             this.setState({
                 articulos: [...this.state.articulos, articulos]
@@ -113,7 +111,7 @@ export default class AdminBodega extends Component {
                 <div>
                 <h1> <span className="badge badge-secondary">Administrar Bodega</span></h1>
                 <ul className="nav nav-pills nav-fill row">
-                    <li className="nav-item col-xs-12 col-md-4 mb-3">
+                <li className="nav-item col-xs-12 col-md-4 mb-3">
                         <a className="nav-link active" href='/users/adm/bodega/'>Revisar articulos</a>
                     </li>                    
                     <li className="nav-item col-xs-12 col-md-4 mb-3">

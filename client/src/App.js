@@ -23,6 +23,8 @@ import AdminUsuarios from './components/AdminUsuarios';
 import AdminUsuariosCrear from './components/AdminUsuariosCrear';
 import AdminUsuariosEditar from './components/AdminUsuariosEditar';
 import AdminUsuariosEliminar from './components/AdminUsuariosEliminar';
+import AdminAgregarArticulo from './components/AdminAgregarArticulo';
+import AdminEliminarArticulo from './components/AdminBodegaE';
 
 function App() {
   return (
@@ -40,7 +42,8 @@ function App() {
       <Route path="/users/adm/gastos/revisar" exact component={AdminGastosComunesRevisar}/>
       <Route path="/users/adm/gastos/cuenta" exact component={AdminGastosComunesCuenta}/>
       <Route path="/users/adm/gastos/cuenta/historial" exact component={AdminGastosComunesHistorial}/>
-
+      <Route path="/users/adm/bodega/agregar" exact component={AdminAgregarArticulo}/>
+      <Route path="/users/adm/bodega/eliminar" exact component={AdminEliminarArticulo}/>
 
       <Route path="/users/sup" exact component={SuperUserInterface}/>
 

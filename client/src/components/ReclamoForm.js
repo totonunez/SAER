@@ -50,7 +50,7 @@ export default class ReclamoForm extends Component {
         if(!this.state.changeCard)
             return <form onSubmit = {this.onSubmit}> 
                         <input 
-                            className="form-control"
+     s                       className="form-control"
                             name="reclamo"
                             type="text" 
                             placeholder="Escribir una Respuesta"
