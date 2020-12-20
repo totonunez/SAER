@@ -365,8 +365,8 @@ CREATE TABLE public.reclamos (
     n_reclamo integer,
     descripcion text,
     respuesta text,
-    fecha_ingreso date,
-    fecha_modificacion date,
+    fecha_ingreso timestamp without time zone,
+    fecha_modificacion timestamp without time zone,
     departamentos_id integer
 );
 
@@ -631,7 +631,7 @@ COPY public.asigna (roles_id, users_id, createdat, updatedat) FROM stdin;
 --
 
 COPY public.bodegas (id, n_bodega, capacidad, cantidad_actual) FROM stdin;
-1	1	100	0
+1	1	100	16
 \.
 
 
@@ -707,6 +707,8 @@ COPY public.movimientos (id, nombre_movimiento, monto, cuentas_corrientes_id) FR
 --
 
 COPY public.productos (id, cod_prod, nombre, cantidad, fecha_modificacion, volumen, bodegas_id) FROM stdin;
+33	1B	Shampoo111	5	2020-12-20	3	1
+32	1A	Shampoo	11	2020-12-20	3	1
 \.
 
 
@@ -715,6 +717,7 @@ COPY public.productos (id, cod_prod, nombre, cantidad, fecha_modificacion, volum
 --
 
 COPY public.realizas (users_id, reclamos_id) FROM stdin;
+34	5
 \.
 
 
@@ -723,6 +726,7 @@ COPY public.realizas (users_id, reclamos_id) FROM stdin;
 --
 
 COPY public.reclamos (id, n_reclamo, descripcion, respuesta, fecha_ingreso, fecha_modificacion, departamentos_id) FROM stdin;
+5	1	Problemas con el baño, el water exploto	Se cambiará su water pronto	2020-12-18 21:40:22.533993	2020-12-19 09:54:52.770355	1
 \.
 
 
@@ -750,6 +754,7 @@ COPY public.roles (id, cod_rol, nombre) FROM stdin;
 --
 
 COPY public.supervisas (users_id, reclamos_id) FROM stdin;
+33	5
 \.
 
 
@@ -758,6 +763,7 @@ COPY public.supervisas (users_id, reclamos_id) FROM stdin;
 --
 
 COPY public.turnos (id, hora_inicio, hora_termino, fecha_inicio, fecha_termino, users_id) FROM stdin;
+5	13:30:30	14:30:30	2020-01-01	2020-01-01	35
 \.
 
 
@@ -825,14 +831,14 @@ SELECT pg_catalog.setval('public.movimientos_id_seq', 4, true);
 -- Name: productos_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.productos_id_seq', 1, false);
+SELECT pg_catalog.setval('public.productos_id_seq', 33, true);
 
 
 --
 -- Name: reclamos_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.reclamos_id_seq', 4, true);
+SELECT pg_catalog.setval('public.reclamos_id_seq', 5, true);
 
 
 --
@@ -846,7 +852,7 @@ SELECT pg_catalog.setval('public.roles_id_seq', 3, true);
 -- Name: turnos_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.turnos_id_seq', 1, true);
+SELECT pg_catalog.setval('public.turnos_id_seq', 5, true);
 
 
 --
