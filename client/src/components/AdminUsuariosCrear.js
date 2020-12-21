@@ -119,18 +119,17 @@ export default class AdminUsuariosCrear extends Component {
                 </nav>
                 <div>
                 <h1> <span className="badge badge-secondary">Gestionar Ususarios</span></h1>
-                <ul className="nav nav-pills nav-fill">
-                <li className="nav-item">
-  <a className="nav-link active" href='/users/adm/usuarios/crear'>Crear Usuario</a>
-  </li>                    
-  <li className="nav-item">
-    <a className="nav-link active" href='/users/adm/usuarios/editar'>Editar Usuario</a>
-  </li>
-  <li className="nav-item">
-  <a className="nav-link active" href='/users/adm/usuarios/eliminar'>Eliminar Usuario</a>
-  </li>
-  
-</ul>
+                <ul className="nav nav-pills nav-fill row">
+                    <li className="nav-item col-xs-12 col-md-4">
+                        <a className="nav-link active" href='/users/adm/usuarios/crear'>Crear Usuario</a>
+                    </li>                    
+                    <li className="nav-item col-xs-12 col-md-4">
+                        <a className="nav-link active" href='/users/adm/usuarios/editar'>Editar Usuario</a>
+                    </li>
+                    <li className="nav-item col-xs-12 col-md-4">
+                        <a className="nav-link active" href='/users/adm/usuarios/eliminar'>Eliminar Usuario</a>
+                    </li>  
+                </ul>
 
 
                 <CrearUsuarioForm addUsuario={this.addUsuario}/>         

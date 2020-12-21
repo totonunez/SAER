@@ -2,38 +2,16 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import {Redirect,Link} from 'react-router-dom';
 
-import articulos from "./articulos.json"
-import Articulos from "./Articulos.js"
-
-export default class AdminBodega extends Component {
+export default class AdminTurnos extends Component {
     state = {
         rut: 0,
         cod_rol: "",
         verify: undefined,
         message: "",
-        verifyMessage: false,
-        articulos: []
+        verifyMessage: false
     };
 
     componentDidMount = async () => {
-        const res = await axios.get("/productos/")
-        console.log(res);
-        for(let i = 0; i<res.data.allProductos.length; i++){
-            const articulos = {
-                id: res.data.allProductos[i].id,
-                nombre: res.data.allProductos[i].nombre,
-                cantidad: res.data.allProductos[i].cantidad,
-                codigo: res.data.allProductos[i].cod_prod,
-                volumen: res.data.allProductos[i].volumen,
-                bodega: res.data.allProductos[i].bodega.n_bodega,
-                fechaModificacion: res.data.allProductos[i].fecha_modificacion,
-                bodegaCapacidad: res.data.allProductos[i].bodega.capacidad,
-                bodegaCapacidadActual: res.data.allProductos[i].bodega.cantidad_actual,
-            }
-            this.setState({
-                articulos: [...this.state.articulos, articulos]
-            })
-        }
         if(this.state.verify !== null){
             const res = await axios.get('/auth/adm/');
             this.setState({
@@ -113,23 +91,42 @@ export default class AdminBodega extends Component {
                                     </button>  
                                 </li>
                             </ul>
-                        </div>
+                        </div>   
                     </div>
                 </nav>
                 <div>
-                <h1> <span className="badge badge-secondary">Administrar Turnos</span></h1>
+                <h1> <span className="badge badge-secondary">Administrar Turnos</span></h1> 
                 <ul className="nav nav-pills nav-fill row">
-                    <li className="nav-item col-xs-12 col-md-4 mb-3">
-                        <a className="nav-link active" href='/users/adm/turnos/'>Revisar Turnos</a>
+                    <li className="nav-item col-xs-12 col-md-4">
+                        <a className="nav-link active" href='/users/adm/turnos/revisar'>Revisar Turnos</a>
                     </li>                    
-                    <li className="nav-item col-xs-12 col-md-4 mb-3">
+                    <li className="nav-item col-xs-12 col-md-4">
                         <a className="nav-link active" href='/users/adm/turnos/eliminar'>Eliminar Turnos</a>
                     </li>
-                    <li className="nav-item col-xs-12 col-md-4 mb-3">
+                    <li className="nav-item col-xs-12 col-md-4">
                         <a className="nav-link active" href='/users/adm/turnos/agregar'>Crear Turnos</a>
                     </li>
                 </ul>
-                <Articulos articulos={this.state.articulos}/>
+
+
+<div className="jumbotron jumbotron-fluid">
+  <div className="container">
+  <br/>
+  <br/>
+  <br/>  
+    <h1 className="display-4">SAER</h1>
+    <br/>
+    <p className="lead">Sistema de Administración de Edificios y Residencias</p>
+
+  </div>
+</div>
+
+
+
+
+           
+
+
                 </div>
             </div>  
         )

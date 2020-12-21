@@ -19,6 +19,7 @@ export default class CrearReclamoForm extends Component {
 
     render(){
         return (
+            <div className="card">   
         <form onSubmit = {this.onSubmit}> 
             <div className="input-group mb-3">
                 <div className="input-group-prepend">
@@ -36,6 +37,7 @@ export default class CrearReclamoForm extends Component {
             </div>  
             <button type="submit" className="btn btn-primary">Subir Reclamo</button>
         </form>
+        </div>
         )
     }
 
