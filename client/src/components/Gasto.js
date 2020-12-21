@@ -114,7 +114,7 @@ class Gasto extends Component {
             gastoAgua: this.state.auxGastoAgua
         })
         alert(res.data.message)
-        res.data.result && this.changeCard()
+        res.data.result && this.changeCardInfo()
     }
 
     render(){

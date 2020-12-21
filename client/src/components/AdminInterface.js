@@ -110,6 +110,7 @@ export default class AdminInterface extends Component {
                     </div>
                 </div>
             </div>  
+
         )
     };
 }

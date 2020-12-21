@@ -104,9 +104,9 @@ export default class UserReclamosCrear extends Component {
                     </li>  
                 </ul>
                 <br/>
-  
+                
                 <CrearReclamoForm addReclamo={this.addReclamo}/>
-
+                
                 </div>
             </div>  
                 

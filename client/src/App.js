@@ -9,6 +9,7 @@ import SuperUserInterface from './components/SuperUserInterface';
 import UserInterface from './components/UserInterface';
 import AdminGastosGomunes from './components/AdminGastosComunes';
 import AdminBodega from './components/AdminBodega';
+import AdminBodegaRevisar from './components/AdminBodegaRevisar';
 import AdminReclamos from './components/AdminReclamos';
 import AdminGastosComunesCrear from './components/AdminGastosComunesCrear';
 import AdminGastosComunesRevisar from './components/AdminGastosComunesRevisar';
@@ -23,12 +24,19 @@ import AdminUsuarios from './components/AdminUsuarios';
 import AdminUsuariosCrear from './components/AdminUsuariosCrear';
 import AdminUsuariosEditar from './components/AdminUsuariosEditar';
 import AdminUsuariosEliminar from './components/AdminUsuariosEliminar';
-import AdminAgregarArticulo from './components/AdminAgregarArticulo';
-import AdminEliminarArticulo from './components/AdminBodegaE';
+import AdminBodegaAgregar from './components/AdminBodegaAgregar';
+import AdminBodegaEliminar from './components/AdminBodegaEliminar';
 import AdminTurnos from './components/AdminTurnos';
+import AdminTurnosRevisar from './components/AdminTurnosRevisar';
+import AdminTurnosEliminar from './components/AdminTurnosEliminar';
 import AdminCorreos from './components/AdminCorreos';
-import AdminAgregarTurno from './components/AdminAgregarTurno';
-import AdminAgregarCorreo from './components/AdminAgregarCorreo';
+import AdminCorreosRevisar from './components/AdminCorreosRevisar';
+import AdminTurnosAgregar from './components/AdminTurnosAgregar';
+import AdminCorreosAgregar from './components/AdminCorreosAgregar';
+import AdminCorreosEliminar from './components/AdminCorreosEliminar';
+import SuperUserBodega from './components/SuperUserBodega';
+import SuperUserTurnos from './components/SuperUserTurnos';
+
 
 function App() {
   return (
@@ -40,21 +48,34 @@ function App() {
       <Route path="/users/adm/usuarios/crear" exact component={AdminUsuariosCrear}/>
       <Route path="/users/adm/usuarios/editar" exact component={AdminUsuariosEditar}/>
       <Route path="/users/adm/usuarios/eliminar" exact component={AdminUsuariosEliminar}/>
-      <Route path="/users/adm/bodega" exact component={AdminBodega}/>
-      <Route path="/users/adm/reclamos" exact component={AdminReclamos}/>
+      
       <Route path="/users/adm/gastos" exact component={AdminGastosGomunes}/>
       <Route path="/users/adm/gastos/crear" exact component={AdminGastosComunesCrear}/>
       <Route path="/users/adm/gastos/revisar" exact component={AdminGastosComunesRevisar}/>
       <Route path="/users/adm/gastos/cuenta" exact component={AdminGastosComunesCuenta}/>
       <Route path="/users/adm/gastos/cuenta/historial" exact component={AdminGastosComunesHistorial}/>
-      <Route path="/users/adm/bodega/agregar" exact component={AdminAgregarArticulo}/>
-      <Route path="/users/adm/bodega/eliminar" exact component={AdminEliminarArticulo}/>
+
+      <Route path="/users/adm/bodega" exact component={AdminBodega}/>
+      <Route path="/users/adm/bodega/revisar" exact component={AdminBodegaRevisar}/>
+      <Route path="/users/adm/bodega/agregar" exact component={AdminBodegaAgregar}/>
+      <Route path="/users/adm/bodega/eliminar" exact component={AdminBodegaEliminar}/>
+
       <Route path="/users/adm/turnos/" exact component={AdminTurnos}/>
+      <Route path="/users/adm/turnos/revisar" exact component={AdminTurnosRevisar}/>
+      <Route path="/users/adm/turnos/agregar" exact component={AdminTurnosAgregar}/>
+      <Route path="/users/adm/turnos/eliminar" exact component={AdminTurnosEliminar}/>
+
       <Route path="/users/adm/correos/" exact component={AdminCorreos}/>   
-      <Route path="/users/adm/turnos/agregar" exact component={AdminAgregarTurno}/>
-      <Route path="/users/adm/correos/agregar" exact component={AdminAgregarCorreo}/>   
+      <Route path="/users/adm/correos/revisar" exact component={AdminCorreosRevisar}/>   
+      <Route path="/users/adm/correos/agregar" exact component={AdminCorreosAgregar}/>   
+      <Route path="/users/adm/correos/eliminar" exact component={AdminCorreosEliminar}/>   
       
+      <Route path="/users/adm/reclamos" exact component={AdminReclamos}/>
+            
       <Route path="/users/sup" exact component={SuperUserInterface}/>
+      <Route path="/users/sup/turnos" exact component={SuperUserTurnos}/>
+      <Route path="/users/sup/bodega" exact component={SuperUserBodega}/>
+
 
 
       <Route path="/users/usr" exact component={UserInterface}/>
