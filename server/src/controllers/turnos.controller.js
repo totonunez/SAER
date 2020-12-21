@@ -7,6 +7,9 @@ export async function getAllTurnos(req, res) {
         attributes: ['id', 'hora_inicio', 'hora_termino', 'fecha_inicio', 'fecha_termino', 'users_id'],
         order: [
             ['id', 'DESC']
+        ], 
+        include: [
+            users
         ]
     });
     res.json({allTurnos});
