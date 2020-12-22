@@ -67,7 +67,7 @@ export async function getReclamosNreclamo(req, res) {
     let {n_reclamo} = req.params;
     const reclamo = await reclamos.findOne({
         where:{
-            n_reclamo
+            id: n_reclamo
         },
         attributes: ['id','n_reclamo', 'descripcion', 'respuesta', 'fecha_ingreso', 'fecha_modificacion', 'departamentos_id'],
     });
