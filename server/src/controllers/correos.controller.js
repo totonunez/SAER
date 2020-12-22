@@ -1,10 +1,14 @@
 import correos from '../models/correos';
+import users from '../models/users';
 
 export async function getAllCorreos(req, res) {
     const allCorreos = await correos.findAll({
         attributes: ['id', 'correo', 'users_id'],
         order: [
             ['id', 'DESC']
+        ],
+        include: [
+            users
         ]
     });
     res.json({allCorreos});
