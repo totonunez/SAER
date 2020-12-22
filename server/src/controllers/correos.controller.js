@@ -40,7 +40,7 @@ export async function createCorreos(req, res) {
             },
             attributes: ['id']
         })
-        if(!oldCorreo){
+        if(oldCorreo){
             res.json({message: "El correo ingresado ya existe", result: false});
         }else{
             if(user){
