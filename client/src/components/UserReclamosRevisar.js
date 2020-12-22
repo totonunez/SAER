@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import {Redirect, Link} from 'react-router-dom';
 
-import tasks from './tasks.json';
+
 import UReclamos from './UReclamos.js'
 
 export default class UserReclamosRevisar extends Component {
@@ -11,10 +11,28 @@ export default class UserReclamosRevisar extends Component {
         cod_rol: "",
         verify: undefined,
         message: "",
-        tasks: tasks
+        reclamos: []
     };
 
     componentDidMount = async () => {
+        const res = await axios.get("/reclamos/")
+        for(let i = 0; i<res.data.allReclamos.length; i++){
+            const resUser = await axios.get("/users/"+res.data.allReclamos[i].realizas[0].users_id)
+            console.log(resUser);
+            const reclamos = {
+                id: res.data.allReclamos[i].id,
+                residente: resUser.data.rut,
+                descripcion: res.data.allReclamos[i].descripcion,
+                respuesta: res.data.allReclamos[i].respuesta,
+                resuelto: false,
+                reclamos_id: res.data.allReclamos[i].id
+            }
+            this.setState({
+                reclamos: [...this.state.reclamos, reclamos]
+            })
+        }
+
+
         if(this.state.verify !== null){
             const res = await axios.get('/auth/usr/');
             this.setState({
@@ -91,7 +109,7 @@ export default class UserReclamosRevisar extends Component {
                     </li>  
                 </ul>
 
-                <UReclamos tasks= {this.state.tasks}/> 
+                <UReclamos reclamos= {this.state.reclamos}/> 
 
                 </div>
             </div>  

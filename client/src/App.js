@@ -19,7 +19,6 @@ import UserReclamos from './components/UserReclamos';
 import UserGastosComunes from './components/UserGastosComunes';
 import UserReclamosCrear from './components/UserReclamosCrear';
 import UserReclamosRevisar from './components/UserReclamosRevisar';
-import UserGastosComunesVer from './components/UserGastosComunesVer';
 import AdminUsuarios from './components/AdminUsuarios';
 import AdminUsuariosCrear from './components/AdminUsuariosCrear';
 import AdminUsuariosEditar from './components/AdminUsuariosEditar';
@@ -83,7 +82,7 @@ function App() {
       <Route path="/users/usr/reclamos/crear" exact component={UserReclamosCrear}/>
       <Route path="/users/usr/reclamos/revisar" exact component={UserReclamosRevisar}/>
       <Route path="/users/usr/gastos" exact component={UserGastosComunes}/>
-      <Route path="/users/usr/gastos/ver" exact component={UserGastosComunesVer}/>
+      
       
 
 

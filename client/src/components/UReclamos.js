@@ -4,7 +4,7 @@ import UReclamo from './UReclamo.js';
 
 class UReclamos extends Component {
     render () {
-        return this.props.tasks.map(task => <UReclamo task={task} key={task.id}/>);
+        return this.props.reclamos.map(reclamo => <UReclamo reclamo={reclamo} key={reclamo.id}/>);
         
     }
 }

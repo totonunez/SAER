@@ -28,7 +28,7 @@ class Reclamo extends Component {
                             <ReclamoForm task={this.props.task} /> 
                         </div>               
                     </div>
-            
+             
         }else{
             return <div>
                         <div className="card">

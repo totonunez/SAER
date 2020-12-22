@@ -2,19 +2,38 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import {Redirect, Link} from 'react-router-dom';
 
-import articulos from "./articulos.json"
-import Graficos from "./Graficos.js"
+import gastos from './gastos.json'
+import UGastos from './UGastos.js'
 
-export default class UserGastosComunes extends Component {
+export default class UserGastosComunesVer extends Component {
     state = {
         rut: 0,
         cod_rol: "",
         verify: undefined,
         message: "",
-        articulos: articulos
+        gastos: []
     };
 
     componentDidMount = async () => {
+        const res = await axios.get("/gastosComunes/")
+        console.log(res);
+        for(let i = 0; i<res.data.GastosComunes.length; i++){
+            const gastos = {
+                id: res.data.GastosComunes[i].id,
+                depto: res.data.GastosComunes[i].departamento.n_depto,
+                fechaingreso: res.data.GastosComunes[i].fecha_ingreso,
+                fechavencimiento: res.data.GastosComunes[i].fecha_vencimiento,
+                gastosdepto: res.data.GastosComunes[i].gasto_depto,
+                gastosbodega: res.data.GastosComunes[i].gasto_bodega,
+                gastosestacionamiento: res.data.GastosComunes[i].gasto_estacionamiento,
+                gastosagua: res.data.GastosComunes[i].gasto_agua,
+                gastosvarios: res.data.GastosComunes[i].estado
+            }
+            console.log(res.data.GastosComunes[0].gasto_bodega);
+            this.setState({
+                gastos: [...this.state.gastos, gastos]
+            })
+        }
         if(this.state.verify !== null){
             const res = await axios.get('/auth/usr/');
             this.setState({
@@ -82,15 +101,10 @@ export default class UserGastosComunes extends Component {
                 <div>
                 
                 <h1> <span className="badge badge-secondary">Tus Gastos Comunes</span></h1>
+
+                
           
-                <ul className="nav nav-pills nav-fill row">
-                    <li className="nav-item col-xs-8 col-md-12">
-                        <a className="nav-link active" href='/users/usr/gastos/ver'>Ver Gastos Comunes</a>
-                    </li>                    
-                </ul>
-
-                <Graficos articulos={this.state.articulos}/>
-
+                <UGastos gastos = {this.state.gastos}/>
 
                 </div>                
             </div>  
