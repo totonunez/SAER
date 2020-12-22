@@ -37,7 +37,7 @@ export async function createCorreos(req, res) {
         correo,
         users_id: user.dataValues.id
     },{
-        fields: ['id', 'correo', 'users_id']
+        fields: ['correo', 'users_id']
     });
     res.json({message: "Correo creado exitosamente", correo: newCorreo});
 };
