@@ -623,6 +623,7 @@ COPY public.asigna (roles_id, users_id, createdat, updatedat) FROM stdin;
 1	33	2020-12-04 04:40:14.763	2020-12-04 04:40:14.763
 3	34	2020-12-04 04:41:06.276	2020-12-04 04:41:06.276
 2	35	2020-12-04 04:41:24.614	2020-12-04 04:41:24.614
+3	37	2020-12-22 09:44:34.984	2020-12-22 09:44:34.984
 \.
 
 
@@ -643,6 +644,7 @@ COPY public.correos (id, correo, users_id) FROM stdin;
 15	admin@mail.cl	33
 16	user@mail.cl	34
 17	mail@mail.cl	35
+19	alex@mail.cl	37
 \.
 
 
@@ -680,6 +682,7 @@ COPY public.detalles_gastos (id, pago_interes, monto_mes, gastos_comunes_id) FRO
 
 COPY public.gastos_comunes (id, fecha_ingreso, fecha_vencimiento, gasto_depto, gasto_bodega, gasto_estacionamiento, gasto_agua, porcentaje_interes, estado, departamentos_id) FROM stdin;
 17	2020-12-11	2020-02-01	99999	99999	99999	99999	0.270000000000000018	t	1
+18	2020-12-22	2021-01-22	1000000	1000000	1000000	1000000	0.270000000000000018	t	2
 \.
 
 
@@ -689,6 +692,7 @@ COPY public.gastos_comunes (id, fecha_ingreso, fecha_vencimiento, gasto_depto, g
 
 COPY public.involucra (departamentos_id, users_id, createdat, updatedat) FROM stdin;
 1	34	2020-12-22 06:32:22.985	2020-12-22 06:32:22.985
+2	37	2020-12-22 11:22:02.472	2020-12-22 11:22:02.472
 \.
 
 
@@ -708,8 +712,8 @@ COPY public.movimientos (id, nombre_movimiento, monto, cuentas_corrientes_id) FR
 --
 
 COPY public.productos (id, cod_prod, nombre, cantidad, fecha_modificacion, volumen, bodegas_id) FROM stdin;
-33	1B	Shampoo111	5	2020-12-20	3	1
-32	1A	Shampoo	11	2020-12-20	3	1
+32	1A	Shampoo	15	2020-12-22	3	1
+33	1B	Shampoo111	1	2020-12-22	3	1
 \.
 
 
@@ -721,6 +725,7 @@ COPY public.realizas (users_id, reclamos_id) FROM stdin;
 34	5
 34	8
 34	9
+37	12
 \.
 
 
@@ -730,12 +735,9 @@ COPY public.realizas (users_id, reclamos_id) FROM stdin;
 
 COPY public.reclamos (id, n_reclamo, descripcion, respuesta, fecha_ingreso, fecha_modificacion, departamentos_id) FROM stdin;
 5	1	Problemas con el baño, el water exploto	Se cambiará su water pronto	2020-12-18 21:40:22.533993	2020-12-19 09:54:52.770355	1
-6	2	El vecino escucha fuerte		\N	\N	1
-7	0	sdsd		2020-12-22 03:37:14.051568	2020-12-22 03:37:14.051568	1
-8	0	slkdlskd		2020-12-22 07:14:47.849715	2020-12-22 07:14:47.849715	1
-9	0	FFFFFFF		2020-12-22 07:29:48.002008	2020-12-22 07:29:48.002008	1
-10	0	FFFFFFF		2020-12-22 07:33:46.668517	2020-12-22 07:33:46.668517	1
-11	0	holaaaa		2020-12-22 07:40:22.321013	2020-12-22 07:40:22.321013	1
+9	0	FFFFFFF	aaaaaa	2020-12-22 07:29:48.002008	2020-12-22 08:54:36.693272	1
+8	0	slkdlskd	TEST01	2020-12-22 07:14:47.849715	2020-12-22 09:46:25.402438	1
+12	0	La puerta esta mala	Se cambiara el proximo mes	2020-12-22 09:45:35.779668	2020-12-22 09:46:34.519504	2
 \.
 
 
@@ -764,6 +766,9 @@ COPY public.roles (id, cod_rol, nombre) FROM stdin;
 
 COPY public.supervisas (users_id, reclamos_id) FROM stdin;
 33	5
+33	9
+33	8
+33	12
 \.
 
 
@@ -784,6 +789,7 @@ COPY public.users (id, rut, nombre, apellido, telefono_casa, telefono_celular, p
 33	123456781	Admin	01	22182378	932443568	$2a$10$uBYNlsQAkDP4uqp.iLreRuG5lQQfuXn7xc32S5YH5Mfre9hJ5xYha
 34	123456782	User	01	22182371	932443561	$2a$10$vxUJIIwgwJNO0I10OVWxzuylqTHtNXMgJqgtasBC8shTSlD7lBKjC
 35	123456783	Conserje	01	22184289	932334456	$2a$10$toSB7AGpuqNcQRQhbQ9ij.Hx.QA8yU39jojdYuhGo4IGIrWuLy/gO
+37	123456785	alex	sanchez	262184289	962184289	$2a$10$fTkby743laBrv0bZ7tSsj.EtYG8GO5L6gubQQGdgHLbniefGMGSmi
 \.
 
 
@@ -798,7 +804,7 @@ SELECT pg_catalog.setval('public.bodegas_id_seq', 1, true);
 -- Name: correos_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.correos_id_seq', 18, true);
+SELECT pg_catalog.setval('public.correos_id_seq', 19, true);
 
 
 --
@@ -826,7 +832,7 @@ SELECT pg_catalog.setval('public.detalles_gastos_id_seq', 1, true);
 -- Name: gastos_comunes_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.gastos_comunes_id_seq', 17, true);
+SELECT pg_catalog.setval('public.gastos_comunes_id_seq', 18, true);
 
 
 --
@@ -847,7 +853,7 @@ SELECT pg_catalog.setval('public.productos_id_seq', 33, true);
 -- Name: reclamos_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.reclamos_id_seq', 11, true);
+SELECT pg_catalog.setval('public.reclamos_id_seq', 12, true);
 
 
 --
@@ -868,7 +874,7 @@ SELECT pg_catalog.setval('public.turnos_id_seq', 5, true);
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.users_id_seq', 36, true);
+SELECT pg_catalog.setval('public.users_id_seq', 37, true);
 
 
 --
