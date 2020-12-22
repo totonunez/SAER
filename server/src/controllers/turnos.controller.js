@@ -1,6 +1,8 @@
 import turnos from '../models/turnos';
 import users from '../models/users';
 import roles from '../models/roles';
+import jwt from 'jsonwebtoken';
+import config from '../config';
 
 export async function getAllTurnos(req, res) {
     const allTurnos = await turnos.findAll({
@@ -15,11 +17,13 @@ export async function getAllTurnos(req, res) {
     res.json({allTurnos});
 };
 
-export async function getTurnosDia(req, res) {
-    const {fecha_inicio} = req.body;
+export async function getTurnosUser(req, res) {
+    const token = req.cookies.token;
+    const decoded = jwt.verify(token, config.SECRET);
+    const users_id = decoded.id;
     const turno = await turnos.findOne({
         where:{
-            fecha_inicio
+            users_id
         },
         attributes: ['id', 'hora_inicio', 'hora_termino', 'fecha_inicio', 'fecha_termino', 'users_id'],
     });

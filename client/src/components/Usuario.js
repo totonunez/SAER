@@ -95,7 +95,7 @@ class Usuario extends Component {
             users_id: this.props.usuario.id,
             departamentos_id: this.state.auxDepartamento
         }
-        const res = await axios.post("/users/relationDepto/", relation)
+        const res = await axios.put("/users/updateRelationDeptos/", relation)
         alert(res.data);
         this.changeCard0()
 

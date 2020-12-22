@@ -17,9 +17,11 @@ export async function getAllReclamos(req, res) {
 
 export async function createReclamos(req, res){ 
     try{
+        const token = req.cookies.token;
         const {descripcion, departamentos_id} = req.body;
         const decoded = jwt.verify(token, config.SECRET);
         const id = decoded.id;
+        let bool = false;
         const depto = await departamentos.findOne({
             where: {
                 id: departamentos_id 
@@ -28,19 +30,29 @@ export async function createReclamos(req, res){
                 users
             ]
         });
-        /*
-        const reclamo = await reclamos.create({
-            n_reclamo: 0,
-            descripcion,
-            respuesta: '',
-            fecha_ingreso: sequelize.literal('CURRENT_TIMESTAMP'),
-            fecha_modificacion: sequelize.literal('CURRENT_TIMESTAMP'),
-            departamentos_id
-        },{
-            fields: ['n_reclamo', 'descripcion', 'respuesta', 'fecha_ingreso', 'fecha_modificacion', 'departamentos_id']
-        });
-        res.json({result: true, message: "Reclamo creado exitosamente"});*/
-        res.json({message: "todo bien", depto})
+        console.log(depto.dataValues.users[0].dataValues.id, id);
+        if(depto){
+            depto.dataValues.users.map((user) => {
+                bool = user.dataValues.id == id && true;
+            });
+            if(bool){
+                const reclamo = await reclamos.create({
+                    n_reclamo: 0,
+                    descripcion,
+                    respuesta: '',
+                    fecha_ingreso: sequelize.literal('CURRENT_TIMESTAMP'),
+                    fecha_modificacion: sequelize.literal('CURRENT_TIMESTAMP'),
+                    departamentos_id
+                },{
+                    fields: ['n_reclamo', 'descripcion', 'respuesta', 'fecha_ingreso', 'fecha_modificacion', 'departamentos_id']
+                });
+                res.json({result: true, message: "Reclamo creado exitosamente"});
+            }else{
+                res.json({result: false, message: "Hubo un error al vincular el usuario con el departamento"});
+            }
+        }else{
+            res.json({result: false, message: "Reclamo creado exitosamente"});
+        }
     }catch(e){
         console.log(e);
         res.json({result: false, message: "Ha ocurrido un error al crear el reclamo"})
