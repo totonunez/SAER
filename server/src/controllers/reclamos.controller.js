@@ -76,14 +76,13 @@ export async function getReclamosNreclamo(req, res) {
 
 export async function updateReclamos(req, res) {
     try{
-        const {n_reclamo, respuesta} = req.body;
-        console.log(n_reclamo, respuesta);
+        const {reclamos_id, respuesta} = req.body;
         const updateReclamo = await reclamos.update({
             fecha_modificacion: sequelize.literal('CURRENT_TIMESTAMP'),
             respuesta
         },{
             where: {
-                n_reclamo: n_reclamo
+                id: reclamos_id
             } 
         });
         res.json({result: true, message: "Reclamo actualizado exitosamente", Reclamo: updateReclamo});

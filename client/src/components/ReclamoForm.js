@@ -23,14 +23,17 @@ export default class ReclamoForm extends Component {
     onSubmit = async (e) => {
         e.preventDefault();
         const relation = {
-            reclamos_id: this.props.task.reclamos_id
+            reclamos_id: this.props.task.reclamos_id,
+            cod_rol: "adm"
         }
         const respuesta = {
             respuesta: this.state.reclamo,
-            n_reclamo: this.props.task.id
+            reclamos_id: this.props.task.reclamos_id
         }
+        console.log(this.state.reclamo);
         let res = await axios.post("/users/RelationReclamo", relation);
         if(res.data.result){
+            console.log("holaaaaaaa");
             res = await axios.put("/reclamos/updateReclamos", respuesta)
             this.setState({
                 respuesta: this.state.reclamo,
