@@ -18,13 +18,13 @@ export async function getAllReclamos(req, res) {
 export async function createReclamos(req, res){ 
     try{
         const token = req.cookies.token;
-        const {descripcion, departamentos_id} = req.body;
+        const {descripcion, n_depto} = req.body;
         const decoded = jwt.verify(token, config.SECRET);
         const id = decoded.id;
         let bool = false;
         const depto = await departamentos.findOne({
             where: {
-                id: departamentos_id 
+                n_depto 
             },
             include: [
                 users
