@@ -86,7 +86,7 @@ export async function updateTurnos(req, res) {
 export async function deleteTurnos(req, res) {
     try{
         const {id} = req.params;
-        await realizas.destroy({
+        await turnos.destroy({
             where: {
                 id: id
             }
