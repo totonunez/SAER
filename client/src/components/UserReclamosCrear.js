@@ -3,7 +3,7 @@ import axios from 'axios';
 import {Redirect, Link} from 'react-router-dom';
 
 import CrearReclamoForm from './CrearReclamoForm.js'
-import tasks from './tasks.json'
+
 
 export default class UserReclamosCrear extends Component {
     state = {

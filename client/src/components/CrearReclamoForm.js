@@ -23,7 +23,7 @@ export default class CrearReclamoForm extends Component {
         }
         let res2
         if (res.data.result){ 
-            res2 =  await axios.post("/users/relationReclamos", relation)
+            res2 =  await axios.post("/users/relationReclamo", relation)
         }
 
         res2.data.result ? alert(respuesta): alert(res.data.message)       

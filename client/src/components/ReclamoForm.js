@@ -41,6 +41,7 @@ export default class ReclamoForm extends Component {
     }    
 
     onChange = (e) => {
+        console.log(e.target.value);
         this.setState({
             [e.target.name]: e.target.value
         })    
@@ -56,6 +57,7 @@ export default class ReclamoForm extends Component {
                             placeholder="Escribir una Respuesta"
                             onChange={this.onChange}
                             required
+                            value= {this.state.reclamo}
                         />                  
                         <button type="submit" className="btn btn-primary my-1">Enviar Respuesta</button>
                     </form>                   

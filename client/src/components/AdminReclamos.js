@@ -21,10 +21,11 @@ export default class AdminReclamos extends Component {
         const res = await axios.get("/reclamos/")
         console.log(res);
         for(let i = 0; i<res.data.allReclamos.length; i++){
-            const resUser = await axios.get("/realiza/"+res.data.allReclamos[i].id)
+            const resUser = await axios.get("/users/"+res.data.allReclamos[i].realizas[0].users_id)
+            console.log(resUser);
             const tasks = {
-                id: res.data.allReclamos[i].n_reclamo,
-                residente: resUser.data.idRealizas.user.rut,
+                id: res.data.allReclamos[i].id,
+                residente: resUser.data.rut,
                 descripcion: res.data.allReclamos[i].descripcion,
                 respuesta: res.data.allReclamos[i].respuesta,
                 resuelto: false,
