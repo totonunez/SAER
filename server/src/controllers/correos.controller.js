@@ -26,20 +26,39 @@ export async function getCorreoUserId(req, res) {
 };
 
 export async function createCorreos(req, res) {
-    const {correo, rut} = req.body;
-    const user = await users.findOne({
-        where: {
-            rut
-        },
-        attributes: ['id']
-    })
-    const newCorreo = await correos.create({
-        correo,
-        users_id: user.dataValues.id
-    },{
-        fields: ['correo', 'users_id']
-    });
-    res.json({message: "Correo creado exitosamente", correo: newCorreo});
+    try{
+        const {correo, rut} = req.body;
+        const oldCorreo = await correos.findOne({
+            where: {
+                correo
+            },
+            attributes: ['id']
+        })
+        const user = await users.findOne({
+            where: {
+                rut
+            },
+            attributes: ['id']
+        })
+        if(oldCorreo){
+            if(user){
+                const newCorreo = await correos.create({
+                    correo,
+                    users_id: user.dataValues.id
+                },{
+                    fields: ['correo', 'users_id']
+                });
+                res.json({message: "Correo creado exitosamente", result: true});
+            }else{
+                res.json({message: "El rut ingresado no existe", result: false});
+            }
+        }else{
+            res.json({message: "El correo ingresado ya existe", result: false});
+        }
+    }catch(e){
+        console.log(e);
+        res.json({message: "Ha ocurrido un problema al crear el correo", result: true});
+    }
 };
 
 export async function updateCorreos(req, res) {
