@@ -37,16 +37,21 @@ export async function createCorreos(req, res) {
 };
 
 export async function updateCorreos(req, res) {
-    const {id, correo, users_id} = req.body;
-    const updateCorreo = await correos.update({
-        correo,
-        users_id
-    },{
-        where: {
-            id: id
-        } 
-    });
-    res.json({message: "Correo actualizado exitosamente", correo: updateCorreo});
+    try{
+        const {id, correo, users_id} = req.body;
+        const updateCorreo = await correos.update({
+            correo,
+            users_id
+        },{
+            where: {
+                id
+            } 
+        });
+        res.json({message: "Correo actualizado exitosamente", correo: updateCorreo, result: true});
+    }catch(e){
+        console.log(e);
+        res.json({message: "Ha ocurrido un error al actualizar el correo", result: false});
+    }
 };
 
 export async function deleteCorreos(req, res) {
