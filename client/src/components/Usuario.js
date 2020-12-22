@@ -15,7 +15,8 @@ class Usuario extends Component {
         auxPassword: '',
         auxDepartamento: '',
         auxDepartamento2: '',
-        auxDepartamento3: ''
+        auxDepartamento3: '',
+        auxDepartamento4: ''
     }
 
     componentDidMount = (props) =>  {
@@ -48,6 +49,12 @@ class Usuario extends Component {
     changeCard3 = () => {
         this.setState({
             changeData: 3
+        })
+    }
+
+    changeCard4 = () => {
+        this.setState({
+            changeData: 4
         })
     }
 
@@ -94,12 +101,24 @@ class Usuario extends Component {
         e.preventDefault();
         const relation = {
             users_id: this.props.usuario.id,
-            departamentos_id: this.state.auxDepartamento
+            n_depto: this.state.auxDepartamento2,
+            newN_depto: this.state.auxDepartamento3
         }
-        const res = await axios.put("/users/updateRelationDeptos/", relation)
+        const res = await axios.put("/users/updateRelationDepto/", relation)
         alert(res.data);
         this.changeCard0()
 
+    }
+
+    onSubmitDeptoB = async (e) => {
+        e.preventDefault();
+        const relation = {
+            users_id: this.props.usuario.id,
+            n_depto: this.state.auxDepartamento
+        }
+        const res = await axios.post("/users/relationDepto/", relation)
+        alert(res.data.message);
+        res.data.result && this.changeCard0()
     }
 
     
@@ -122,6 +141,7 @@ class Usuario extends Component {
                     <button className= "btn btn-primary ml-4" onClick={this.changeCard1}> Editar Datos</button>
                     {this.props.usuario.roles_id==="usr" && <button className= "btn btn-primary ml-4" onClick={this.changeCard2}> Vincular Departamento</button>}       
                     {this.props.usuario.roles_id==="usr" && <button className= "btn btn-primary ml-4" onClick={this.changeCard3}> Actualizar Departamento</button>}       
+                    {this.props.usuario.roles_id==="usr" && <button className= "btn btn-primary ml-4" onClick={this.changeCard4}> Eliminar Departamento</button>}
 
                 </div>
             </div>
@@ -277,7 +297,7 @@ class Usuario extends Component {
                 aria-label="Default" 
                 aria-describedby="inputGroup-sizing-default"  
                 onChange={this.onChange}
-                value={this.state.auxDepartamento}              
+                value={this.state.auxDepartamento2}              
                 />
             </div>  
 
@@ -293,12 +313,43 @@ class Usuario extends Component {
                 aria-label="Default" 
                 aria-describedby="inputGroup-sizing-default"  
                 onChange={this.onChange}
-                value={this.state.auxDepartamento2}              
+                value={this.state.auxDepartamento3}              
                 />
             </div>  
            
               
             <button type="submit" className="btn btn-primary" onClick={this.onSubmitDeptoA}>Actualizar Departamento</button>
+            
+            <button  className= "btn btn-primary ml-4" onClick={this.changeCard0}> Volver</button>
+            
+        </form>
+        </div>
+        </div>
+       
+        else if(this.state.changeData === 4)  
+                return <div className="card">
+                <div className="card-body">
+                    <h5 className="card-title">Usuario: {this.props.usuario.rut} </h5>
+                    <h6 className="card-subtitle mb-2 text-muted">Nombre: {this.props.usuario.nombre} {this.props.usuario.apellido} </h6>
+                <form onSubmit = {this.onSubmit}> 
+             
+            <div className="input-group mb-3">
+                <div className="input-group-prepend">
+                    <span className="input-group-text" id="inputGroup-sizing-default">Departamento a Desvincular:</span>
+                </div>
+                <input 
+                type="text" 
+                name="auxDepartamento4"
+                className="form-control" 
+                aria-label="Default" 
+                aria-describedby="inputGroup-sizing-default"  
+                onChange={this.onChange}
+                value={this.state.auxDepartamento}              
+                />
+            </div>  
+           
+              
+            <button type="submit" className="btn btn-primary" onClick={this.onSubmitDeptoB}>Eliminar Departamento</button>
             
             <button  className= "btn btn-primary ml-4" onClick={this.changeCard0}> Volver</button>
             
