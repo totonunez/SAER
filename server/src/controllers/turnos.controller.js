@@ -84,12 +84,17 @@ export async function updateTurnos(req, res) {
 };
 
 export async function deleteTurnos(req, res) {
-    const {id} = req.body;
-    await realizas.destroy({
-        where: {
-            id: id
-        }
-    });
-    res.json({message: "Turno eliminado exitosamente"});
+    try{
+        const {id} = req.body;
+        await realizas.destroy({
+            where: {
+                id: id
+            }
+        });
+        res.json({message: "Turno eliminado exitosamente", result: true});
+    }catch(e){
+        console.log(e);
+        res.json({message: "Ha ocurrido un error al eliminar turnos", result: false});
+    }
 };
 
