@@ -7,11 +7,12 @@ import UReclamos from './UReclamos.js'
 
 export default class UserReclamosRevisar extends Component {
     state = {
-        rut: 0,
+        rut: "",
         cod_rol: "",
         verify: undefined,
         message: "",
-        reclamos: []
+        reclamos: [],
+        verifyMessage: false
     };
 
     componentDidMount = async () => {
@@ -44,7 +45,7 @@ export default class UserReclamosRevisar extends Component {
     };
 
     componentWillUnmount = () => {
-        alert(this.state.message);
+        this.state.verifyMessage && alert(this.state.message);
     };
 
     logOut = async () => {
@@ -58,8 +59,14 @@ export default class UserReclamosRevisar extends Component {
     render() {
         switch(this.state.verify) {
             case false:
+                this.setState({
+                    verifyMessage: true
+                });
                 return <Redirect to={{ pathname: '/users/'+this.state.cod_rol}}/>;
             case null:
+                this.setState({
+                    verifyMessage: true
+                });
                 return <Redirect to={{ pathname: '/'}}/>; 
             default:
                 break;

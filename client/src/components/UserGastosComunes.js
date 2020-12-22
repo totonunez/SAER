@@ -11,29 +11,34 @@ export default class UserGastosComunesVer extends Component {
         cod_rol: "",
         verify: undefined,
         message: "",
-        gastos: []
+        gastos: [],
+        verifyMessage: false
     };
 
     componentDidMount = async () => {
-        const res = await axios.get("/gastosComunes/")
+        const res = await axios.get("/gastosComunes/id")
         console.log(res);
-        for(let i = 0; i<res.data.GastosComunes.length; i++){
-            const gastos = {
-                id: res.data.GastosComunes[i].id,
-                depto: res.data.GastosComunes[i].departamento.n_depto,
-                fechaingreso: res.data.GastosComunes[i].fecha_ingreso,
-                fechavencimiento: res.data.GastosComunes[i].fecha_vencimiento,
-                gastosdepto: res.data.GastosComunes[i].gasto_depto,
-                gastosbodega: res.data.GastosComunes[i].gasto_bodega,
-                gastosestacionamiento: res.data.GastosComunes[i].gasto_estacionamiento,
-                gastosagua: res.data.GastosComunes[i].gasto_agua,
-                gastosvarios: res.data.GastosComunes[i].estado
+        let bool = false
+        if(res.data.GastosComunes[0].departamento !== null){bool = true}
+        if(bool){
+            for(let i = 0; i<res.data.GastosComunes.length; i++){
+                const gastos = {
+                    id: res.data.GastosComunes[i].id,
+                    depto: res.data.GastosComunes[i].departamento.n_depto,
+                    fechaingreso: res.data.GastosComunes[i].fecha_ingreso,
+                    fechavencimiento: res.data.GastosComunes[i].fecha_vencimiento,
+                    gastosdepto: res.data.GastosComunes[i].gasto_depto,
+                    gastosbodega: res.data.GastosComunes[i].gasto_bodega,
+                    gastosestacionamiento: res.data.GastosComunes[i].gasto_estacionamiento,
+                    gastosagua: res.data.GastosComunes[i].gasto_agua,
+                    gastosvarios: res.data.GastosComunes[i].estado
+                }
+                console.log(res.data.GastosComunes[0].gasto_bodega);
+                this.setState({
+                    gastos: [...this.state.gastos, gastos]
+                })
             }
-            console.log(res.data.GastosComunes[0].gasto_bodega);
-            this.setState({
-                gastos: [...this.state.gastos, gastos]
-            })
-        }
+        }    
         if(this.state.verify !== null){
             const res = await axios.get('/auth/usr/');
             this.setState({
@@ -45,7 +50,7 @@ export default class UserGastosComunesVer extends Component {
     };
 
     componentWillUnmount = () => {
-        alert(this.state.message);
+        this.state.verifyMessage && alert(this.state.message);
     };
 
     logOut = async () => {
@@ -59,8 +64,14 @@ export default class UserGastosComunesVer extends Component {
     render() {
         switch(this.state.verify) {
             case false:
+                this.setState({
+                    verifyMessage: true
+                });
                 return <Redirect to={{ pathname: '/users/'+this.state.cod_rol}}/>;
             case null:
+                this.setState({
+                    verifyMessage: true
+                });
                 return <Redirect to={{ pathname: '/'}}/>; 
             default:
                 break;

@@ -341,3 +341,18 @@ export async function deleteRelationDepto(req, res) {
         res.json({message: "Ha ocurrido un error el desvincular el departamento ingresado", result: false});
     }
 };
+
+export async function getId(req, res) {
+    const token = req.cookies.token;
+    !token && res.json({resul: null, message: "Ha ocurrido un problema con el token"});
+    const decoded = jwt.verify(token, config.SECRET);
+    const id = decoded.id;
+    const user = await usuarios.findOne({
+        where: {
+            id
+        },
+        attributes: ['rut']
+    });
+    console.log(user);
+    res.json({rut: user.dataValues.rut});
+};

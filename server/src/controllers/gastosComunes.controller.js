@@ -1,5 +1,8 @@
 import gastosComunes from '../models/gastosComunes';
 import departamentos from '../models/departamentos';
+import users from '../models/users';
+import jwt from 'jsonwebtoken';
+import config from '../config';
 
 export async function getAllGastosComunes(req, res) {
     const allGastosComunes = await gastosComunes.findAll({
@@ -101,4 +104,28 @@ export async function updateEstadoGastosComunes(req, res) {
         console.log(e);
         res.json({message: "Ha ocurrido un error al actualizar el estado", result: false});
     }
+};
+
+export async function getGastosComunesUsersId(req, res) {
+    const token = req.cookies.token;
+    const decoded = jwt.verify(token, config.SECRET);
+    const id = decoded.id;
+    const allGastosComunes = await gastosComunes.findAll({
+        attributes: ['id', 'fecha_ingreso', 'fecha_vencimiento', 'gasto_depto', 'gasto_bodega', 'gasto_estacionamiento', 'gasto_agua', 'porcentaje_interes', 'estado', 'departamentos_id'],
+        order: [
+            ['id', 'DESC']
+        ],
+        include: {
+            model: departamentos,
+            include: [
+                {
+                    model: users,
+                    where: {
+                        id
+                    }
+                }
+            ]
+        }
+    });
+    res.json({GastosComunes: allGastosComunes});
 };

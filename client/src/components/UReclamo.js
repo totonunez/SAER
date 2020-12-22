@@ -18,7 +18,7 @@ class UReclamo extends Component {
                     </blockquote>
                     <br/>
                     <blockquote className="blockquote mb-0">
-                    <p>Respuesta Administración:  </p>
+                    <p>Respuesta Administración:  {this.props.reclamo.respuesta}</p>
                     </blockquote>
                 </div>                  
             </div>               

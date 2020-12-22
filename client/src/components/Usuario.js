@@ -190,7 +190,8 @@ class Usuario extends Component {
                 type="text" 
                 name="auxCorreo"
                 className="form-control" 
-                aria-label="Default" 
+                aria-label="Default"
+                placeholder="Ej: nombre@mail.com" 
                 aria-describedby="inputGroup-sizing-default"  
                 onChange={this.onChange}
                 value={this.state.auxCorreo}              

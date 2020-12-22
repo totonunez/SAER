@@ -8,6 +8,7 @@ router.get('/', gastosComunes.getAllGastosComunes);
 router.post('/createGastosComunes', gastosComunes.createGastosComunes);
 router.put('/updateGastosComunes', gastosComunes.updateGastosComunes);
 router.put('/updateEstadoGastosComunes', gastosComunes.updateEstadoGastosComunes);
+router.get('/id', gastosComunes.getGastosComunesUsersId);
 
 // gastosComunes/:id
 
