@@ -191,7 +191,7 @@ export async function relationDepto(req, res) {
 export async function relationReclamo(req, res) {
     try{
         const token = req.cookies.token;
-        !token && res.json({resul: null, message: "Ha ocurrido un problema"});
+        !token && res.json({resul: null, message: "Ha ocurrido un problema con el token"});
         const decoded = jwt.verify(token, config.SECRET);
         const user = await usuarios.findOne({
             where: {
@@ -221,10 +221,10 @@ export async function relationReclamo(req, res) {
                 fields: ['users_id','reclamos_id']
             });
         }
-        res.json({result: true, relation: relationReclamos, message: ""});
+        res.json({result: true, relation: relationReclamos, message: "Reclamo relacionado existosamente"});
     }catch(e){
         console.log(e);
-        res.json({result: false, relation: relationReclamos, message: "Ha ocurrido un problema"});
+        res.json({result: false, relation: relationReclamos, message: "Ha ocurrido un problema al relacionar el reclamo"});
     }
 };
 

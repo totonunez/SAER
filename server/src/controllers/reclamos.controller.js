@@ -46,7 +46,7 @@ export async function createReclamos(req, res){
                 },{
                     fields: ['n_reclamo', 'descripcion', 'respuesta', 'fecha_ingreso', 'fecha_modificacion', 'departamentos_id']
                 });
-                res.json({result: true, message: "Reclamo creado exitosamente"});
+                res.json({result: true, message: "Reclamo creado exitosamente", reclamo});
             }else{
                 res.json({result: false, message: "Hubo un error al vincular el usuario con el departamento"});
             }
