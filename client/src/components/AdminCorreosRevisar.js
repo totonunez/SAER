@@ -12,26 +12,20 @@ export default class AdminCorreosRevisar extends Component {
         verify: undefined,
         message: "",
         verifyMessage: false,
-        articulos: []
+        correos: []
     };
 
     componentDidMount = async () => {
-        const res = await axios.get("/productos/")
+        const res = await axios.get("/correos/")
         console.log(res);
-        for(let i = 0; i<res.data.allProductos.length; i++){
-            const articulos = {
-                id: res.data.allProductos[i].id,
-                nombre: res.data.allProductos[i].nombre,
-                cantidad: res.data.allProductos[i].cantidad,
-                codigo: res.data.allProductos[i].cod_prod,
-                volumen: res.data.allProductos[i].volumen,
-                bodega: res.data.allProductos[i].bodega.n_bodega,
-                fechaModificacion: res.data.allProductos[i].fecha_modificacion,
-                bodegaCapacidad: res.data.allProductos[i].bodega.capacidad,
-                bodegaCapacidadActual: res.data.allProductos[i].bodega.cantidad_actual,
+        for(let i = 0; i<res.data.allCorreos.length; i++){
+            const correos = {
+                id: res.data.allCorreos[i].id,
+                correo: res.data.allCorreos[i].correo,
+                users_id: res.data.allCorreos[i].user.rut
             }
             this.setState({
-                articulos: [...this.state.articulos, articulos]
+                correos: [...this.state.correos, correos]
             })
         }
         if(this.state.verify !== null){
@@ -129,7 +123,7 @@ export default class AdminCorreosRevisar extends Component {
                         <a className="nav-link active" href='/users/adm/correos/agregar'>Agregar Correos</a>
                     </li>
                 </ul>
-                <Correos articulos={this.state.articulos}/>
+                <Correos correos={this.state.correos}/>
                 </div>
             </div>  
         )

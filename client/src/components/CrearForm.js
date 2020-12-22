@@ -66,7 +66,7 @@ export default class CrearForm extends Component {
                 className="form-control" 
                 aria-label="Default" 
                 aria-describedby="inputGroup-sizing-default"
-                placeholder="FECHA-MES-DIA"
+                placeholder="AÑO-MES-DIA"
                 onChange={this.onChange}
                 value={this.state.fechaingreso}
                 />
@@ -81,7 +81,7 @@ export default class CrearForm extends Component {
                 className="form-control" 
                 aria-label="Default" 
                 aria-describedby="inputGroup-sizing-default"
-                placeholder="FECHA-MES-DIA"
+                placeholder="AÑO-MES-DIA"
                 onChange={this.onChange}
                 value={this.state.fechavencimiento}
                 />

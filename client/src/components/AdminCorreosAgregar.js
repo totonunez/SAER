@@ -6,26 +6,20 @@ class AdminCorreosAgregar extends Component {
 
     state = {
         changeData: false,
-        telefono_casa: '',
-        telefono_celular: '',
-        correo: '',
-        password: '',
-        auxTelefono_casa: '',
-        auxTelefono_celular: '',
-        auxCorreo: '',
-        auxPassword: ''
+        correo: "",
+        users_id: ""
     }
 
-    componentDidMount = (props) =>  {
-    }
-
-    toggleShow = () => {
-        this.setState({changeData: !this.state.changeData})
-    }
-
-    onSubmit = async (e, props) => { 
+    onSubmit = async (e) => { 
         e.preventDefault();
-        
+        const correo = 
+        {
+            correo: this.state.correo,
+            rut: this.state.users_id
+        }
+        const res = await axios.post("/correos/createCorreos" , correo)
+        alert(res.data.message)
+
     }
 
     onChange = e => {
@@ -99,61 +93,33 @@ class AdminCorreosAgregar extends Component {
                         <div className="input-group mb-3">
                             
                             <div className="input-group-prepend">
-                                <span className="input-group-text" id="inputGroup-sizing-default">Telefono de Casa</span>
-                            </div>
-                            <input 
-                            type="text" 
-                            name="auxTelefono_casa"
-                            className="form-control" 
-                            aria-label="Default" 
-                            aria-describedby="inputGroup-sizing-default"    
-                            onChange={this.onChange}
-                            value={this.state.auxTelefono_casa}            
-                            />
-                        </div>  
-                        <div className="input-group mb-3">
-                            <div className="input-group-prepend">
-                                <span className="input-group-text" id="inputGroup-sizing-default">telefono Celular</span>
-                            </div>
-                            <input 
-                            type="text" 
-                            name="auxTelefono_celular"
-                            className="form-control" 
-                            aria-label="Default" 
-                            aria-describedby="inputGroup-sizing-default"  
-                            onChange={this.onChange}
-                            value={this.state.auxTelefono_celular}              
-                            />
-                        </div>  
-                        <div className="input-group mb-3">
-                            <div className="input-group-prepend">
                                 <span className="input-group-text" id="inputGroup-sizing-default">Correo</span>
                             </div>
                             <input 
                             type="text" 
-                            name="auxCorreo"
+                            name="correo"
                             className="form-control" 
                             aria-label="Default" 
-                            aria-describedby="inputGroup-sizing-default"  
+                            aria-describedby="inputGroup-sizing-default"    
                             onChange={this.onChange}
-                            value={this.state.auxCorreo}              
-                            />
-                        </div>
-                        <div className="input-group mb-3">
-                            <div className="input-group-prepend">
-                                <span className="input-group-text" id="inputGroup-sizing-default">Password</span>
-                            </div>
-                            <input 
-                            type="password" 
-                            name="auxPassword"
-                            className="form-control" 
-                            aria-label="Default" 
-                            aria-describedby="inputGroup-sizing-default"  
-                            onChange={this.onChange}
-                            value={this.state.auxPassword}              
+                            value={this.state.correo}            
                             />
                         </div>  
-                        <button type="submit" className="btn btn-primary">Cambiar Datos</button>
+                        <div className="input-group mb-3">
+                            <div className="input-group-prepend">
+                                <span className="input-group-text" id="inputGroup-sizing-default">Rut del Usuario</span>
+                            </div>
+                            <input 
+                            type="text" 
+                            name="users_id"
+                            className="form-control" 
+                            aria-label="Default" 
+                            aria-describedby="inputGroup-sizing-default"  
+                            onChange={this.onChange}
+                            value={this.state.users_id}              
+                            />
+                        </div>  
+                        <button type="submit" className="btn btn-primary">Crear Correo</button>
                     </form>
                     </div>
                 </div>

@@ -4,7 +4,7 @@ import CorreoE from './CorreoE.js';
 
 class CorreosE extends Component {
     render () {
-        return this.props.articulos.map(articulo => <CorreoE articulo={articulo} key={articulo.id}/>)
+        return this.props.correos.map(correo => <CorreoE correo={correo} key={correo.id}/>)
                  
 
     }

@@ -22,7 +22,7 @@ export default class AdminGastosComunesCuenta extends Component {
                 deudatotal: res.data.allCuentasCorrientes[i].deuda_total,
                 abono: res.data.allCuentasCorrientes[i].abono,
                 totalpago: res.data.allCuentasCorrientes[i].total_pago,
-                depto: res.data.allCuentasCorrientes[i].departamentos_id,
+                depto: res.data.allCuentasCorrientes[i].departamento.n_depto,
                 ncuenta: res.data.allCuentasCorrientes[i].n_cuenta
             }
             this.setState({

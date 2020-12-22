@@ -10,7 +10,7 @@ class CorreoE extends Component {
 
     onSubmit = async e => {
         e.preventDefault()
-        const res = await axios.delete("/productos/"+this.props.articulo.codigo)
+        const res = await axios.delete("/correos/"+this.props.correo.id)
         res.data.result && this.setState({
             eliminar: true
         })
@@ -22,10 +22,10 @@ class CorreoE extends Component {
             return(
                 <div className="card">
                     <div className="card-body">
-                        <h5 className="card-title">Codigo de Producto: {this.props.articulo.codigo} </h5>
-                        <h6 className="card-subtitle mb-2 text-muted">Nombre: {this.props.articulo.nombre}</h6>
-                        <h6 className="card-subtitle mb-2 text-muted">Bodega: {this.props.articulo.bodega}</h6>
-                        <button onClick={this.onSubmit}> Eliminar Articulo</button>
+                        <h5 className="card-title">ID del Correo: {this.props.correo.id} </h5>
+                        <h6 className="card-subtitle mb-2 text-muted">Correo: {this.props.correo.correo}</h6>
+                        <h6 className="card-subtitle mb-2 text-muted">Rut del Usuario: {this.props.correo.users_id}</h6>
+                        <button onClick={this.onSubmit}> Eliminar Correo</button>
                     </div>
                 </div>
             )

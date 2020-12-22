@@ -126,6 +126,7 @@ class Turno extends Component {
                                     <input 
                                         type="text" 
                                         name="auxFechaInicio"
+                                        placeholder="AÑO-MES-DIA"
                                         className="form-control" 
                                         aria-label="Default" 
                                         aria-describedby="inputGroup-sizing-default"    
@@ -140,6 +141,7 @@ class Turno extends Component {
                                     <input 
                                         type="text" 
                                         name="auxFechaTermino"
+                                        placeholder="AÑO-MES-DIA"
                                         className="form-control" 
                                         aria-label="Default" 
                                         aria-describedby="inputGroup-sizing-default"    

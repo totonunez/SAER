@@ -163,7 +163,7 @@ class AdminBodegaAgregar extends Component {
                             value={this.state.bodega}              
                             />  
                         </div>
-                        <button type="submit" className="btn btn-primary">Agregar Datos</button>
+                        <button type="submit" className="btn btn-primary">Crear Articulo</button>
                     </form>
                     </div>
                 </div>

@@ -20,7 +20,7 @@ export default class AdminGastosComunesRevisar extends Component {
         for(let i = 0; i<res.data.GastosComunes.length; i++){
             const gastos = {
                 id: res.data.GastosComunes[i].id,
-                depto: res.data.GastosComunes[i].departamento.id,
+                depto: res.data.GastosComunes[i].departamento.n_depto,
                 fechaingreso: res.data.GastosComunes[i].fecha_ingreso,
                 fechavencimiento: res.data.GastosComunes[i].fecha_vencimiento,
                 gastosdepto: res.data.GastosComunes[i].gasto_depto,

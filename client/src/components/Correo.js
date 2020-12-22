@@ -5,36 +5,24 @@ class Correo extends Component {
 
     state = {
         changeCard: 0,
-        auxCantidad: "",
-        cantidad: "",
-        capacidad: 0,
-        auxCapacidad: "",
-        fechaModificacion: "",
-        cantidadActual: 0
+        auxCorreo: "",
+
+        id: "",
+        correo: "",
+        users_id: ""
     }
 
     componentDidMount = () => {
         this.setState({
-            cantidad: this.props.articulo.cantidad,
-            fechaModificacion: this.props.articulo.fechaModificacion,
-            cantidadActual: this.props.articulo.bodegaCapacidadActual
+            id: this.props.correo.id,
+            correo: this.props.correo.correo,
+            users_id: this.props.correo.users_id   
         })
     }
 
     changeCardEdit = () => {
         this.setState({
             changeCard: 1
-        })
-    }
-
-    changeCardInfo = async () => {
-        const res = await axios.get("/bodegas/"+this.props.articulo.bodega)
-        console.log(res.data.bodega);
-        res.data.result && this.setState({
-            cantidadActual: res.data.bodega.cantidad_actual
-        })
-        this.setState({
-            changeCard: 2
         })
     }
 
@@ -52,30 +40,28 @@ class Correo extends Component {
 
     onSubmit = async e => {
         e.preventDefault()
-        const producto = {
-            cod_prod: this.props.articulo.codigo,
-            cantidad: this.state.auxCantidad
+        const correo = {
+            id: this.props.correo.id,
+            correo: this.state.auxCorreo,
+            users_id: this.props.correo.users_id
         }
-        const res = await axios.put("/productos/", producto)
+        const res = await axios.put("/correos/updateCorreos", correo)
         res.data.result && this.setState({
-            cantidad: this.state.auxCantidad,
-            fechaModificacion: res.data.productoFecha.fecha_modificacion,
-            cantidadActual: res.data.cant,
-            changeCard: 0
+            
+            correo: this.state.auxCorreo
         })
         alert(res.data.message)
+        console.log(res.data.result);
+        this.changeCardArt()
     }
 
     render(){
         if(this.state.changeCard === 0)
         return  <div className="card">
                     <div className="card-body">
-                        <h5 className="card-title">Codigo de Producto: {this.props.articulo.codigo}</h5>
-                        <h6 className="card-subtitle mb-2 text-muted">Nombre: {this.props.articulo.nombre}</h6>
-                        <h6 className="card-subtitle mb-2 text-muted">Bodega: {this.props.articulo.bodega}</h6>
-                        <h6 className="card-subtitle mb-2 text-muted">Volumen: {this.props.articulo.volumen} [m^3]</h6>
-                        <h6 className="card-subtitle mb-2 text-muted">Cantidad: {this.state.cantidad}</h6>
-                        <h6 className="card-subtitle mb-2 text-muted">Fecha: {this.state.fechaModificacion}</h6>
+                        <h5 className="card-title">ID del Correo: {this.props.correo.id}</h5>
+                        <h6 className="card-subtitle mb-2 text-muted">Correo: {this.state.correo}</h6>
+                        <h6 className="card-subtitle mb-2 text-muted">Rut Usuario: {this.props.correo.users_id}</h6>
                         <div className="row">
                             <button className="btn btn-primary col-xs-12 col-md-2 mr-3" onClick={this.changeCardEdit}> Editar Correo</button>
                         </div>
@@ -85,21 +71,21 @@ class Correo extends Component {
         return  <div>
                     <div className="card">
                         <div className="cardBody pt-3 pb-3 pr-3 pl-3">
-                            <h5 className="card-title">Codigo de Producto: {this.props.articulo.codigo}</h5>
-                            <h6 className="card-subtitle mb-2 text-muted">Nombre: {this.props.articulo.nombre}</h6>
+                            <h5 className="card-title">ID del Correo: {this.props.correo.id}</h5>
+                            <h6 className="card-subtitle mb-2 text-muted">Correo Actual: {this.state.correo}</h6>
                             <form onSubmit = {this.onSubmit}> 
                                 <div className="input-group mb-3"> 
                                     <div className="input-group-prepend">
-                                    <span className="input-group-text" id="inputGroup-sizing-default">Cantidad</span>
+                                    <span className="input-group-text" id="inputGroup-sizing-default">Nuevo Correo</span>
                                     </div>
                                     <input 
                                         type="text" 
-                                        name="auxCantidad"
+                                        name="auxCorreo"
                                         className="form-control" 
                                         aria-label="Default" 
                                         aria-describedby="inputGroup-sizing-default"    
                                         onChange={this.onChange}
-                                        value={this.state.auxCantidad}            
+                                        value={this.state.auxCorreo}            
                                     />
                                 </div>
                                 <div className="row">

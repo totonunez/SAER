@@ -130,6 +130,7 @@ class AdminTurnosAgregar extends Component {
                             type="text" 
                             name="fechaInicio"
                             className="form-control" 
+                            placeholder="AÑO-MES-DIA"
                             aria-label="Default" 
                             aria-describedby="inputGroup-sizing-default"  
                             onChange={this.onChange}
@@ -145,6 +146,7 @@ class AdminTurnosAgregar extends Component {
                             name="fechaTermino"
                             className="form-control" 
                             aria-label="Default" 
+                            placeholder="AÑO-MES-DIA"
                             aria-describedby="inputGroup-sizing-default"  
                             onChange={this.onChange}
                             value={this.state.fechaTermino}              
