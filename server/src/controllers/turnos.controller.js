@@ -64,18 +64,23 @@ export async function createTurnos(req, res) {
 };
 
 export async function updateTurnos(req, res) {
-    const {hora_inicio, hora_termino, fecha_inicio, fecha_termino} = req.body;
-    const turno = await roles.update({
-        hora_inicio,
-        hora_termino,
-        fecha_inicio,
-        fecha_termino
-    },{
-        where: {
-            fecha_inicio: fecha_inicio
-        }
-    });
-    res.json({message: "Tol actualizado exitosamente", turno: turno});
+    try{
+        const {hora_inicio, hora_termino, fecha_inicio, fecha_termino, id} = req.body;
+        const turno = await turnos.update({
+            hora_inicio,
+            hora_termino,
+            fecha_inicio,
+            fecha_termino
+        },{
+            where: {
+                id
+            }
+        });
+        res.json({message: "Turno actualizado exitosamente", turno: turno, result: true});
+    }catch(e){
+        console.log(e);
+        res.json({message: "Ha ocurrido un error al actualizar el turno", result: false});
+    }
 };
 
 export async function deleteTurnos(req, res) {
