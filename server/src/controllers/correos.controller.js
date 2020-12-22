@@ -26,10 +26,16 @@ export async function getCorreoUserId(req, res) {
 };
 
 export async function createCorreos(req, res) {
-    const {correo, users_id} = req.body;
+    const {correo, rut} = req.body;
+    const user = await users.findOne({
+        where: {
+            rut
+        },
+        attributes: ['id']
+    })
     const newCorreo = await correos.create({
         correo,
-        users_id
+        users_id: user.dataValues.id
     },{
         fields: ['id', 'correo', 'users_id']
     });
