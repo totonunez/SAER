@@ -8,6 +8,7 @@ import turnos from '../models/turnos';
 import jwt from 'jsonwebtoken';
 import config from '../config';
 import * as auth from "./auth.controller";
+import users from '../models/users';
 
 export async function updateUsers(req, res) {
     const {id} = req.params;
@@ -148,21 +149,43 @@ export async function getAllUsers(req, res) {
 };
 
 export async function relationDepto(req, res) {
-    const {users_id, n_depto} = req.body;
-    const user = await usuarios.findOne({
-        where: {
-            id: users_id
-        },
-        attributes: ['id','rut','nombre','apellido','telefono_casa','password', 'telefono_celular'],
-    });
-    const depto = await departamentos.findOne({
-        where: {
-            n_depto
-        },
-        attributes: ['id','n_depto']
-    });
-    user.addDepartamentos([depto]);
-    res.json({user: user, depto: depto});
+    try{
+        const {users_id, n_depto} = req.body;
+        const dep = await departamentos.findOne({
+            where: {
+                n_depto
+            },
+            include: [
+                usuarios
+            ],
+            attributes: ['id','n_depto']
+        });
+        let bool;
+        dep.dataValues.users.map(user => {
+            bool = user.dataValues.id === users_id ? true : false;
+        });
+        if(!bool){
+            const user = await usuarios.findOne({
+                where: {
+                    id: users_id
+                },
+                attributes: ['id','rut','nombre','apellido','telefono_casa','password', 'telefono_celular'],
+            });
+            const depto = await departamentos.findOne({
+                where: {
+                    n_depto
+                },
+                attributes: ['id','n_depto']
+            });
+            user.addDepartamentos([depto]);
+            res.json({message: "El departamento se añadio correctamente", user: user, depto: depto, result: true});
+        }else{
+            res.json({message: "El departamento ingresado ya esta vinculado al usuario", result: false});
+        }
+    }catch(e){
+        console.log(e);
+        res.json({message: "Ha ocurrido un error al añadir el departamento", result: false});
+    }
 };
 
 export async function relationReclamo(req, res) {

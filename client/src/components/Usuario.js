@@ -86,9 +86,8 @@ class Usuario extends Component {
             n_depto: this.state.auxDepartamento
         }
         const res = await axios.post("/users/relationDepto/", relation)
-        alert(res.data);
-        this.changeCard0()
-
+        alert(res.data.message);
+        res.data.result && this.changeCard0()
     }
 
     onSubmitDeptoA = async (e) => {
