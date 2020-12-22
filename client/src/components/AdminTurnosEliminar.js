@@ -12,24 +12,23 @@ export default class AdminTurnosEliminar extends Component {
         verify: undefined,
         message: "",
         verifyMessage: false,
-        articulos: []
+        turnos: []
     };
 
     componentDidMount = async () => {
-        const res = await axios.get("/productos/")
+        const res = await axios.get("/turnos/")
         console.log(res);
-        for(let i = 0; i<res.data.allProductos.length; i++){
-            const articulos = {
-                id: res.data.allProductos[i].id,
-                nombre: res.data.allProductos[i].nombre,
-                cantidad: res.data.allProductos[i].cantidad,
-                codigo: res.data.allProductos[i].cod_prod,
-                volumen: res.data.allProductos[i].volumen,
-                bodega: res.data.allProductos[i].bodega.n_bodega,
-                fechaModificacion: res.data.allProductos[i].fecha_modificacion
+        for(let i = 0; i<res.data.allTurnos.length; i++){
+            const turnos = {
+                id: res.data.allTurnos[i].id,
+                horaInicio: res.data.allTurnos[i].hora_inicio,
+                horaTermino: res.data.allTurnos[i].hora_termino,
+                fechaInicio: res.data.allTurnos[i].fecha_inicio,
+                fechaTermino: res.data.allTurnos[i].fecha_termino,
+                userId: res.data.allTurnos[i].user.rut 
             }
             this.setState({
-                articulos: [...this.state.articulos, articulos]
+                turnos: [...this.state.turnos, turnos]
             })
         }
         if(this.state.verify !== null){
@@ -115,7 +114,7 @@ export default class AdminTurnosEliminar extends Component {
                     </div>
                 </nav>
                 <div>
-                <h1> <span className="badge badge-secondary">Administrar Bodega</span></h1>
+                <h1> <span className="badge badge-secondary">Administrar Turnos</span></h1>
                 <ul className="nav nav-pills nav-fill row">
                     <li className="nav-item col-xs-12 col-md-4">
                         <a className="nav-link active" href='/users/adm/turnos/revisar'>Revisar Turnos</a>
@@ -127,7 +126,7 @@ export default class AdminTurnosEliminar extends Component {
                         <a className="nav-link active" href='/users/adm/turnos/agregar'>Crear Turnos</a>
                     </li>
                 </ul>
-                <TurnosE articulos={this.state.articulos}/>
+                <TurnosE turnos={this.state.turnos}/>
                 </div>
             </div>  
         )

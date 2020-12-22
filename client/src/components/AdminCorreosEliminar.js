@@ -115,7 +115,7 @@ export default class AdminCorreosEliminar extends Component {
                     </div>
                 </nav>
                 <div>
-                <h1> <span className="badge badge-secondary">Administrar Bodega</span></h1>
+                <h1> <span className="badge badge-secondary">Administrar Correos</span></h1>
                 <ul className="nav nav-pills nav-fill row">
                     <li className="nav-item col-xs-12 col-md-4">
                         <a className="nav-link active" href='/users/adm/correos/revisar'>Revisar Correos</a>

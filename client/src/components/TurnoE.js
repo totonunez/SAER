@@ -10,7 +10,7 @@ class TurnoE extends Component {
 
     onSubmit = async e => {
         e.preventDefault()
-        const res = await axios.delete("/productos/"+this.props.articulo.codigo)
+        const res = await axios.delete("/turnos/" +this.props.turno.id)
         res.data.result && this.setState({
             eliminar: true
         })
@@ -22,9 +22,8 @@ class TurnoE extends Component {
             return(
                 <div className="card">
                     <div className="card-body">
-                        <h5 className="card-title">Codigo de Producto: {this.props.articulo.codigo} </h5>
-                        <h6 className="card-subtitle mb-2 text-muted">Nombre: {this.props.articulo.nombre}</h6>
-                        <h6 className="card-subtitle mb-2 text-muted">Bodega: {this.props.articulo.bodega}</h6>
+                        <h5 className="card-title">Codigo del Turno: {this.props.turno.id} </h5>
+                        <h6 className="card-subtitle mb-2 text-muted">Rut del Conserje: {this.props.turno.userId}</h6>
                         <button onClick={this.onSubmit}> Eliminar Articulo</button>
                     </div>
                 </div>
@@ -33,7 +32,7 @@ class TurnoE extends Component {
                 return(
                     <div className="card">
                     <div className="card-body">
-                        <h5 className="card-title">Articulo Eliminado </h5>
+                        <h5 className="card-title">Turno Eliminado </h5>
                     </div>
                 </div>
     

@@ -4,7 +4,7 @@ import TurnoE from './TurnoE.js';
 
 class TurnosE extends Component {
     render () {
-        return this.props.articulos.map(articulo => <TurnoE articulo={articulo} key={articulo.id}/>)
+        return this.props.turnos.map(turno => <TurnoE turno={turno} key={turno.id}/>)
                  
 
     }
