@@ -8,7 +8,7 @@ import * as authJwt from '../middlewares/authJwt';
 router.get('/', getAllUsers);
 router.post('/relationDepto', relationDepto);
 router.post('/relationReclamo', relationReclamo);
-router.put('/updateRelationDeptos', updateRelationDepto);
+router.put('/updateRelationDepto', updateRelationDepto);
 router.put('/updateRelationReclamos', updateRelationReclamo);
 router.put('/updateRelationRoles', updateRelationRoles);
 

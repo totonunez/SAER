@@ -246,8 +246,8 @@ export async function updateRelationDepto(req, res) {
         attributes: ['id','n_depto'],
         where: {n_depto}
     });
-    if(user){
-        user.setDepartamentos([depto], [newDepto]);
+    if(user && depto && newDepto){
+        user.setDepartamentos([newDepto],[depto]);
         res.json({message: 'Departamento de usuario actualizado'
         });
     }else{
