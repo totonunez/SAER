@@ -1,8 +1,12 @@
 import cuentas_corrientes from '../models/cuentasCorrientes';
+import departamentos from '../models/departamentos';
 
 export async function getAllCuentasCorrientes(req, res) {
     const allCuentasCorrientes = await cuentas_corrientes.findAll({
         attributes: ['id', 'deuda_total', 'abono','total_pago','departamentos_id','n_cuenta'],
+        include: [
+            departamentos
+        ],
         order: [
             ['id', 'DESC']
         ]
