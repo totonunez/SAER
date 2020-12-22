@@ -28,7 +28,7 @@ export default class CrearReclamoForm extends Component {
 
     render(){
         return (
-            <div className="card">   
+            <div className="card pt-3 pb-3 pl-3 pr-3">   
         <form onSubmit = {this.onSubmit}> 
             <div className="input-group mb-3">
                 <div className="input-group-prepend">
@@ -44,9 +44,9 @@ export default class CrearReclamoForm extends Component {
                 value={this.state.departamento_id}
                 />
             </div>
+            <h6 className="card-subtitle mb-2 text-muted">En el siguiente recuadro debe escribir en que consiste el reclamo que usted quiere realizar:</h6>
             <div className="input-group mb-3">
                 <div className="input-group-prepend">
-                    <span className="input-group-text" id="inputGroup-sizing-default">En el siguiente recuadro debe escribir <br/> en que consiste el reclamo que usted quiere realizar:</span>
                 </div>
                 <input 
                 type="text" 

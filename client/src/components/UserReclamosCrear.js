@@ -11,21 +11,11 @@ export default class UserReclamosCrear extends Component {
         cod_rol: "",
         verify: undefined,
         message: "",
-        tasks: tasks
+        correo: ""
+
     };
 
-    addReclamo = (descripcion) => {
-        const newReclamo = {
-            id: this.state.tasks.length,
-            residente: this.state.rut,
-            descripcion: descripcion,
-            respuesta: "",
-            resuelto: false
-        }
-        this.setState({
-            tasks: [...this.state.tasks, newReclamo]
-        })
-    }
+    
 
     componentDidMount = async () => {
         if(this.state.verify !== null){
@@ -95,11 +85,11 @@ export default class UserReclamosCrear extends Component {
                 <div>
                 
                 <h1> <span className="badge badge-secondary">Crear Reclamo</span></h1>
-                <ul className="nav nav-pills nav-fill">
-                    <li className="nav-item">
+                <ul className="nav nav-pills nav-fill row">
+                    <li className="nav-item col-xs-12 col-md-6">
                         <a className="nav-link active" href='/users/usr/reclamos/crear'>Crear Reclamo</a>
                     </li>                    
-                    <li className="nav-item">
+                    <li className="nav-item col-xs-12 col-md-6">
                         <a className="nav-link active" href='/users/usr/reclamos/revisar'>Tus Reclamos</a>
                     </li>  
                 </ul>

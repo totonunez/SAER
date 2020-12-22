@@ -25,7 +25,7 @@ export default class AdminUsuariosEditar extends Component {
                 telefono_casa: res.data.allUsers[i].telefono_casa,
                 password: res.data.allUsers[i].password,
                 telefono_celular: res.data.allUsers[i].telefono_celular,
-                roles_id: res.data.allUsers[i].roles[0].id,
+                roles_id: res.data.allUsers[i].roles[0].cod_rol,
                 correo: res.data.allUsers[i].correos[0].correo
             }
             this.setState({

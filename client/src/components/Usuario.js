@@ -4,7 +4,7 @@ import axios from 'axios';
 class Usuario extends Component {
 
     state = {
-        changeData: false,
+        changeData: 0,
         telefono_casa: '',
         telefono_celular: '',
         correo: '',
@@ -12,7 +12,8 @@ class Usuario extends Component {
         auxTelefono_casa: '',
         auxTelefono_celular: '',
         auxCorreo: '',
-        auxPassword: ''
+        auxPassword: '',
+        auxDepartamento: ''
     }
 
     componentDidMount = (props) =>  {
@@ -25,8 +26,22 @@ class Usuario extends Component {
         });
     }
 
-    toggleShow = () => {
-        this.setState({changeData: !this.state.changeData})
+    changeCard0 = () => {
+        this.setState({
+            changeData: 0
+        })
+    }
+
+    changeCard1 = () => {
+        this.setState({
+            changeData: 1
+        })
+    }
+
+    changeCard2 = () => {
+        this.setState({
+            changeData: 2
+        })
     }
 
     onSubmit = async (e, props) => { 
@@ -47,7 +62,7 @@ class Usuario extends Component {
             correo: this.state.auxCorreo,
             password: this.state.auxPassword
         })
-        this.toggleShow()
+        
         
     }
 
@@ -57,27 +72,42 @@ class Usuario extends Component {
         })        
     }
 
+    onSubmitDepto = async (e) => {
+        e.preventDefault();
+        const relation = {
+            users_id: this.props.usuario.id,
+            departamentos_id: this.state.auxDepartamento
+        }
+        const res = await axios.post("/users/relationDepto/", relation)
+        alert(res.data);
+        this.changeCard0()
+
+    }
+
     
 
     render(){
-        if(!this.state.changeData){
+        
+        if(this.state.changeData === 0)
         return(
             <div className="card">
                 <div className="card-body">
                     <h5 className="card-title">Usuario: {this.props.usuario.rut} </h5>
                     <h6 className="card-subtitle mb-2 text-muted">Nombre: {this.props.usuario.nombre} {this.props.usuario.apellido} </h6>
-                    <h6 className="card-subtitle mb-2 text-muted">Datos de Contacto:</h6>
+                    <h6 className="card-subtitle mb-2 text-muted">Datos de Contacto</h6>
                     <ul className="list-group list-group-flush">
                         <li className="list-group-item">Telefono de Casa: {this.state.telefono_casa} </li>
                         <li className="list-group-item">Telefono Celular: {this.state.telefono_celular} </li>
                         <li className="list-group-item">Correo: {this.state.correo} </li>
                         <li className="list-group-item">Contraseña: ********</li>
                     </ul>
-                    <button onClick={this.toggleShow}> Editar Datos</button>
+                    <button className= "btn btn-primary ml-4" onClick={this.changeCard1}> Editar Datos</button>
+                    {this.props.usuario.roles_id==="usr" && <button className= "btn btn-primary ml-4" onClick={this.changeCard2}> Vincular Departamento</button>}       
+
                 </div>
             </div>
         )
-        }else{
+        else if(this.state.changeData === 1)
             return(
                 <div className="card">
                 <div className="card-body">
@@ -142,11 +172,43 @@ class Usuario extends Component {
                 />
             </div>  
             <button type="submit" className="btn btn-primary">Cambiar Datos</button>
+            
+            <button  className= "btn btn-primary ml-4" onClick={this.changeCard0}> Volver</button>
+            
         </form>
         </div>
         </div>
             )
-        }
+        else if(this.state.changeData === 2)  
+                return <div className="card">
+                <div className="card-body">
+                    <h5 className="card-title">Usuario: {this.props.usuario.rut} </h5>
+                    <h6 className="card-subtitle mb-2 text-muted">Nombre: {this.props.usuario.nombre} {this.props.usuario.apellido} </h6>
+                <form onSubmit = {this.onSubmit}> 
+             
+            <div className="input-group mb-3">
+                <div className="input-group-prepend">
+                    <span className="input-group-text" id="inputGroup-sizing-default">Departamento:</span>
+                </div>
+                <input 
+                type="text" 
+                name="auxDepartamento"
+                className="form-control" 
+                aria-label="Default" 
+                aria-describedby="inputGroup-sizing-default"  
+                onChange={this.onChange}
+                value={this.state.auxDepartamento}              
+                />
+            </div>  
+           
+              
+            <button type="submit" className="btn btn-primary" onClick={this.onSubmitDepto}>Ingresar Departamento</button>
+            
+            <button  className= "btn btn-primary ml-4" onClick={this.changeCard0}> Volver</button>
+            
+        </form>
+        </div>
+        </div>
     }
 
 }

@@ -3,7 +3,7 @@ import axios from 'axios';
 import {Redirect,Link} from 'react-router-dom';
 
 import articulos from "./articulos.json"
-import Articulos from "./Articulos.js"
+import ArticulosC from "./ArticulosC.js"
 
 export default class SuperUserBodega extends Component {
     state = {
@@ -106,18 +106,8 @@ export default class SuperUserBodega extends Component {
                 </nav>
                 <div>
                 <h1> <span className="badge badge-secondary">Administrar Bodega</span></h1>
-                <ul className="nav nav-pills nav-fill row">
-                    <li className="nav-item col-xs-12 col-md-4">
-                        <a className="nav-link active" href='/users/adm/bodega/revisar'>Revisar articulos</a>
-                    </li>                    
-                    <li className="nav-item col-xs-12 col-md-4">
-                        <a className="nav-link active" href='/users/adm/bodega/eliminar'>Eliminar articulos</a>
-                    </li>
-                    <li className="nav-item col-xs-12 col-md-4">
-                        <a className="nav-link active" href='/users/adm/bodega/agregar'>Agregar articulos</a>
-                    </li>
-                </ul>
-                <Articulos articulos={this.state.articulos}/>
+                
+                <ArticulosC articulos={this.state.articulos}/>
                 </div>
             </div>  
         )

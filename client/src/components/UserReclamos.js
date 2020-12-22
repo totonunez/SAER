@@ -78,16 +78,14 @@ export default class UserReclamos extends Component {
                 <div>
                 
                 <h1> <span className="badge badge-secondary">Reclamos</span></h1>
-                <ul className="nav nav-pills nav-fill">
-  <li className="nav-item">
-  <a className="nav-link active" href='/users/usr/reclamos/crear'>Crear Reclamo</a>
-  </li>                    
-  <li className="nav-item">
-    <a className="nav-link active" href='/users/usr/reclamos/revisar'>Tus Reclamos</a>
-  </li>
- 
-  
-</ul>
+                <ul className="nav nav-pills nav-fill row">
+                    <li className="nav-item col-xs-12 col-md-6">
+                        <a className="nav-link active" href='/users/usr/reclamos/crear'>Crear Reclamo</a>
+                    </li>                    
+                    <li className="nav-item col-xs-12 col-md-6">
+                        <a className="nav-link active" href='/users/usr/reclamos/revisar'>Tus Reclamos</a>
+                    </li>  
+                </ul>   
 <div className="jumbotron jumbotron-fluid">
   <div className="container">
   <br/>

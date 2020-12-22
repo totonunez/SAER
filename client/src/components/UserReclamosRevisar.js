@@ -82,11 +82,11 @@ export default class UserReclamosRevisar extends Component {
                 <div>
                 
                 <h1> <span className="badge badge-secondary">Tus Reclamos</span></h1>
-                <ul className="nav nav-pills nav-fill">
-                    <li className="nav-item">
+                <ul className="nav nav-pills nav-fill row">
+                    <li className="nav-item col-xs-12 col-md-6">
                         <a className="nav-link active" href='/users/usr/reclamos/crear'>Crear Reclamo</a>
                     </li>                    
-                    <li className="nav-item">
+                    <li className="nav-item col-xs-12 col-md-6">
                         <a className="nav-link active" href='/users/usr/reclamos/revisar'>Tus Reclamos</a>
                     </li>  
                 </ul>

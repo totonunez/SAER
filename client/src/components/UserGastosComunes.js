@@ -83,8 +83,8 @@ export default class UserGastosComunes extends Component {
                 
                 <h1> <span className="badge badge-secondary">Tus Gastos Comunes</span></h1>
           
-                <ul className="nav nav-pills nav-fill">
-                    <li className="nav-item">
+                <ul className="nav nav-pills nav-fill row">
+                    <li className="nav-item col-xs-8 col-md-12">
                         <a className="nav-link active" href='/users/usr/gastos/ver'>Ver Gastos Comunes</a>
                     </li>                    
                 </ul>
