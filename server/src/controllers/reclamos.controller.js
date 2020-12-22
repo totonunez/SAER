@@ -42,7 +42,7 @@ export async function createReclamos(req, res){
                     respuesta: '',
                     fecha_ingreso: sequelize.literal('CURRENT_TIMESTAMP'),
                     fecha_modificacion: sequelize.literal('CURRENT_TIMESTAMP'),
-                    departamentos_id
+                    departamentos_id: depto.dataValues.id
                 },{
                     fields: ['n_reclamo', 'descripcion', 'respuesta', 'fecha_ingreso', 'fecha_modificacion', 'departamentos_id']
                 });

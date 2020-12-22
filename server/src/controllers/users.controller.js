@@ -202,9 +202,8 @@ export async function relationReclamo(req, res) {
                 roles
             ]
         });
-        const {reclamos_id} = req.body;
+        const {reclamos_id, cod_rol} = req.body;
         const users_id = decoded.id;
-        const cod_rol = user.roles[0].dataValues.cod_rol;
         console.log(cod_rol);
         let relationReclamos;
         if(cod_rol === "usr"){
