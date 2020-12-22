@@ -4,7 +4,7 @@ import Turno from './Turno.js';
 
 class Turnos extends Component {
     render () {
-        return this.props.articulos.map(articulo => <Turno articulo={articulo} key={articulo.id}/>)   
+        return this.props.turnos.map(turno => <Turno turno={turno} key={turno.id}/>)   
     }
 }
 
