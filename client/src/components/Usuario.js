@@ -43,6 +43,11 @@ class Usuario extends Component {
             changeData: 2
         })
     }
+    changeCard3 = () => {
+        this.setState({
+            changeData: 3
+        })
+    }
 
     onSubmit = async (e, props) => { 
         e.preventDefault();
@@ -84,6 +89,18 @@ class Usuario extends Component {
 
     }
 
+    onSubmitDeptoA = async (e) => {
+        e.preventDefault();
+        const relation = {
+            users_id: this.props.usuario.id,
+            departamentos_id: this.state.auxDepartamento
+        }
+        const res = await axios.post("/users/relationDepto/", relation)
+        alert(res.data);
+        this.changeCard0()
+
+    }
+
     
 
     render(){
@@ -103,6 +120,7 @@ class Usuario extends Component {
                     </ul>
                     <button className= "btn btn-primary ml-4" onClick={this.changeCard1}> Editar Datos</button>
                     {this.props.usuario.roles_id==="usr" && <button className= "btn btn-primary ml-4" onClick={this.changeCard2}> Vincular Departamento</button>}       
+                    {this.props.usuario.roles_id==="usr" && <button className= "btn btn-primary ml-4" onClick={this.changeCard3}> Actualizar Departamento</button>}       
 
                 </div>
             </div>
@@ -202,7 +220,68 @@ class Usuario extends Component {
             </div>  
            
               
+            <button type="submit" className="btn btn-primary" onClick={this.onSubmitDepto}>Actualizar Departamento</button>
+            
+            <button  className= "btn btn-primary ml-4" onClick={this.changeCard0}> Volver</button>
+            
+        </form>
+        </div>
+        </div>
+
+        else if(this.state.changeData === 2)  
+                return <div className="card">
+                <div className="card-body">
+                    <h5 className="card-title">Usuario: {this.props.usuario.rut} </h5>
+                    <h6 className="card-subtitle mb-2 text-muted">Nombre: {this.props.usuario.nombre} {this.props.usuario.apellido} </h6>
+                <form onSubmit = {this.onSubmit}> 
+             
+            <div className="input-group mb-3">
+                <div className="input-group-prepend">
+                    <span className="input-group-text" id="inputGroup-sizing-default">Departamento:</span>
+                </div>
+                <input 
+                type="text" 
+                name="auxDepartamento"
+                className="form-control" 
+                aria-label="Default" 
+                aria-describedby="inputGroup-sizing-default"  
+                onChange={this.onChange}
+                value={this.state.auxDepartamento}              
+                />
+            </div>  
+           
+              
             <button type="submit" className="btn btn-primary" onClick={this.onSubmitDepto}>Ingresar Departamento</button>
+            
+            <button  className= "btn btn-primary ml-4" onClick={this.changeCard0}> Volver</button>
+            
+        </form>
+        </div>
+        </div>
+        else if(this.state.changeData === 3)  
+                return <div className="card">
+                <div className="card-body">
+                    <h5 className="card-title">Usuario: {this.props.usuario.rut} </h5>
+                    <h6 className="card-subtitle mb-2 text-muted">Nombre: {this.props.usuario.nombre} {this.props.usuario.apellido} </h6>
+                <form onSubmit = {this.onSubmit}> 
+             
+            <div className="input-group mb-3">
+                <div className="input-group-prepend">
+                    <span className="input-group-text" id="inputGroup-sizing-default">Departamento:</span>
+                </div>
+                <input 
+                type="text" 
+                name="auxDepartamento"
+                className="form-control" 
+                aria-label="Default" 
+                aria-describedby="inputGroup-sizing-default"  
+                onChange={this.onChange}
+                value={this.state.auxDepartamento}              
+                />
+            </div>  
+           
+              
+            <button type="submit" className="btn btn-primary" onClick={this.onSubmitDeptoA}>Ingresar Departamento</button>
             
             <button  className= "btn btn-primary ml-4" onClick={this.changeCard0}> Volver</button>
             
