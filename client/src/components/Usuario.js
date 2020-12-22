@@ -114,9 +114,9 @@ class Usuario extends Component {
         e.preventDefault();
         const relation = {
             users_id: this.props.usuario.id,
-            n_depto: this.state.auxDepartamento
+            n_depto: this.state.auxDepartamento4
         }
-        const res = await axios.post("/users/relationDepto/", relation)
+        const res = await axios.put("/users/deleteRelationDepto/", relation)
         alert(res.data.message);
         res.data.result && this.changeCard0()
     }
@@ -167,7 +167,7 @@ class Usuario extends Component {
                 onChange={this.onChange}
                 value={this.state.auxTelefono_casa}            
                 />
-            </div>  
+            </div>   
             <div className="input-group mb-3">
                 <div className="input-group-prepend">
                     <span className="input-group-text" id="inputGroup-sizing-default">telefono Celular</span>
@@ -344,11 +344,11 @@ class Usuario extends Component {
                 aria-label="Default" 
                 aria-describedby="inputGroup-sizing-default"  
                 onChange={this.onChange}
-                value={this.state.auxDepartamento}              
+                value={this.state.auxDepartamento4}              
                 />
             </div>  
-           
-              
+                
+             
             <button type="submit" className="btn btn-primary" onClick={this.onSubmitDeptoB}>Eliminar Departamento</button>
             
             <button  className= "btn btn-primary ml-4" onClick={this.changeCard0}> Volver</button>

@@ -12,10 +12,21 @@ export default class CrearReclamoForm extends Component {
         e.preventDefault()
         const user = {
             descripcion: this.state.descripcion,
-            n_depto: this.state.descripcion
+            n_depto: this.state.departamento_id
         }
         const res = await axios.post("/reclamos/createReclamos", user)
-        alert(res.data.message)
+        console.log(res);
+        const respuesta = res.data.message
+        const relation = {
+            reclamos_id: res.data.reclamo.id,
+            cod_rol: "usr"
+        }
+        let res2
+        if (res.data.result){ 
+            res2 =  await axios.post("/users/relationReclamos", relation)
+        }
+
+        res2.data.result ? alert(respuesta): alert(res.data.message)       
 
     }
 
