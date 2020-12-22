@@ -7,6 +7,7 @@ import correos from '../models/correos';
 import turnos from '../models/turnos';
 import jwt from 'jsonwebtoken';
 import config from '../config';
+import * as auth from "./auth.controller";
 
 export async function updateUsers(req, res) {
     const {id} = req.params;
@@ -20,7 +21,7 @@ export async function updateUsers(req, res) {
         const userUpdate = await usuarios.update({
             telefono_casa: telefono_casa,
             telefono_celular: telefono_celular,
-            password: password
+            password: await auth.encryptPassword(password)
         },
         {
             where: {id}

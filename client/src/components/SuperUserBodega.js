@@ -35,7 +35,7 @@ export default class SuperUserBodega extends Component {
             })
         }
         if(this.state.verify !== null){
-            const res = await axios.get('/auth/adm/');
+            const res = await axios.get('/auth/sup/');
             this.setState({
                 verify: res.data.resul,
                 cod_rol: res.data.cod_rol,
