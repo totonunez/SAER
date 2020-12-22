@@ -11,6 +11,6 @@ router.put('/updateCorreos', correos.updateCorreos);
 
 // correos/:id
 
-router.put('/:id', correos.deleteCorreos);
+router.delete('/:id', correos.deleteCorreos);
 
 module.exports = router;

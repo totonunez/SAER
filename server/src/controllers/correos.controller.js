@@ -55,11 +55,16 @@ export async function updateCorreos(req, res) {
 };
 
 export async function deleteCorreos(req, res) {
-    const {id} = req.params;
-    await correos.destroy({
-        where: {
-            id: id
-        }
-    });
-    res.json({message: "Correo eliminado exitosamente"});
+    try{
+        const {id} = req.params;
+        await correos.destroy({
+            where: {
+                id
+            }
+        });
+        res.json({message: "Correo eliminado exitosamente", result: true});
+    }catch(e){
+        console.log(e);
+        res.json({message: "Ha ocurrido un problema al eliminar el correo", result: false});
+    }
 };
