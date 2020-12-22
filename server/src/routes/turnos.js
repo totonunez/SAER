@@ -8,7 +8,7 @@ router.get('/', turnos.getAllTurnos);
 router.get('/getTurnosDia', turnos.getTurnosDia);
 router.post('/createTurnos', turnos.createTurnos);
 router.put('/updateTurnos', turnos.updateTurnos);
-router.delete('/deleteTurnos', turnos.updateTurnos);
+router.delete('/:id', turnos.deleteTurnos);
 
 
 module.exports = router;
