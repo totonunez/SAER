@@ -18,10 +18,8 @@ export default class UserGastosComunesVer extends Component {
     componentDidMount = async () => {
         const res = await axios.get("/gastosComunes/id")
         console.log(res);
-        let bool = false
-        if(res.data.GastosComunes[0].departamento !== null){bool = true}
-        if(bool){
-            for(let i = 0; i<res.data.GastosComunes.length; i++){
+        for(let i = 0; i<res.data.GastosComunes.length; i++){
+            if(res.data.GastosComunes[i].departamento !== null){
                 const gastos = {
                     id: res.data.GastosComunes[i].id,
                     depto: res.data.GastosComunes[i].departamento.n_depto,
@@ -36,7 +34,7 @@ export default class UserGastosComunesVer extends Component {
                 console.log(res.data.GastosComunes[0].gasto_bodega);
                 this.setState({
                     gastos: [...this.state.gastos, gastos]
-                })
+                })    
             }
         }    
         if(this.state.verify !== null){

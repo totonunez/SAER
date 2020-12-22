@@ -116,7 +116,7 @@ class Articulo extends Component {
                         <div className="card-body">
                             <h5 className="card-title">Bodega: {this.props.articulo.bodega}</h5>
                             <h6 className="card-subtitle mb-2 text-muted">Capacidad Máxima: {this.props.articulo.bodegaCapacidad}</h6>
-                            <h6 className="card-subtitle mb-2 text-muted">Capacidad Actual: {this.state.cantidadActual}</h6>
+                            <h6 className="card-subtitle mb-2 text-muted">Cantidad Actual: {this.state.cantidadActual}</h6>
                             <div className="row">
                                 <button className="btn btn-primary col-md-2" onClick={this.changeCardArt}>Volver</button>
                             </div>
