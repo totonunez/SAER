@@ -148,7 +148,7 @@ export async function getAllUsers(req, res) {
 };
 
 export async function relationDepto(req, res) {
-    const {users_id, departamentos_id} = req.body;
+    const {users_id, n_depto} = req.body;
     const user = await usuarios.findOne({
         where: {
             id: users_id
@@ -157,7 +157,7 @@ export async function relationDepto(req, res) {
     });
     const depto = await departamentos.findOne({
         where: {
-            id: departamentos_id
+            n_depto
         },
         attributes: ['id','n_depto']
     });
@@ -212,12 +212,9 @@ export async function updateRelationDepto(req, res) {
         where: {
             id: users_id
         },
-        attributes: ['id','rut','nombre', 'apellido'],
-        include: [
-            departamentos
-        ]
+        attributes: ['id','rut','nombre', 'apellido']
     });
-    /*const depto = await departamentos.findOne({
+    const depto = await departamentos.findOne({
         attributes: ['id','n_depto'],
         where: {n_depto}
     });
@@ -232,9 +229,7 @@ export async function updateRelationDepto(req, res) {
         });
     }else{
         res.json({message: "Ha ocurrido un problema al actualizar la relacion del Departamento"})
-    }*/
-    console.log(user);
-    res.json("");
+    }
 };
 
 export async function updateRelationReclamo(req, res) {
