@@ -248,10 +248,9 @@ export async function updateRelationDepto(req, res) {
     });
     if(user && depto && newDepto){
         user.setDepartamentos([newDepto],[depto]);
-        res.json({message: 'Departamento de usuario actualizado'
-        });
+        res.json({message: 'Departamento de usuario actualizado correctamente', result: true});
     }else{
-        res.json({message: "Ha ocurrido un problema al actualizar la relacion del Departamento"})
+        res.json({message: "Ha ocurrido un problema al actualizar la relacion del Departamento", result: false})
     }
 };
 
@@ -316,5 +315,30 @@ export async function updateRelationRoles(req, res) {
     }catch(e){
         console.log(e);
         res.json("A ocurrido un problema al actualizar roles");
+    }
+};
+
+export async function deleteRelationDepto(req, res) {
+    try{
+        const {users_id, n_depto} = req.body;
+        const depto = await departamentos.findOne({
+            attributes: ['id','n_depto'],
+            where: {n_depto}
+        });
+        const user = await usuarios.findOne({
+            where: {
+                id: users_id
+            },
+            attributes: ['id','rut','nombre', 'apellido']
+        });
+        if(depto){
+            await user.removeDepartamentos([depto]);
+            res.json({message: "Departamento desvinculado exitosamente", result: true});
+        }else{
+            res.json({message: "El departamento ingresado no se encontró", result: false})
+        }
+    }catch(e){
+        console.log(e);
+        res.json({message: "Ha ocurrido un error el desvincular el departamento ingresado", result: false});
     }
 };
