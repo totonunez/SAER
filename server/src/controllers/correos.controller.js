@@ -40,7 +40,9 @@ export async function createCorreos(req, res) {
             },
             attributes: ['id']
         })
-        if(oldCorreo){
+        if(!oldCorreo){
+            res.json({message: "El correo ingresado ya existe", result: false});
+        }else{
             if(user){
                 const newCorreo = await correos.create({
                     correo,
@@ -52,8 +54,6 @@ export async function createCorreos(req, res) {
             }else{
                 res.json({message: "El rut ingresado no existe", result: false});
             }
-        }else{
-            res.json({message: "El correo ingresado ya existe", result: false});
         }
     }catch(e){
         console.log(e);
