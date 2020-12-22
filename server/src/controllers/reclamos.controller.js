@@ -4,12 +4,16 @@ import users from '../models/users';
 import sequelize from 'sequelize';
 import jwt from 'jsonwebtoken';
 import config from '../config';
+import realizas from '../models/realizas'
 
 export async function getAllReclamos(req, res) {
     const allReclamos = await reclamos.findAll({
         attributes: ['id', 'n_reclamo', 'descripcion', 'respuesta', 'fecha_ingreso', 'fecha_modificacion', 'departamentos_id'],
         order: [
             ['id', 'DESC']
+        ],
+        include: [
+            realizas
         ]
     });
     res.json({allReclamos});
