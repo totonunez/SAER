@@ -13,7 +13,9 @@ class Usuario extends Component {
         auxTelefono_celular: '',
         auxCorreo: '',
         auxPassword: '',
-        auxDepartamento: ''
+        auxDepartamento: '',
+        auxDepartamento2: '',
+        auxDepartamento3: ''
     }
 
     componentDidMount = (props) =>  {
@@ -81,7 +83,7 @@ class Usuario extends Component {
         e.preventDefault();
         const relation = {
             users_id: this.props.usuario.id,
-            departamentos_id: this.state.auxDepartamento
+            n_depto: this.state.auxDepartamento
         }
         const res = await axios.post("/users/relationDepto/", relation)
         alert(res.data);
@@ -267,16 +269,32 @@ class Usuario extends Component {
              
             <div className="input-group mb-3">
                 <div className="input-group-prepend">
-                    <span className="input-group-text" id="inputGroup-sizing-default">Departamento:</span>
+                    <span className="input-group-text" id="inputGroup-sizing-default">Departamento Antiguo:</span>
                 </div>
                 <input 
                 type="text" 
-                name="auxDepartamento"
+                name="auxDepartamento2"
                 className="form-control" 
                 aria-label="Default" 
                 aria-describedby="inputGroup-sizing-default"  
                 onChange={this.onChange}
                 value={this.state.auxDepartamento}              
+                />
+            </div>  
+
+
+            <div className="input-group mb-3">
+                <div className="input-group-prepend">
+                    <span className="input-group-text" id="inputGroup-sizing-default">Departamento Nuevo:</span>
+                </div>
+                <input 
+                type="text" 
+                name="auxDepartamento3"
+                className="form-control" 
+                aria-label="Default" 
+                aria-describedby="inputGroup-sizing-default"  
+                onChange={this.onChange}
+                value={this.state.auxDepartamento2}              
                 />
             </div>  
            

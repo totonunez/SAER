@@ -16,7 +16,6 @@ export default class UserReclamosCrear extends Component {
     };
 
     
-
     componentDidMount = async () => {
         if(this.state.verify !== null){
             const res = await axios.get('/auth/usr/');
@@ -93,7 +92,7 @@ export default class UserReclamosCrear extends Component {
                         <a className="nav-link active" href='/users/usr/reclamos/revisar'>Tus Reclamos</a>
                     </li>  
                 </ul>
-                <br/>
+                <br/> 
                 
                 <CrearReclamoForm addReclamo={this.addReclamo}/>
                 
