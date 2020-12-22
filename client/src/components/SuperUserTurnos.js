@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import {Redirect,Link} from 'react-router-dom';
 
-import articulos from "./articulos.json"
-import Turnos from "./Turnos.js"
+import TurnosC from "./TurnosC.js"
 
 export default class SuperUserTurnos extends Component {
     state = {
@@ -12,26 +11,24 @@ export default class SuperUserTurnos extends Component {
         verify: undefined,
         message: "",
         verifyMessage: false,
-        articulos: []
+        turnos: []
     };
 
     componentDidMount = async () => {
-        const res = await axios.get("/productos/")
+        const res = await axios.get("/turnos/getTurnosUser/")
         console.log(res);
-        for(let i = 0; i<res.data.allProductos.length; i++){
-            const articulos = {
-                id: res.data.allProductos[i].id,
-                nombre: res.data.allProductos[i].nombre,
-                cantidad: res.data.allProductos[i].cantidad,
-                codigo: res.data.allProductos[i].cod_prod,
-                volumen: res.data.allProductos[i].volumen,
-                bodega: res.data.allProductos[i].bodega.n_bodega,
-                fechaModificacion: res.data.allProductos[i].fecha_modificacion,
-                bodegaCapacidad: res.data.allProductos[i].bodega.capacidad,
-                bodegaCapacidadActual: res.data.allProductos[i].bodega.cantidad_actual,
+        for(let i = 0; i<res.data.turno.length; i++){
+            const turnos = {
+                id: res.data.turno[i].id,
+                horaInicio: res.data.turno[i].hora_inicio,
+                horaTermino: res.data.turno[i].hora_termino,
+                fechaInicio: res.data.turno[i].fecha_inicio,
+                fechaTermino: res.data.turno[i].fecha_termino,
+                userId: res.data.turno[i].user.rut               
+                
             }
             this.setState({
-                articulos: [...this.state.articulos, articulos]
+                turnos: [...this.state.turnos, turnos]
             })
         }
         if(this.state.verify !== null){
@@ -105,19 +102,8 @@ export default class SuperUserTurnos extends Component {
                     </div>
                 </nav>
                 <div>
-                <h1> <span className="badge badge-secondary">Administrar Turnos</span></h1>
-                <ul className="nav nav-pills nav-fill row">
-                    <li className="nav-item col-xs-12 col-md-4">
-                        <a className="nav-link active" href='/users/adm/turnos/revisar'>Revisar Turnos</a>
-                    </li>                    
-                    <li className="nav-item col-xs-12 col-md-4">
-                        <a className="nav-link active" href='/users/adm/turnos/eliminar'>Eliminar Turnos</a>
-                    </li>
-                    <li className="nav-item col-xs-12 col-md-4">
-                        <a className="nav-link active" href='/users/adm/turnos/agregar'>Crear Turnos</a>
-                    </li>
-                </ul>
-                <Turnos articulos={this.state.articulos}/>
+                <h1> <span className="badge badge-secondary">Mis Turnos</span></h1>
+                <TurnosC turnos={this.state.turnos}/>
                 </div>
             </div>  
         )

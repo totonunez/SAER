@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import {Redirect,Link} from 'react-router-dom';
 
-import articulos from "./articulos.json"
+
 import CorreosE from "./CorreosE.js"
 
 export default class AdminCorreosEliminar extends Component {

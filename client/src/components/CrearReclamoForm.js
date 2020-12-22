@@ -11,8 +11,8 @@ export default class CrearReclamoForm extends Component {
     onSubmit = async e => { 
         e.preventDefault()
         const user = {
-            descripcion: "",
-            departamento_id: ""
+            descripcion: this.state.descripcion,
+            n_depto: this.state.descripcion
         }
         const res = await axios.post("/reclamos/createReclamos", user)
         alert(res.data.message)

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import {Redirect,Link} from 'react-router-dom';
 
-import turno from "./turnos.json"
+
 import Turnos from "./Turnos.js"
 
 export default class AdminTurnosRevisar extends Component {

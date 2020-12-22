@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import {Redirect,Link} from 'react-router-dom';
 
-import articulos from "./articulos.json"
+
 import ArticulosC from "./ArticulosC.js"
 
 export default class SuperUserBodega extends Component {

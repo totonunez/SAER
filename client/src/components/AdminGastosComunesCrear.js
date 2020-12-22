@@ -3,7 +3,7 @@ import axios from 'axios';
 import {Redirect,Link} from 'react-router-dom';
 
 import CrearForm from './CrearForm.js'
-import gastos from './gastos.json'
+
 
 export default class AdminGastosComunesCrear extends Component {
     state = {
@@ -11,7 +11,6 @@ export default class AdminGastosComunesCrear extends Component {
         cod_rol: "",
         verify: undefined,
         message: "",
-        gastos: gastos
     };
 
     addGasto = async (depto,fechaingreso,fechavencimiento,gastosdepto,gastosbodega,gastosestacionamiento,gastosagua, porcentajeInteres) => {

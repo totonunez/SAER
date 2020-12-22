@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import {Redirect,Link} from 'react-router-dom';
 
-import tasks from './tasks.json';
+
 import Reclamos from './Reclamos.js'
 
 

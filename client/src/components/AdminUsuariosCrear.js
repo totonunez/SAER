@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import {Redirect,Link} from 'react-router-dom';
 
-import usuarios from './usuarios.json'
+
 import CrearUsuarioForm from './CrearUsuarioForm'
 
 export default class AdminUsuariosCrear extends Component {
@@ -11,7 +11,6 @@ export default class AdminUsuariosCrear extends Component {
         cod_rol: "",
         verify: undefined,
         message: "",
-        usuarios: usuarios,
         verifyMessage: false,
     };
 

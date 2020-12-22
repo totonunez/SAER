@@ -220,7 +220,7 @@ class Usuario extends Component {
             </div>  
            
               
-            <button type="submit" className="btn btn-primary" onClick={this.onSubmitDepto}>Actualizar Departamento</button>
+            <button type="submit" className="btn btn-primary" onClick={this.onSubmitDepto}>Ingresar Departamento</button>
             
             <button  className= "btn btn-primary ml-4" onClick={this.changeCard0}> Volver</button>
             
@@ -251,7 +251,7 @@ class Usuario extends Component {
             </div>  
            
               
-            <button type="submit" className="btn btn-primary" onClick={this.onSubmitDepto}>Ingresar Departamento</button>
+            <button type="submit" className="btn btn-primary" onClick={this.onSubmitDepto}>Actualizar Departamento</button>
             
             <button  className= "btn btn-primary ml-4" onClick={this.changeCard0}> Volver</button>
             
@@ -281,7 +281,7 @@ class Usuario extends Component {
             </div>  
            
               
-            <button type="submit" className="btn btn-primary" onClick={this.onSubmitDeptoA}>Ingresar Departamento</button>
+            <button type="submit" className="btn btn-primary" onClick={this.onSubmitDeptoA}>Actualizar Departamento</button>
             
             <button  className= "btn btn-primary ml-4" onClick={this.changeCard0}> Volver</button>
             
