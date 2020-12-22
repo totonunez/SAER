@@ -21,11 +21,14 @@ export async function getTurnosUser(req, res) {
     const token = req.cookies.token;
     const decoded = jwt.verify(token, config.SECRET);
     const users_id = decoded.id;
-    const turno = await turnos.findOne({
+    const turno = await turnos.findAll({
         where:{
             users_id
         },
         attributes: ['id', 'hora_inicio', 'hora_termino', 'fecha_inicio', 'fecha_termino', 'users_id'],
+        include: [
+            users
+        ]
     });
     res.json({turno});
 };
